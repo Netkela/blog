@@ -2,7 +2,9 @@
 title: Главная
 ---
 
-![[../files/smmplanner-canvas.png]]
+
+![[files/176kh103_Vodopady_2025_001.jpg]]
+
 проверка заметки [[test]] проверка [[description|Как составить декс алиас проверка]]
 
 
