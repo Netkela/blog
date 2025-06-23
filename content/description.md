@@ -1,5 +1,5 @@
 ---
-title: Как составить декс
+title: Как составить декс 2
 description: описание проверка
 slug: description
 ---
