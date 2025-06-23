@@ -1,5 +1,6 @@
 ---
-title: Как составить декс 2
+display-name: тест дисплея деск
+title: Как составить декс
 description: описание проверка
 slugs: description2
 aliases:
