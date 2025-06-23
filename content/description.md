@@ -1,8 +1,6 @@
 ---
-display-name: тест дисплея деск
 title: Как составить декс
 description: описание проверка
-slugs: description2
 aliases:
   - Как составить декс алиас проверка
 ---
