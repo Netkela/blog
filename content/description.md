@@ -1,6 +1,8 @@
 ---
 title: Как составить декс 2
 description: описание проверка
-slug: description
+slugs: description2
+aliases:
+  - Как составить декс алиас проверка
 ---
 проверка страницы и мета данных
