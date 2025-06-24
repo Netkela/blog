@@ -5,7 +5,10 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.Graph(),
+    Component.Backlinks(),
+  ],
   footer: Component.Footer({
     links: {
       Telegram: "https://t.me/netkelago",
@@ -24,8 +27,6 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
-    Component.Graph(),
-    Component.Backlinks(),
   ],
   left: [
     Component.PageTitle(),
