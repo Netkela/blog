@@ -4,11 +4,13 @@ description: Это тестовая статья, которая показыв
 aliases:
   - Структура статьи
 canonical: https://netkela.github.io/blog/strukrura-statyi
-permalink: /blog/strukrura-statyi
+permalink: /blog/strukrura
 date: 22.06.2024
+publishDate: 20.06.2024
+published: 18.06.2024
 ---
 
-текст номер пять
+текст номер пять 55
 
 ## Это h2 что ли?
 
