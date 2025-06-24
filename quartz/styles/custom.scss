@@ -1,3 +1,11 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+.breadcrumb-container {
+    flex-flow: wrap;
+    gap: .5rem;
+    margin: .75rem 0 20px;
+    padding: 0;
+    display: flex
+;
+}
