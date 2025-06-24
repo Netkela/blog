@@ -5,6 +5,7 @@ aliases:
   - Структура статьи
 canonical: https://netkela.github.io/blog/strukrura-statyi
 permalink: struktura
+date: 22.06.2024
 ---
 
 текст
