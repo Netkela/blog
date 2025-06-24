@@ -3,8 +3,6 @@ title: "Структура статьи: подробная инструкция
 description: Это тестовая статья, которая показывает как оформляется заметка.
 aliases:
   - Структура статьи
-canonical: https://netkela.github.io/blog/strukrura-statyi
-permalink: /blog/strukrura
 date: 2025-05-05
 ---
 
