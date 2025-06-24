@@ -3,17 +3,11 @@ import * as Component from "./quartz/components"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
-  head: Component.Head({
-    links: {
-      Telegram: "https://t.me/netkelago",
-      VK: "https://vk.com/netkela",
-    },
-  }),
+  head: Component.Head(),
   header: [],
   afterBody: [
     Component.TagList(),
     Component.Graph(),
-    Component.Spacer(),
     Component.Backlinks(),
   ],
   footer: Component.Footer({
