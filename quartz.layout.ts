@@ -6,10 +6,10 @@ import * as Component from "./quartz/components"
 const CustomMenu = () => (
   <Component.Flex
     components={[
+      // Правильно: передаем анонимные функции, которые возвращают JSX
       { Component: () => <a href="/">Главная</a> },
       { Component: () => <a href="/tags">Теги</a> },
       { Component: () => <a href="/about">О проекте</a> },
-      // Добавьте больше ссылок по мере необходимости
     ]}
     // Вы можете добавить CSS-класс для стилизации меню, например, gap: "1rem"
     // style={{ gap: "2rem" }} // Пример: расстояние между пунктами меню
@@ -21,37 +21,36 @@ const CustomMenu = () => (
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [
+    // --- ИСПРАВЛЕНИЕ: ПЕРЕДАЕМ КОМПОНЕНТЫ, А НЕ ИХ ВЫЗОВЫ ---
     Component.Flex({
       components: [
         // Левая секция: Логотип/Заголовок сайта
+        // ИСПРАВЛЕНО: Передаем Component.PageTitle, а не Component.PageTitle()
         {
-          Component: Component.PageTitle(),
-          // grow: true, // Не используем grow здесь, чтобы он занимал только нужное место
+          Component: Component.PageTitle,
+          // grow: true,
         },
 
         // Центральная секция: Меню
+        // ИСПРАВЛЕНО: Передаем CustomMenu, а не CustomMenu()
         {
-          Component: CustomMenu, // Наш новый компонент меню
-          grow: true, // Позволяем меню занять оставшееся пространство между левой и правой секциями
-          // alignSelf: "center", // Выравниваем по центру по вертикали (если шапка высокая)
-          justifyContent: "center", // Выравниваем содержимое меню по центру по горизонтали
+          Component: CustomMenu,
+          grow: true,
+          justifyContent: "center",
         },
 
         // Правая секция: Поиск, переключение режимов
+        // ИСПРАВЛЕНО: Передаем анонимную функцию, которая возвращает Component.Flex
         {
-          Component: Component.Flex({
+          Component: () => Component.Flex({ // <--- ОБРАТИТЕ ВНИМАНИЕ НА ЭТО ИЗМЕНЕНИЕ
             components: [
-              {
-                Component: Component.Search(),
-                // grow: true, // Не используем grow здесь, чтобы поиск не растягивался на всю правую секцию
-              },
-              { Component: Component.Darkmode() },
-              { Component: Component.ReaderMode() },
+              // ИСПРАВЛЕНО: Передаем Component.Search, Component.Darkmode, Component.ReaderMode
+              { Component: Component.Search },
+              { Component: Component.Darkmode },
+              { Component: Component.ReaderMode },
             ],
-            // gap: "0.5rem", // Пример: расстояние между элементами в правой секции
           }),
-          // grow: true, // Не используем grow здесь, чтобы правая секция занимала только нужное место
-          justifyContent: "flex-end", // Прижимаем элементы правой секции к правому краю
+          justifyContent: "flex-end",
         },
       ],
       // Дополнительные стили для основного Flex-контейнера шапки
@@ -68,7 +67,7 @@ export const sharedPageComponents: SharedLayout = {
   }),
 }
 
-// components for pages that display a single page (e.g. a single note)
+// ... (остальная часть файла defaultContentPageLayout и defaultListPageLayout остается без изменений)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
@@ -90,7 +89,6 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
