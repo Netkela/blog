@@ -5,10 +5,7 @@ aliases:
   - Структура статьи
 canonical: https://netkela.github.io/blog/strukrura-statyi
 permalink: /blog/strukrura
-date: 22.06.2024
-publishDate: 20.06.2024
-published: 18.06.2024
-created: 16.06.2024
+date: 2025-05-05
 ---
 
 текст номер пять 55 проверка
