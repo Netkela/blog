@@ -6,15 +6,15 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [
     // --- НАЧАЛО ИЗМЕНЕНИЙ В HEADER ---
-    Component.PageTitle(), // Перемещаем заголовок страницы/логотип сюда
-    Component.Flex({ // Используем Flex для выравнивания следующих компонентов
+    Component.PageTitle(), // Заголовок сайта слева
+    Component.Flex({ // Flex-контейнер для остальных элементов
       components: [
         {
-          Component: Component.Search(), // Перемещаем поиск сюда
-          grow: true, // Позволяем поиску растягиваться
+          Component: Component.Search(), // Поиск, который будет растягиваться
+          grow: true,
         },
-        { Component: Component.Darkmode() }, // Перемещаем переключатель тем сюда
-        { Component: Component.ReaderMode() }, // Перемещаем переключатель режима чтения сюда
+        { Component: Component.Darkmode() }, // Переключатель тем справа
+        { Component: Component.ReaderMode() }, // Фокус чтения справа
       ],
     }),
     // --- КОНЕЦ ИЗМЕНЕНИЙ В HEADER ---
