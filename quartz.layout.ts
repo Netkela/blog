@@ -4,7 +4,21 @@ import * as Component from "./quartz/components"
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],
+  header: [
+    // --- НАЧАЛО ИЗМЕНЕНИЙ В HEADER ---
+    Component.PageTitle(), // Перемещаем заголовок страницы/логотип сюда
+    Component.Flex({ // Используем Flex для выравнивания следующих компонентов
+      components: [
+        {
+          Component: Component.Search(), // Перемещаем поиск сюда
+          grow: true, // Позволяем поиску растягиваться
+        },
+        { Component: Component.Darkmode() }, // Перемещаем переключатель тем сюда
+        { Component: Component.ReaderMode() }, // Перемещаем переключатель режима чтения сюда
+      ],
+    }),
+    // --- КОНЕЦ ИЗМЕНЕНИЙ В HEADER ---
+  ],
   afterBody: [],
   footer: Component.Footer({
     links: {
