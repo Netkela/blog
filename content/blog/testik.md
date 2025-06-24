@@ -1,9 +1,9 @@
 ---
 title: Моя Замечательная Статья
-date: 
-publishDate: 
-published: 
-created:
+date: null
+publishDate: null
+published: null
+created: null
 ---
 
 Содержимое вашей статьи начинается здесь.
