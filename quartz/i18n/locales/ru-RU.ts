@@ -33,7 +33,7 @@ export default {
       title: "Режим чтения",
     },
     explorer: {
-      title: "Рубрики блога",
+      title: "Меню",
     },
     footer: {
       createdWith: "Создано с помощью",
