@@ -7,18 +7,8 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [
     Component.TagList(),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Graph(),
-          grow: true, // Позволяет графу расти и занимать доступное пространство
-        },
-        {
-          Component: Component.Backlinks(),
-          grow: true, // Позволяет обратным ссылкам расти и занимать доступное пространство
-        },
-      ],
-    }),
+    Component.Graph(),
+    Component.Backlinks(),
   ],
   footer: Component.Footer({
     links: {
