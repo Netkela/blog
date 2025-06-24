@@ -4,6 +4,7 @@ description: Это тестовая статья, которая показыв
 aliases:
   - Структура статьи
 canonical: https://netkela.github.io/blog/strukrura-statyi
+permalink: struktura
 ---
 
 текст
