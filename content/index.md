@@ -1,6 +1,12 @@
 ---
 title: Главная
 description: Личный блог Александра Овсянникова aka Netkela. Пишу про интернет-маркетинг, онлайн-бизнес и эффективность.
+aliases:
+  - Главная
+date: 
+tags: 
+permalink: 
+draft: false
 ---
 ![[files/netkela.jpg]]
 
