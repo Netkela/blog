@@ -43,9 +43,9 @@ draft: false
 <iframe src="https://vkvideo.ru/video_ext.php?oid=-81574241&id=456243242&t=5m20s" width="640" height="480" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
 
 Тогда все игроки общались в mIRC — это такой чат с различными комнатами. Мы познакомились с другими игроками в эту игру из ближайших регионов, начали приглашать их на чемпионат. Это был самый первый и крупный чемпионат в Сибири по Quake 4. Даже сделали футболки и нашли спонсоров. На турнир съехалась вся Сибирь.
+
 ![[../files/quake4-tournir.jpg]]
 ![[../files/ya-quake4-tournir.gif]]
-
 На турнире я играл отлично, по сетке шел уверенно, я был фаворитом этого турнира. Но в одной игре расслабился, вел в счете 22-8 и стал проигрывать, в итоге ее проиграл и все посыпалось. Есть кусок видео с той самой игры.
 
 <iframe src="https://vkvideo.ru/video_ext.php?oid=4542922&id=456239065&hd=2" width="853" height="480" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
