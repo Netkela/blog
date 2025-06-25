@@ -40,7 +40,14 @@ draft: false
 
 Начали тренироваться и заодно готовиться к организации турнира. Я очень много играл с утра до вечера и на учебу практически не ходил. В Томске был очень хороший интернет, поэтому тренировался со многими российскими игроками, удалось поиграть даже с Unkinde, который выиграл мировое WCG 2002 и был признан самым сильным игроков в Quake на планете.
 
-<iframe src="https://vkvideo.ru/video_ext.php?oid=-81574241&id=456243242&t=5m20s" width="640" height="480" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe src="https://vkvideo.ru/video_ext.php?oid=-81574241&id=456243242&t=5m20s"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+          frameborder="0"
+          allowfullscreen>
+  </iframe>
+</div>
+
 
 Тогда все игроки общались в mIRC — это такой чат с различными комнатами. Мы познакомились с другими игроками в эту игру из ближайших регионов, начали приглашать их на чемпионат. Это был самый первый и крупный чемпионат в Сибири по Quake 4. Даже сделали футболки и нашли спонсоров. На турнир съехалась вся Сибирь.
 

@@ -2,3 +2,20 @@
 
 // put your custom CSS here!
 
+.video-container {
+  position: relative;
+  /* Для соотношения сторон 16:9 (9 / 16 * 100% = 56.25%) */
+  padding-bottom: 56.25%; /* (Высота / Ширина) * 100% */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000; /* Для черного фона, пока видео не загрузится */
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
