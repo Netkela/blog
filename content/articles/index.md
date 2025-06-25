@@ -1,6 +1,6 @@
 ---
 title: Статьи
-description: Страница со статьями.
+description: Страница со статьями
 aliases:
   - Статьи
 date: 
