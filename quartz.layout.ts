@@ -49,7 +49,6 @@ export const defaultContentPageLayout: PageLayout = {
       ],
     }),
     Component.Explorer(),
-    MyCustomNavigation(),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
