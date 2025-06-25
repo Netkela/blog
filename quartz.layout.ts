@@ -22,7 +22,14 @@ export const sharedPageComponents: SharedLayout = {
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
-      component: Component.Breadcrumbs(),
+            // === ИЗМЕНЕНИЕ ЗДЕСЬ ===
+      component: Component.Breadcrumbs({
+        showCurrentPage: false, // <-- Добавьте эту строку
+        // spacerSymbol: "→", // Можете также настроить разделитель, если хотите
+        // rootName: "Домой",  // И имя корневого элемента
+      }),
+
+
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
