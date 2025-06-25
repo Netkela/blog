@@ -19,12 +19,8 @@ draft: false
 
 Люди написали в комментариях, что информационные сайты уже давно хоронят, а они все живы.
 
-![[../files/end-site-comment-1.jpg]]
-
-![[../files/end-site-comment-2.jpg]]
-
+![[../files/end-site-comment-1.jpg]]![[../files/end-site-comment-2.jpg]]
 ![[../files/end-site-comment-3.jpg]]
-
 ![[../files/end-site-comment-4.jpg]]
 
 Но замечу, что я написал не **ВСЕ информационные сайта**, а **КЛАССИЧЕСКИЕ** информационные сайты.
