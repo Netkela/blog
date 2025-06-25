@@ -9,7 +9,6 @@ export const sharedPageComponents: SharedLayout = {
     Component.TagList(),
     Component.Backlinks(),
     Component.Graph(),
-    grow: true,
   ],
   footer: Component.Footer({
     links: { Для связи:
