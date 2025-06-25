@@ -75,7 +75,7 @@ export default {
     folderContent: {
       folder: "Папка",
       itemsUnderFolder: ({ count }) =>
-        `<strong>В этой рубрике ${count} пост${getForm(count, "", "а", "ов")}</strong>`,
+        `В этой рубрике ${count} пост${getForm(count, "", "а", "ов")}`,
     },
     tagContent: {
       tag: "Тег",
