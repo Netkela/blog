@@ -149,99 +149,101 @@ export default ((opts?: Options) => {
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
 TelegramComments.css = `
-    /* Базовые стили контейнера комментариев */
-.telegram-comments {
-  margin-top: 2rem;
-  border-top: 1px solid var(--lightgray);
-  padding: 1rem 0;
-}
-
-#telegram-comments-container {
-  width: 100%;
-  min-height: 200px;
-  position: relative;
-  background-color: var(--light);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--secondary);
-  font-style: italic;
-}
-
-/* Текст-заглушка до подгрузки виджета */
-#telegram-comments-container:empty::before {
-  content: "Загрузка комментариев...";
-}
-
-/* Стили для сообщения об ошибке */
-.telegram-comments-error {
-  padding: 1rem;
-  margin: 1rem 0;
-  background: var(--light);
-  border: 1px solid var(--lightgray);
-  border-radius: 4px;
-  color: var(--secondary);
-  text-align: center;
-  font-style: italic;
-}
-
-/* Адаптивные стили */
-@media (max-width: 600px) {
+  /* Базовые стили контейнера комментариев */
   .telegram-comments {
-    margin-top: 1rem;
-    padding: 0.5rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--lightgray);
+    padding: 1rem 0;
   }
-}
 
-/* ========== ТЁМНАЯ ТЕМА ========== */
+  #telegram-comments-container {
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    background-color: var(--light);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    font-style: italic;
+  }
 
-/* Фон контейнера в темной теме Quartz */
-body.body--dark #telegram-comments-container {
-  background-color: var(--dark);
-}
+  /* Текст-заглушка до подгрузки виджета */
+  #telegram-comments-container:empty::before {
+    content: "Загрузка комментариев...";
+  }
 
-/* Переопределение основного фона виджета comments.app */
-/* Увеличиваем специфичность, используя body.body--dark */
-body.body--dark.bc-dark {
-  background-color: #161618 !important;
-  color: #fff !important;
-}
+  /* Стили для сообщения об ошибке */
+  .telegram-comments-error {
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--light);
+    border: 1px solid var(--lightgray);
+    border-radius: 4px;
+    color: var(--secondary);
+    text-align: center;
+    font-style: italic;
+  }
 
-/* Переопределение фона содержимого виджета */
-/* Увеличиваем специфичность, используя body.body--dark */
-body.body--dark.bc-embed-mode .bc-content,
-body.body--dark.bc-dark .bc-content {
-  background-color: #161618 !important;
-  padding-bottom: 0;
-}
+  /* Адаптивные стили */
+  @media (max-width: 600px) {
+    .telegram-comments {
+      margin-top: 1rem;
+      padding: 0.5rem 0;
+    }
+  }
 
-/* Переопределение фона всплывающих окон и меню */
-/* Увеличиваем специфичность, используя body.body--dark */
-body.body--dark.bc-dark .popup,
-body.body--dark.bc-dark .dropdown-menu {
-  background-color: #161618 !important;
-}
+  /* ========== ТЁМНАЯ ТЕМА ========== */
 
-/* Переопределение фона миниатюр комментариев */
-/* Увеличиваем специфичность, используя body.body--dark */
-body.body--dark.bc-dark .bc-comment-thumb {
-  background-color: #161618 !important;
-}
+  /* Фон контейнера в тёмной теме Quartz */
+  body.body--dark #telegram-comments-container {
+    background-color: var(--dark);
+  }
 
-/* Стили для заголовка комментариев */
-.telegram-comments-title {
-  margin: 0 0 1rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text);
-}
+  /* Основной фон обёртки виджета comments.app */
+  body.body--dark .bc-preview-wrap.bc-dark {
+    background-color: #161618 !important;
+    color: #fff !important;
+  }
 
-/* Цвет заголовка в темной теме */
-body.body--dark .telegram-comments-title {
-  color: var(--text-dark) !important;
-}
-  `
+  /* Если обёртка отмечена классом bc-nodark — оставить светлый фон */
+  body.body--dark .bc-preview-wrap.bc-nodark {
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Фон содержимого виджета */
+  body.body--dark .bc-content {
+    background-color: #161618 !important;
+    padding-bottom: 0;
+  }
+
+  /* Фон всплывающих окон и dropdown-меню виджета */
+  body.body--dark .popup,
+  body.body--dark .dropdown-menu {
+    background-color: #161618 !important;
+  }
+
+  /* Фон миниатюр комментариев */
+  body.body--dark .bc-comment-thumb {
+    background-color: #161618 !important;
+  }
+
+  /* Стили для заголовка компонента */
+  .telegram-comments-title {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* Цвет заголовка в тёмной теме Quartz */
+  body.body--dark .telegram-comments-title {
+    color: var(--text-dark) !important;
+  }
+`
+
 
   return TelegramComments
 }) satisfies QuartzComponentConstructor
