@@ -181,13 +181,6 @@ export default ((opts?: Options) => {
         padding: 0.5rem 0;
       }
     }
-    body.body--dark #telegram-comments-container {
-      background-color: var(--dark);
-    }
-    body.body--dark .bc-embed-mode .bc-content {
-      background-color: #161618 !important;
-      padding-bottom: 0;
-    }
     .telegram-comments-error {
       padding: 1rem;
       margin: 1rem 0;
