@@ -161,105 +161,66 @@ export default ((opts?: Options) => {
 `
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера белой и темной темы
- TelegramComments.css = `
+TelegramComments.css = `
+  /* Базовые стили */
+  .telegram-comments {
+    margin-top: 2rem;
+    border-top: 1px solid var(--lightgray);
+    padding: 1rem 0;
+  }
+
+  #telegram-comments-container {
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    background-color: var(--light);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    font-style: italic;
+  }
+
+  /* Текст-заглушка до подгрузки */
+  #telegram-comments-container:empty::before {
+    content: "Загрузка комментариев...";
+  }
+
+  /* Ошибка */
+  .telegram-comments-error {
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--light);
+    border: 1px solid var(--lightgray);
+    border-radius: 4px;
+    color: var(--secondary);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Адаптив */
+  @media (max-width: 600px) {
     .telegram-comments {
-      margin-top: 2rem;
-      border-top: 1px solid var(--lightgray);
-      padding: 1rem 0;
+      margin-top: 1rem;
+      padding: 0.5rem 0;
     }
+  }
 
-    #telegram-comments-container {
-      width: 100%;
-      min-height: 200px;
-      position: relative;
-      background-color: var(--light); /* Фон для светлой темы Quartz */
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--secondary);
-      font-style: italic;
-    }
+  /* ========== ТЁМНАЯ ТЕМА ========== */
 
-    /* Текст-заглушка до подгрузки */
-    #telegram-comments-container:empty::before {
-      content: "Загрузка комментариев...";
-    }
+  /* 1) меняем фон контейнера */
+  body.body--dark #telegram-comments-container {
+    background-color: var(--dark);
+  }
 
-    /*
-     * БЛОК СТИЛЕЙ ДЛЯ ТЁМНОЙ ТЕМЫ QUARTZ
-     * (Когда к <body> добавлен класс .body--dark)
-     */
-    .body--dark {
-      /* Переопределяем фон для #telegram-comments-container в темной теме Quartz */
-      #telegram-comments-container {
-        background-color: var(--dark);
-      }
+  /* 2) меняем фон содержимого виджета comments.app */
+  body.body--dark .bc-embed-mode .bc-content {
+    background-color: #161618 !important;
+    padding-bottom: 0;
+  }
+`
 
-      /*
-       * Переопределяем фон для основного содержимого виджета (.bc-content)
-       * Виджет добавляет класс `bc-embed-mode` к <body> и `bc-content` к своему контейнеру.
-       * Также он может добавлять `bc-dark` к <body>, если его собственная темная тема активна.
-       * Используем `&` для ссылки на родительский селектор (`.body--dark`).
-       */
-      &.bc-embed-mode .bc-content, /* Для случая, когда bc-embed-mode на body */
-      &.bc-dark .bc-content { /* Для случая, когда bc-dark на body */
-        background-color: #161618 !important; /* Ваш желаемый цвет Quartz */
-        padding-bottom: 0; /* Сохраняем ваше существующее правило */
-      }
-
-      /*
-       * Переопределяем основной фон всего виджета, который задаётся через `body.bc-dark`
-       * в файле `comments.css` самого виджета (`background-color: #15202b;`).
-       * Это гарантирует, что весь фон виджета будет соответствовать Quartz.
-       */
-      &.bc-dark { /* `&` здесь означает `body.body--dark` */
-        background-color: #161618 !important; /* Фон Quartz для всего виджета */
-      }
-
-      /*
-       * Переопределяем фон всплывающих окон и выпадающих меню виджета.
-       * В оригинальном `comments.css` это:
-       * `body.bc-dark .popup, body.bc-dark .dropdown-menu { background-color: #2D3945; }`
-       */
-      &.bc-dark .popup,
-      &.bc-dark .dropdown-menu {
-        background-color: #161618 !important; /* Фон Quartz для всплывающих элементов */
-      }
-
-      /*
-       * Если вы заметите другие элементы внутри виджета, которые не меняют цвет
-       * (например, фон кнопок, полей ввода, иконок и т.д.),
-       * вам нужно будет найти их селекторы в DevTools и добавить сюда
-       * `background-color: #161618 !important;` или `color: #... !important;` для них.
-       *
-       * Например, из вашего `comments.css`:
-       * `body.bc-dark .bc-comment-thumb { background-color: #2D3945; }`
-       * Если нужно переопределить:
-       * &.bc-dark .bc-comment-thumb {
-       *   background-color: #161618 !important;
-       * }
-       */
-    }
-
-    .telegram-comments-error {
-      padding: 1rem;
-      margin: 1rem 0;
-      background: var(--light);
-      border: 1px solid var(--lightgray);
-      border-radius: 4px;
-      color: var(--secondary);
-      text-align: center;
-      font-style: italic;
-    }
-
-    @media (max-width: 600px) {
-      .telegram-comments {
-        margin-top: 1rem;
-        padding: 0.5rem 0;
-      }
-    }
-  `
 
   return TelegramComments
 }) satisfies QuartzComponentConstructor
