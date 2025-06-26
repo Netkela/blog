@@ -36,6 +36,30 @@ export default (() => {
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
 
+
+   // --- НАЧАЛО ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
+
+    let socialUrl = ""
+    if (cfg.baseUrl) {
+      // Получаем чистый baseURL без протокола и завершающего слеша
+      const cleanedBaseUrl = cfg.baseUrl.replace(/^(https?:\/\/)?/, "").replace(/\/+$/, "")
+      
+      // Определяем путь к текущей странице
+      let pagePath = fileData.slug === "404" ? "" : fileData.slug || "" // Используем slug
+
+      // Удаляем "/index" или "index" из пути, если он присутствует в конце
+      if (pagePath.endsWith("/index")) {
+        pagePath = pagePath.slice(0, -6) // Удаляем "/index"
+      } else if (pagePath === "index") {
+        pagePath = "" // Если slug просто "index", то это корень
+      }
+
+      // Собираем полный canonical URL
+      socialUrl = `https://${cleanedBaseUrl}/${pagePath}`.replace(/\/+$/, "") // Убираем завершающий слеш, если он остался
+    }
+
+    // --- КОНЕЦ ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
+
     return (
       <head>
         <title>{title}</title>
