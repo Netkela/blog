@@ -160,7 +160,7 @@ export default ((opts?: Options) => {
   })();
 `
 
-  // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
+  // 4. Улучшенный UX: индикатор загрузки и фон для контейнера белой и темной темы
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
@@ -209,12 +209,11 @@ export default ((opts?: Options) => {
       }
     }
    
-    /* Перекрываем фон виджета comments.app в тёмной теме Quartz */
-body.body--dark.bc-embed-mode .bc-content {
-  background-color: #161618 !important;
-  padding-bottom: 0; /* если нужно убрать паддинг */
-}
-
+    body.body--dark.bc-embed-mode .bc-content {
+    background-color: #161618 !important;
+    padding-bottom: 0;
+  }
+    
   `
 
   return TelegramComments
