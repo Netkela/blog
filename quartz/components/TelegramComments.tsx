@@ -3,36 +3,39 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 interface Options {
   website: string             // ID вашего сайта в comments.app
   limit?: number              // максимальное число отображаемых комментариев
-  pageIdEnabled?: boolean     // включить разделение по страницам
-  color?: string              // hex-цвет (без `#`)
+  pageIdEnabled?: boolean     // разделять комментарии по страницам
+  color?: string              // hex-цвет акцентов (без “#”)
   dislikes?: "0" | "1"        // показывать дизлайки
   outlined?: "0" | "1"        // контурные иконки
-  colorful?: "0" | "1"        // цветные имена
-  height?: number             // фиксированная высота, px
+  colorful?: "0" | "1"        // цветные имена пользователей
+  height?: number             // фиксированная высота виджета в px
 }
 
 export default ((opts?: Options) => {
+  // 1. Явная проверка и дефолт для opts
+  const effectiveOpts: Options = opts || { website: "" }
+  const WIDGET_URL = "https://comments.app/js/widget.js?3"  // 2. Константа URL
+
   const TelegramComments: QuartzComponent = ({
     fileData,
     displayClass,
   }: QuartzComponentProps) => {
-    // Если в frontmatter отключены комментарии — не рендерим
+    // Отключение через frontmatter
     if (fileData.frontmatter?.comments === false) return <></>
 
-    const siteId = opts?.website?.trim()
+    // Нормализация опций
+    const siteId = effectiveOpts.website.trim()
     if (!siteId) {
       console.error("TelegramComments: обязательный параметр `website` не задан")
       return <div class="telegram-comments-error">Комментарии не настроены</div>
     }
-
-    // Нормализация опций
-    const limit    = Math.min(Math.max(opts.limit ?? 5, 1), 50).toString()
-    const pageFlag = (opts.pageIdEnabled ?? true).toString()
-    const color    = opts.color ?? ""
-    const dislikes = opts.dislikes ?? ""
-    const outlined = opts.outlined ?? ""
-    const colorful = opts.colorful ?? ""
-    const height   = opts.height ? opts.height.toString() : ""
+    const limit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString()
+    const pageFlag = (effectiveOpts.pageIdEnabled ?? true).toString()
+    const color    = effectiveOpts.color ?? ""
+    const dislikes = effectiveOpts.dislikes ?? ""
+    const outlined = effectiveOpts.outlined ?? ""
+    const colorful = effectiveOpts.colorful ?? ""
+    const height   = effectiveOpts.height ? effectiveOpts.height.toString() : ""
 
     return (
       <div class={`telegram-comments ${displayClass ?? ""}`}>
@@ -51,7 +54,7 @@ export default ((opts?: Options) => {
     )
   }
 
-  // Предзагрузка DNS для ускорения загрузки скрипта
+  // DNS-предзагрузка
   TelegramComments.beforeDOMLoaded = `
     const link = document.createElement("link");
     link.rel = "preconnect";
@@ -59,24 +62,30 @@ export default ((opts?: Options) => {
     document.head.appendChild(link);
   `
 
-  // Логика создания и пересоздания виджета с учётом dark-mode
+  // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
   TelegramComments.afterDOMLoaded = `
     (function() {
-      // Проверяем, включён ли сейчас тёмный режим Quartz
+      let lastLoadedIsDark: boolean | null = null;  // 3. Флаг предыдущего состояния
+
       function isQuartzDark() {
-        return document.documentElement.getAttribute("saved-theme") === "dark"
+        return document.documentElement.getAttribute("saved-theme") === "dark";
       }
 
-      // Основная функция создания виджета
       function loadComments() {
         const container = document.getElementById("telegram-comments-container");
         if (!container) return;
 
-        // Удаляем старый контент и все предыдущие скрипты comments.app
+        const currentIsDark = isQuartzDark();
+        // Оптимизация: перезагружаем только при изменении темы или при первом запуске
+        if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
+
+        lastLoadedIsDark = currentIsDark;
+
+        // Очистка старого виджета
         container.innerHTML = "";
         document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-        // Чтение параметров из data-атрибутов
+        // Сбор параметров
         const siteId    = container.getAttribute("data-website") || "";
         const limit     = container.getAttribute("data-limit") || "5";
         const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
@@ -86,10 +95,10 @@ export default ((opts?: Options) => {
         const colorful  = container.getAttribute("data-colorful") || "";
         const height    = container.getAttribute("data-height") || "";
 
-        // Создание нового <script> для comments.app
+        // Создание и настройка <script>
         const script = document.createElement("script");
         script.async = true;
-        script.src   = "https://comments.app/js/widget.js?3";
+        script.src   = "${WIDGET_URL}";
         script.setAttribute("data-comments-app-website", siteId);
         script.setAttribute("data-limit", limit);
         if (pageFlag)  script.setAttribute("data-page-id", window.location.pathname);
@@ -99,8 +108,8 @@ export default ((opts?: Options) => {
         if (colorful)  script.setAttribute("data-colorful", colorful);
         if (height)    script.setAttribute("data-height", height);
 
-        // Если Quartz сейчас в тёмном режиме — добавляем data-dark
-        if (isQuartzDark()) {
+        // Добавляем dark-mode, если нужно
+        if (currentIsDark) {
           script.setAttribute("data-dark", "1");
         }
 
@@ -113,31 +122,26 @@ export default ((opts?: Options) => {
         container.appendChild(script);
       }
 
-      // Инициализация при загрузке страницы
+      // Инициализация
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", loadComments);
       } else {
         loadComments();
       }
-
-      // Перезагрузка при SPA-навигации
       document.addEventListener("nav", loadComments);
-
-      // Quartz кидает событие themechange при ручном переключении
       window.addEventListener("themechange", loadComments);
 
-      // Ещё реагируем на физическое изменение атрибута saved-theme через MutationObserver
-      const observer = new MutationObserver((mutations) => {
-        for (const m of mutations) {
+      // Следим за атрибутом saved-theme
+      const observer = new MutationObserver(muts => {
+        muts.forEach(m => {
           if (m.attributeName === "saved-theme") {
             loadComments();
-            break;
           }
-        }
+        });
       });
       observer.observe(document.documentElement, { attributes: true });
 
-      // Cleanup для предотвращения утечек памяти
+      // Очистка при выгрузке
       if (typeof window.addCleanup === "function") {
         window.addCleanup(() => {
           document.removeEventListener("DOMContentLoaded", loadComments);
@@ -149,19 +153,40 @@ export default ((opts?: Options) => {
     })();
   `
 
-  // Встроенные минимальные стили
+  // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
-      padding: 1rem 0;
       border-top: 1px solid var(--lightgray);
+      padding: 1rem 0;
     }
+
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
+      position: relative;
+      background-color: var(--light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-style: italic;
     }
+
+    /* Текст-заглушка до подгрузки */
+    #telegram-comments-container:empty::before {
+      content: "Загрузка комментариев...";
+    }
+
+    /* Тёмный фон для dark-mode */
+    .body--dark #telegram-comments-container {
+      background-color: var(--dark);
+    }
+
     .telegram-comments-error {
       padding: 1rem;
+      margin: 1rem 0;
       background: var(--light);
       border: 1px solid var(--lightgray);
       border-radius: 4px;
@@ -169,6 +194,7 @@ export default ((opts?: Options) => {
       text-align: center;
       font-style: italic;
     }
+
     @media (max-width: 600px) {
       .telegram-comments {
         margin-top: 1rem;
