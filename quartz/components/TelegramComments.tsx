@@ -161,7 +161,7 @@ export default ((opts?: Options) => {
 `
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера белой и темной темы
-  TelegramComments.css = `
+TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
@@ -187,9 +187,17 @@ export default ((opts?: Options) => {
     }
 
     /* Тёмный фон для dark-mode */
-    .body--dark #telegram-comments-container {
-      background-color: var(--dark);
-    }
+    .body--dark { /* <--- НАЧАЛО БЛОКА ДЛЯ ТЁМНОЙ ТЕМЫ */
+      #telegram-comments-container {
+        background-color: var(--dark);
+      }
+      
+      /* Здесь будут все стили, специфичные для темной темы */
+      &.bc-embed-mode .bc-content {
+        background-color: #161618 !important;
+        padding-bottom: 0;
+      }
+    } /* <--- КОНЕЦ БЛОКА ДЛЯ ТЁМНОЙ ТЕМЫ */
 
     .telegram-comments-error {
       padding: 1rem;
@@ -208,12 +216,6 @@ export default ((opts?: Options) => {
         padding: 0.5rem 0;
       }
     }
-   
-    body.body--dark.bc-embed-mode .bc-content {
-    background-color: #161618 !important;
-    padding-bottom: 0;
-  }
-    
   `
 
   return TelegramComments
