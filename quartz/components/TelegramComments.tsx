@@ -12,23 +12,25 @@ interface Options {
 }
 
 export default ((opts?: Options) => {
-  // 1. Явная проверка и дефолт для opts
+  // Дефолтные значения
   const effectiveOpts: Options = opts || { website: "" }
-  const WIDGET_URL = "https://comments.app/js/widget.js?3"  // 2. Константа URL
+  const WIDGET_URL = "https://comments.app/js/widget.js?3"
 
   const TelegramComments: QuartzComponent = ({
     fileData,
     displayClass,
   }: QuartzComponentProps) => {
-    // Отключение через frontmatter
+    // Отключить комментарии через frontmatter
     if (fileData.frontmatter?.comments === false) return <></>
 
-    // Нормализация опций
+    // Валидация обязательного параметра
     const siteId = effectiveOpts.website.trim()
     if (!siteId) {
-      console.error("TelegramComments: обязательный параметр `website` не задан")
+      console.error("TelegramComments: параметр `website` обязателен")
       return <div class="telegram-comments-error">Комментарии не настроены</div>
     }
+
+    // Нормализация опций
     const limit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString()
     const pageFlag = (effectiveOpts.pageIdEnabled ?? true).toString()
     const color    = effectiveOpts.color ?? ""
@@ -39,10 +41,7 @@ export default ((opts?: Options) => {
 
     return (
       <div class={`telegram-comments ${displayClass ?? ""}`}>
-        {/* Заголовок */}
         <h2 class="telegram-comments-title">Комментарии</h2>
-
-        {/* Контейнер для виджета */}
         <div
           id="telegram-comments-container"
           data-website={siteId}
@@ -58,7 +57,7 @@ export default ((opts?: Options) => {
     )
   }
 
-  // DNS-предзагрузка
+  // Предзагрузка DNS для ускорения
   TelegramComments.beforeDOMLoaded = `
     const link = document.createElement("link");
     link.rel = "preconnect";
@@ -66,224 +65,102 @@ export default ((opts?: Options) => {
     document.head.appendChild(link);
   `
 
-  // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
+  // Базовая логика загрузки виджета без кастомных override-функций
   TelegramComments.afterDOMLoaded = `
-  (function() {
-    let lastLoadedIsDark = null;
+    (function() {
+      function loadComments() {
+        const container = document.getElementById("telegram-comments-container");
+        if (!container) return;
 
-    function isQuartzDark() {
-      return document.documentElement.getAttribute("saved-theme") === "dark";
-    }
+        container.innerHTML = "";
+        document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-    function addCustomStyles() {
-      // Удаляем предыдущие кастомные стили
-      const existingStyles = document.querySelectorAll('style[data-telegram-comments]');
-      existingStyles.forEach(s => s.remove());
+        const siteId = container.getAttribute("data-website") || "";
+        const limit = container.getAttribute("data-limit") || "5";
+        const pageFlag = container.getAttribute("data-page-id-enabled") === "true";
+        const color = container.getAttribute("data-color") || "";
+        const dislikes = container.getAttribute("data-dislikes") || "";
+        const outlined = container.getAttribute("data-outlined") || "";
+        const colorful = container.getAttribute("data-colorful") || "";
+        const height = container.getAttribute("data-height") || "";
 
-      // Добавляем новые стили с более высокой специфичностью
-      const override = document.createElement("style");
-      override.setAttribute('data-telegram-comments', 'true');
-      override.textContent = 
-        'body .bc-preview-wrap.bc-dark, ' +
-        '.bc-preview-wrap.bc-dark { ' +
-          'background-color: #161618 !important; ' +
-          'color: #fff !important; ' +
-        '} ' +
-        'body .bc-content, ' +
-        '.bc-content { ' +
-          'background-color: #161618 !important; ' +
-        '} ' +
-        'body .bc-dark, ' +
-        '.bc-dark { ' +
-          'background-color: #161618 !important; ' +
-          'color: #fff !important; ' +
-        '}';
-      
-      document.head.appendChild(override);
-    }
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "${WIDGET_URL}";
+        script.setAttribute("data-comments-app-website", siteId);
+        script.setAttribute("data-limit", limit);
+        if (pageFlag) script.setAttribute("data-page-id", window.location.pathname);
+        if (color) script.setAttribute("data-color", color);
+        if (dislikes) script.setAttribute("data-dislikes", dislikes);
+        if (outlined) script.setAttribute("data-outlined", outlined);
+        if (colorful) script.setAttribute("data-colorful", colorful);
+        if (height) script.setAttribute("data-height", height);
 
-    function loadComments() {
-      const container = document.getElementById("telegram-comments-container");
-      if (!container) return;
+        script.onload = () => console.debug("TelegramComments: виджет загружен");
+        script.onerror = () => {
+          console.warn("TelegramComments: не удалось загрузить виджет");
+          container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
+        };
 
-      const currentIsDark = isQuartzDark();
-      if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
-      lastLoadedIsDark = currentIsDark;
-
-      container.innerHTML = "";
-      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
-
-      const siteId = container.getAttribute("data-website") || "";
-      const limit = container.getAttribute("data-limit") || "5";
-      const pageFlag = container.getAttribute("data-page-id-enabled") === "true";
-      const color = container.getAttribute("data-color") || "";
-      const dislikes = container.getAttribute("data-dislikes") || "";
-      const outlined = container.getAttribute("data-outlined") || "";
-      const colorful = container.getAttribute("data-colorful") || "";
-      const height = container.getAttribute("data-height") || "";
-
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = "https://comments.app/js/widget.js?3";
-      script.setAttribute("data-comments-app-website", siteId);
-      script.setAttribute("data-limit", limit);
-      if (pageFlag) script.setAttribute("data-page-id", window.location.pathname);
-      if (color) script.setAttribute("data-color", color);
-      if (dislikes) script.setAttribute("data-dislikes", dislikes);
-      if (outlined) script.setAttribute("data-outlined", outlined);
-      if (colorful) script.setAttribute("data-colorful", colorful);
-      if (height) script.setAttribute("data-height", height);
-      
-      if (currentIsDark) {
-        script.setAttribute("data-dark", "1");
+        container.appendChild(script);
       }
 
-      script.onload = () => {
-        console.debug("TelegramComments: виджет загружен");
-        // Добавляем стили после загрузки виджета
-        setTimeout(addCustomStyles, 100);
-      };
-      
-      script.onerror = () => {
-        console.warn("TelegramComments: не удалось загрузить виджет");
-        container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
-      };
-
-      container.appendChild(script);
-    }
-
-    // Инициализация
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", loadComments);
-    } else {
-      loadComments();
-    }
-    
-    document.addEventListener("nav", loadComments);
-    window.addEventListener("themechange", loadComments);
-
-    const observer = new MutationObserver(muts => {
-      for (const m of muts) {
-        if (m.attributeName === "saved-theme") {
-          loadComments();
-          break;
-        }
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadComments);
+      } else {
+        loadComments();
       }
-    });
-    observer.observe(document.documentElement, { attributes: true });
 
-    if (typeof window.addCleanup === "function") {
-      window.addCleanup(() => {
-        document.removeEventListener("DOMContentLoaded", loadComments);
-        document.removeEventListener("nav", loadComments);
-        window.removeEventListener("themechange", loadComments);
-        observer.disconnect();
-      });
-    }
-  })();
-`
+      document.addEventListener("nav", loadComments);
+      // Убираем все дополнительные слушатели и функции override
+    })();
+  `
 
-
-
-  // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
-TelegramComments.css = `
-  /* Базовые стили контейнера комментариев */
-  .telegram-comments {
-    margin-top: 2rem;
-    border-top: 1px solid var(--lightgray);
-    padding: 1rem 0;
-  }
-
-  /* Заголовок */
-  .telegram-comments-title {
-    margin: 0 0 1rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  /* Контейнер для виджета */
-  #telegram-comments-container {
-    width: 100%;
-    min-height: 200px;
-    position: relative;
-    background-color: var(--light);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--secondary);
-    font-style: italic;
-  }
-
-  /* Текст-заглушка до подгрузки виджета */
-  #telegram-comments-container:empty::before {
-    content: "Загрузка комментариев...";
-  }
-
-  /* Ошибка загрузки */
-  .telegram-comments-error {
-    padding: 1rem;
-    margin: 1rem 0;
-    background: var(--light);
-    border: 1px solid var(--lightgray);
-    border-radius: 4px;
-    color: var(--secondary);
-    text-align: center;
-    font-style: italic;
-  }
-
-  /* Адаптивные стили */
-  @media (max-width: 600px) {
+  // Стили компонента
+  TelegramComments.css = `
     .telegram-comments {
-      margin-top: 1rem;
-      padding: 0.5rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid var(--lightgray);
+      padding: 1rem 0;
     }
-  }
-
-  /* ========== ТЁМНАЯ ТЕМА ========== */
-
-  /* Фон контейнера Quartz в тёмном режиме */
-  body.body--dark #telegram-comments-container {
-    background-color: var(--dark) !important;
-  }
-
-  /* Фон обёртки виджета comments.app в тёмном режиме */
-  body.body--dark #telegram-comments-container .bc-preview-wrap.bc-dark {
-    background-color: #161618 !important;
-    color: #fff !important;
-  }
-
-  /* Если wrapper помечен как bc-nodark — оставить светлый фон */
-  body.body--dark #telegram-comments-container .bc-preview-wrap.bc-nodark {
-    background-color: #fff !important;
-    color: #000 !important;
-  }
-
-  /* Фон содержимого виджета */
-  body.body--dark #telegram-comments-container .bc-preview-wrap.bc-dark .bc-content {
-    background-color: #161618 !important;
-    padding-bottom: 0;
-  }
-
-  /* Фон всплывающих окон и меню внутри виджета */
-  body.body--dark #telegram-comments-container .bc-preview-wrap.bc-dark .popup,
-  body.body--dark #telegram-comments-container .bc-preview-wrap.bc-dark .dropdown-menu {
-    background-color: #161618 !important;
-  }
-
-  /* Фон миниатюр комментариев */
-  body.body--dark #telegram-comments-container .bc-preview-wrap.bc-dark .bc-comment-thumb {
-    background-color: #161618 !important;
-  }
-
-  /* Цвет заголовка в тёмной теме */
-  body.body--dark .telegram-comments-title {
-    color: var(--text-dark) !important;
-  }
-`
-
-
+    .telegram-comments-title {
+      margin: 0 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    #telegram-comments-container {
+      width: 100%;
+      min-height: 200px;
+      position: relative;
+      background-color: var(--light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-style: italic;
+    }
+    #telegram-comments-container:empty::before {
+      content: "Загрузка комментариев...";
+    }
+    .telegram-comments-error {
+      padding: 1rem;
+      margin: 1rem 0;
+      background: var(--light);
+      border: 1px solid var(--lightgray);
+      border-radius: 4px;
+      color: var(--secondary);
+      text-align: center;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      .telegram-comments {
+        margin-top: 1rem;
+        padding: 0.5rem 0;
+      }
+    }
+  `
 
   return TelegramComments
 }) satisfies QuartzComponentConstructor
