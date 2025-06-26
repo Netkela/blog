@@ -44,7 +44,8 @@ export default (() => {
         <title>{title}</title>
         <meta charSet="utf-8" />
 
-      {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
+          const absoluteUrl =
+      (cfg.includeRelCanonical && cfg.baseUrl && canonicalURL(cfg.baseUrl, slug)) || null
 
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
