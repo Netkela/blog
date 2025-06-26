@@ -1,5 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import "../../styles/telegram-comments.scss"  // если вы используете внешний SCSS-файл
 
 interface Options {
   website: string
