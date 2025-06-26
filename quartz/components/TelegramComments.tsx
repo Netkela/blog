@@ -64,94 +64,101 @@ export default ((opts?: Options) => {
 
   // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
   TelegramComments.afterDOMLoaded = `
-    (function() {
-      let lastLoadedIsDark: boolean | null = null;  // 3. Флаг предыдущего состояния
+  (function() {
+    // Сохраняем предыдущее состояние темы, чтобы избежать лишних перезагрузок
+    let lastLoadedIsDark = null;
 
-      function isQuartzDark() {
-        return document.documentElement.getAttribute("saved-theme") === "dark";
+    // Определяем, в каком режиме сейчас Quartz
+    function isQuartzDark() {
+      return document.documentElement.getAttribute("saved-theme") === "dark";
+    }
+
+    // Функция создания или перезапуска виджета comments.app
+    function loadComments() {
+      const container = document.getElementById("telegram-comments-container");
+      if (!container) return;
+
+      const currentIsDark = isQuartzDark();
+      // Перезагружаем только если тема реально изменилась или при первом запуске
+      if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
+      lastLoadedIsDark = currentIsDark;
+
+      // Очищаем старый виджет и удаляем предыдущие скрипты
+      container.innerHTML = "";
+      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+
+      // Собираем параметры из data-атрибутов
+      const siteId    = container.getAttribute("data-website") || "";
+      const limit     = container.getAttribute("data-limit") || "5";
+      const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
+      const color     = container.getAttribute("data-color") || "";
+      const dislikes  = container.getAttribute("data-dislikes") || "";
+      const outlined  = container.getAttribute("data-outlined") || "";
+      const colorful  = container.getAttribute("data-colorful") || "";
+      const height    = container.getAttribute("data-height") || "";
+      
+      // Создаём новый скрипт виджета
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://comments.app/js/widget.js?3";
+      script.setAttribute("data-comments-app-website", siteId);
+      script.setAttribute("data-limit", limit);
+      if (pageFlag)  script.setAttribute("data-page-id", window.location.pathname);
+      if (color)     script.setAttribute("data-color", color);
+      if (dislikes)  script.setAttribute("data-dislikes", dislikes);
+      if (outlined)  script.setAttribute("data-outlined", outlined);
+      if (colorful)  script.setAttribute("data-colorful", colorful);
+      if (height)    script.setAttribute("data-height", height);
+
+      // Если Quartz в тёмной теме, добавляем атрибут data-dark
+      if (currentIsDark) {
+        script.setAttribute("data-dark", "1");
       }
 
-      function loadComments() {
-        const container = document.getElementById("telegram-comments-container");
-        if (!container) return;
+      script.onload = () => console.debug("TelegramComments: виджет загружен");
+      script.onerror = () => {
+        console.warn("TelegramComments: не удалось загрузить виджет");
+        container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
+      };
 
-        const currentIsDark = isQuartzDark();
-        // Оптимизация: перезагружаем только при изменении темы или при первом запуске
-        if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
+      container.appendChild(script);
+    }
 
-        lastLoadedIsDark = currentIsDark;
+    // Инициализируем при первой загрузке страницы
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadComments);
+    } else {
+      loadComments();
+    }
 
-        // Очистка старого виджета
-        container.innerHTML = "";
-        document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+    // Перезагружаем при SPA-навигации
+    document.addEventListener("nav", loadComments);
 
-        // Сбор параметров
-        const siteId    = container.getAttribute("data-website") || "";
-        const limit     = container.getAttribute("data-limit") || "5";
-        const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
-        const color     = container.getAttribute("data-color") || "";
-        const dislikes  = container.getAttribute("data-dislikes") || "";
-        const outlined  = container.getAttribute("data-outlined") || "";
-        const colorful  = container.getAttribute("data-colorful") || "";
-        const height    = container.getAttribute("data-height") || "";
+    // Перезагружаем при переключении темы через событие Quartz
+    window.addEventListener("themechange", loadComments);
 
-        // Создание и настройка <script>
-        const script = document.createElement("script");
-        script.async = true;
-        script.src   = "${WIDGET_URL}";
-        script.setAttribute("data-comments-app-website", siteId);
-        script.setAttribute("data-limit", limit);
-        if (pageFlag)  script.setAttribute("data-page-id", window.location.pathname);
-        if (color)     script.setAttribute("data-color", color);
-        if (dislikes)  script.setAttribute("data-dislikes", dislikes);
-        if (outlined)  script.setAttribute("data-outlined", outlined);
-        if (colorful)  script.setAttribute("data-colorful", colorful);
-        if (height)    script.setAttribute("data-height", height);
-
-        // Добавляем dark-mode, если нужно
-        if (currentIsDark) {
-          script.setAttribute("data-dark", "1");
+    // Отслеживаем изменение атрибута saved-theme на <html>
+    const observer = new MutationObserver(mutations => {
+      for (const m of mutations) {
+        if (m.attributeName === "saved-theme") {
+          loadComments();
+          break;
         }
-
-        script.onload = () => console.debug("TelegramComments: виджет загружен");
-        script.onerror = () => {
-          console.warn("TelegramComments: не удалось загрузить виджет");
-          container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
-        };
-
-        container.appendChild(script);
       }
+    });
+    observer.observe(document.documentElement, { attributes: true });
 
-      // Инициализация
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", loadComments);
-      } else {
-        loadComments();
-      }
-      document.addEventListener("nav", loadComments);
-      window.addEventListener("themechange", loadComments);
-
-      // Следим за атрибутом saved-theme
-      const observer = new MutationObserver(muts => {
-        muts.forEach(m => {
-          if (m.attributeName === "saved-theme") {
-            loadComments();
-          }
-        });
+    // Очистка обработчиков при выгрузке
+    if (typeof window.addCleanup === "function") {
+      window.addCleanup(() => {
+        document.removeEventListener("DOMContentLoaded", loadComments);
+        document.removeEventListener("nav", loadComments);
+        window.removeEventListener("themechange", loadComments);
+        observer.disconnect();
       });
-      observer.observe(document.documentElement, { attributes: true });
-
-      // Очистка при выгрузке
-      if (typeof window.addCleanup === "function") {
-        window.addCleanup(() => {
-          document.removeEventListener("DOMContentLoaded", loadComments);
-          document.removeEventListener("nav", loadComments);
-          window.removeEventListener("themechange", loadComments);
-          observer.disconnect();
-        });
-      }
-    })();
-  `
+    }
+  })();
+`
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
   TelegramComments.css = `
@@ -201,6 +208,7 @@ export default ((opts?: Options) => {
         padding: 0.5rem 0;
       }
     }
+   
   `
 
   return TelegramComments
