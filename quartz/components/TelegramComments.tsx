@@ -69,82 +69,55 @@ export default ((opts?: Options) => {
   // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
   TelegramComments.afterDOMLoaded = `
     (function() {
-      let lastLoadedIsDark = null;
+    function loadComments() {
+      const container = document.getElementById("telegram-comments-container");
+      if (!container) return;
+      container.innerHTML = "";
+      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-      function isQuartzDark() {
-        return document.documentElement.getAttribute("saved-theme") === "dark";
-      }
+      // …ваша логика создания script…
+      container.appendChild(script);
 
-      function loadComments() {
-        const container = document.getElementById("telegram-comments-container");
-        if (!container) return;
-
-        const currentIsDark = isQuartzDark();
-        if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
-        lastLoadedIsDark = currentIsDark;
-
-        container.innerHTML = "";
-        document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
-
-        const siteId    = container.getAttribute("data-website") || "";
-        const limit     = container.getAttribute("data-limit") || "5";
-        const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
-        const color     = container.getAttribute("data-color") || "";
-        const dislikes  = container.getAttribute("data-dislikes") || "";
-        const outlined  = container.getAttribute("data-outlined") || "";
-        const colorful  = container.getAttribute("data-colorful") || "";
-        const height    = container.getAttribute("data-height") || "";
-
-        const script = document.createElement("script");
-        script.async = true;
-        script.src   = "${WIDGET_URL}";
-        script.setAttribute("data-comments-app-website", siteId);
-        script.setAttribute("data-limit", limit);
-        if (pageFlag)  script.setAttribute("data-page-id", window.location.pathname);
-        if (color)     script.setAttribute("data-color", color);
-        if (dislikes)  script.setAttribute("data-dislikes", dislikes);
-        if (outlined)  script.setAttribute("data-outlined", outlined);
-        if (colorful)  script.setAttribute("data-colorful", colorful);
-        if (height)    script.setAttribute("data-height", height);
-        if (currentIsDark) {
-          script.setAttribute("data-dark", "1");
+      // вот здесь вставляем стили-override
+      const override = document.createElement("style");
+      override.textContent = \`
+        .bc-preview-wrap.bc-dark {
+          background-color: #161618 !important;
+          color: #fff !important;
         }
+        .bc-preview-wrap.bc-nodark {
+          background-color: #fff !important;
+          color: #000 !important;
+        }
+        .bc-content {
+          background-color: #161618 !important;
+        }
+      \`;
+      document.head.appendChild(override);
+    }
 
-        script.onload = () => console.debug("TelegramComments: виджет загружен");
-        script.onerror = () => {
-          console.warn("TelegramComments: не удалось загрузить виджет");
-          container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
-        };
+    // инициализация
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadComments);
+    } else {
+      loadComments();
+    }
+    document.addEventListener("nav", loadComments);
+    window.addEventListener("themechange", loadComments);
 
-        container.appendChild(script);
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", loadComments);
-      } else {
-        loadComments();
-      }
-      document.addEventListener("nav", loadComments);
-      window.addEventListener("themechange", loadComments);
-
-      const observer = new MutationObserver(muts => {
-        muts.forEach(m => {
-          if (m.attributeName === "saved-theme") {
-            loadComments();
-          }
-        });
+    const observer = new MutationObserver(muts => {
+      muts.forEach(m => {
+        if (m.attributeName === "saved-theme") loadComments();
       });
-      observer.observe(document.documentElement, { attributes: true });
-
-      if (typeof window.addCleanup === "function") {
-        window.addCleanup(() => {
-          document.removeEventListener("DOMContentLoaded", loadComments);
-          document.removeEventListener("nav", loadComments);
-          window.removeEventListener("themechange", loadComments);
-          observer.disconnect();
-        });
-      }
-    })();
+    });
+    observer.observe(document.documentElement, { attributes: true });
+    window.addCleanup?.(() => {
+      document.removeEventListener("DOMContentLoaded", loadComments);
+      document.removeEventListener("nav", loadComments);
+      window.removeEventListener("themechange", loadComments);
+      observer.disconnect();
+    });
+  })();
   `
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
