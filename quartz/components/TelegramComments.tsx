@@ -149,7 +149,7 @@ export default ((opts?: Options) => {
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
 TelegramComments.css = `
-    /* Базовые стили */
+    /* Базовые стили контейнера комментариев */
     .telegram-comments {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
@@ -169,12 +169,12 @@ TelegramComments.css = `
       font-style: italic;
     }
 
-    /* Текст-заглушка до подгрузки */
+    /* Текст-заглушка до подгрузки виджета */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев...";
     }
 
-    /* Ошибка */
+    /* Стили для сообщения об ошибке */
     .telegram-comments-error {
       padding: 1rem;
       margin: 1rem 0;
@@ -186,7 +186,7 @@ TelegramComments.css = `
       font-style: italic;
     }
 
-    /* Адаптив */
+    /* Адаптивные стили */
     @media (max-width: 600px) {
       .telegram-comments {
         margin-top: 1rem;
@@ -196,44 +196,34 @@ TelegramComments.css = `
 
     /* ========== ТЁМНАЯ ТЕМА ========== */
 
-    /* 1) меняем фон контейнера Quartz для виджета */
+    /* Фон контейнера Quartz в темной теме */
     .body--dark #telegram-comments-container {
       background-color: var(--dark);
     }
 
-    .body--dark { /* Основной блок для стилей темной темы Quartz */
-      /*
-       * ПЕРЕОПРЕДЕЛЕНИЕ ГЛАВНОГО ФОНА ВИДЖЕТА В ТЕМНОЙ ТЕМЕ
-       * Это то самое правило `body.bc-dark` из comments.css, которое вы нашли.
-       * Используем максимальную специфичность с `&.bc-dark` и `!important`.
-       */
+    .body--dark {
+      /* Переопределение основного фона виджета comments.app */
       &.bc-dark {
           background-color: #161618 !important;
-          color: #fff !important; /* Убедимся, что текст тоже белый, если виджет его меняет */
+          color: #fff !important;
       }
 
-      /*
-       * Переопределяем фон для основного содержимого виджета (.bc-content)
-       * Используем селекторы, которые виджет может добавлять к <body>
-       * (`bc-embed-mode` и `bc-dark`) для максимальной специфичности.
-       * `!important` гарантирует переопределение.
-       */
+      /* Переопределение фона содержимого виджета */
       &.bc-embed-mode .bc-content,
       &.bc-dark .bc-content {
         background-color: #161618 !important;
         padding-bottom: 0;
       }
 
-      /* Переопределяем фон всплывающих окон и выпадающих меню виджета */
+      /* Переопределение фона всплывающих окон и выпадающих меню виджета */
       &.bc-dark .popup,
       &.bc-dark .dropdown-menu {
         background-color: #161618 !important;
       }
 
-      /* Если есть другие элементы, которые не меняют цвет, добавьте их сюда */
-      /* Например, если нужно переопределить фон миниатюр комментариев: */
+      /* Переопределение фона миниатюр комментариев */
       &.bc-dark .bc-comment-thumb {
-        background-color: #161618 !important; /* Или другой подходящий темный цвет */
+        background-color: #161618 !important;
       }
     }
 
@@ -242,14 +232,15 @@ TelegramComments.css = `
       margin: 0 0 1rem;
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--text); /* Используем переменную Quartz для цвета текста */
+      color: var(--text);
     }
 
-    /* Если заголовок должен быть белым в темной теме */
+    /* Цвет заголовка в темной теме */
     .body--dark .telegram-comments-title {
-        color: var(--text-dark) !important; /* Или #fff, если var(--text-dark) не подходит */
+        color: var(--text-dark) !important;
     }
   `
+
 
   return TelegramComments
 }) satisfies QuartzComponentConstructor
