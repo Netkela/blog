@@ -60,10 +60,6 @@ export interface GlobalConfiguration {
    *   Quartz will avoid using this as much as possible and use relative URLs most of the time
    */
   baseUrl?: string
-
-  /** Whether to generate a rel=canonical link for each page (requires baseUrl to be set). */
-  includeRelCanonical: boolean
-  
   theme: Theme
   /**
    * Allow to translate the date in the language of your choice.
