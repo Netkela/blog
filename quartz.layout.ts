@@ -8,7 +8,6 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [
     Component.TagList(),
     Component.Backlinks(),
-    Component.Graph(),
     Component.TelegramComments({
       website: "s-0koNjl", // ваш ID сайта
       limit: 5,
