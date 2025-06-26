@@ -32,25 +32,7 @@ export default (() => {
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
 
        // --- НАЧАЛО ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
-    // Формируем канонический URL
-    let canonicalUrl = socialUrl; // Используем уже существующий socialUrl как основу
-
-    // Если baseUrl заканчивается на '/', и socialUrl тоже (что обычно происходит с joinSegments),
-    // то URL может выглядеть как `https://example.com/some-page//`.
-    // Хотя современные браузеры и поисковики справляются, лучше привести к чистому виду.
-    // Убедимся, что URL не имеет двойных слешей перед именем файла,
-    // и если это корневая страница, то она заканчивается на слеш.
-    if (!canonicalUrl.endsWith("/") && fileData.slug !== "index" && fileData.slug !== "") {
-      canonicalUrl = canonicalUrl + "/"; // Добавляем слэш для папок
-    }
-
-    // Обработка корневой страницы, если slug пустой или "index"
-    if (fileData.slug === "" || fileData.slug === "index") {
-        canonicalUrl = `https://${cfg.baseUrl}/`; // Для корневой страницы просто baseUrl
-    }
-
-    // Убедимся, что нет двойного слеша после домена (например, example.com//page)
-    canonicalUrl = canonicalUrl.replace(/(https?:\/\/[^\/]+)\/\//g, '$1/');
+{cfg.baseUrl && <link rel="canonical" href={canonicalUrl} />}
     // --- КОНЕЦ ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
