@@ -4,7 +4,8 @@ description: Запустил Majorpush.pro — новую пуш-партнер
 aliases:
   - Запуск своей пуш-партнерки (проект продан)
 date: 2020-01-21
-tags: 
+tags:
+  - majorpush
 permalink: 
 draft: false
 ---

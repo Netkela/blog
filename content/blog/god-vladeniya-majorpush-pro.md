@@ -4,7 +4,8 @@ description: Год партнерки MajorPush.pro, несмотря на ск
 aliases:
   - "Год владения MajorPush.pro: достижения и выводы (проект продан)"
 date: 2021-01-13
-tags: 
+tags:
+  - majorpush
 permalink: 
 draft: false
 ---

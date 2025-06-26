@@ -4,7 +4,8 @@ description: За кулисами вебмастерского мира. Как
 aliases:
   - Инсайты, которые я получил управляя партнеркой
 date: 2023-06-14
-tags: 
+tags:
+  - majorpush
 permalink: 
 draft: false
 ---

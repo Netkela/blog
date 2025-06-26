@@ -4,7 +4,8 @@ description: Почему я продал MajorPush.pro, как управлял
 aliases:
   - Я продал свою партнерку MajorPush
 date: 2023-06-01
-tags: 
+tags:
+  - majorpush
 permalink: 
 draft: false
 ---
