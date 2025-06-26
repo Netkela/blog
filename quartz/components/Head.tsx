@@ -32,7 +32,11 @@ export default (() => {
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
 
        // --- НАЧАЛО ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
-{cfg.baseUrl && <link rel="canonical" href={canonicalUrl} />}
+// === ВОТ ЗДЕСЬ МЫ ОПРЕДЕЛЯЕМ ПЕРЕМЕННУЮ canonicalUrl ===
+// В данном случае, мы просто присваиваем ей значение socialUrl для проверки.
+const canonicalUrl = socialUrl;
+// ====================================================
+
     // --- КОНЕЦ ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
@@ -43,6 +47,7 @@ export default (() => {
     return (
       <head>
         <title>{title}</title>
+        {cfg.baseUrl && <link rel="canonical" href={canonicalUrl} />}
         <meta charSet="utf-8" />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
