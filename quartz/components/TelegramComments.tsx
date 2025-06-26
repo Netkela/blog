@@ -37,21 +37,22 @@ export default ((opts?: Options) => {
     const colorful = effectiveOpts.colorful ?? ""
     const height   = effectiveOpts.height ? effectiveOpts.height.toString() : ""
 
-    return (
-      <div class={`telegram-comments ${displayClass ?? ""}`}>
-        <div
-          id="telegram-comments-container"
-          data-website={siteId}
-          data-limit={limit}
-          data-page-id-enabled={pageFlag}
-          data-color={color}
-          data-dislikes={dislikes}
-          data-outlined={outlined}
-          data-colorful={colorful}
-          data-height={height}
-        />
-      </div>
-    )
+return (
+-   <div class={`telegram-comments ${displayClass ?? ""}`}>
+-     <div
+-       id="telegram-comments-container"
+-       …оставшиеся data-атрибуты
+-     />
+-   </div>
++   <div class={`telegram-comments ${displayClass ?? ""}`}>
++     {/* Заголовок перед виджетом */}
++     <h2 class="telegram-comments-title">Комментарии</h2>
++     <div
++       id="telegram-comments-container"
++       …оставшиеся data-атрибуты
++     />
++   </div>
+  )
   }
 
   // DNS-предзагрузка
@@ -219,6 +220,14 @@ TelegramComments.css = `
     background-color: #161618 !important;
     padding-bottom: 0;
   }
+
+  .telegram-comments-title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
 `
 
 
