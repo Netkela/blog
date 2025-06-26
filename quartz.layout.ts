@@ -9,6 +9,16 @@ export const sharedPageComponents: SharedLayout = {
     Component.TagList(),
     Component.Backlinks(),
     Component.Graph(),
+    Component.TelegramComments({
+      website: "s-0koNjl", // ваш ID сайта
+      limit: 5,
+      pageIdEnabled: true,
+      // дополнительные параметры при необходимости
+      // color: "E22F38",
+      // dislikes: "1",
+      // outlined: "1",
+      // colorful: "1"
+    }),
   ],
   footer: Component.Footer({
     links: {

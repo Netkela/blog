@@ -51,3 +51,7 @@ export {
   Flex,
   ConditionalRender,
 }
+
+// ... другие импорты
+export { default as TelegramComments } from "./TelegramComments"
+
