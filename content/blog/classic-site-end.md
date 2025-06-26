@@ -5,7 +5,7 @@ aliases:
   - Это точно конец классическим статейным сайтам
 date: 2020-12-13
 tags: 
-permalink: /classic-site-end
+permalink: 
 draft: false
 ---
 В своем телеграм канале [https://t.me/netkelago](https://t.me/netkelago) я опубликовал такой мем.

@@ -5,7 +5,7 @@ aliases:
   - День рождения у меня и у блога
 date: 2010-04-30
 tags: 
-permalink: /den-rozhdeniya-u-menya-i-u-bloga
+permalink: 
 draft: false
 ---
 Приветствую, дорогие друзья! Сегодня у меня и у блога день рождения.

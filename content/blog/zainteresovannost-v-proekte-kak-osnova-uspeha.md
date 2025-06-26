@@ -5,7 +5,7 @@ aliases:
   - Заинтересованность в проекте, как основа успеха
 date: 2010-12-15
 tags: 
-permalink: /zainteresovannost-v-proekte-kak-osnova-uspeha
+permalink: 
 draft: false
 ---
 Пост написан в рамках конкурса от Максима Спиридонова.

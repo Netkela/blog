@@ -5,7 +5,7 @@ aliases:
   - А ты Рокки Бальбоа?
 date: 2010-06-25
 tags: 
-permalink: /a-ty-rokki-balboa
+permalink: 
 draft: false
 ---
 Не мог пройти мимо и не поучаствовать в такой интересной эстафете “Твой рабочий день”, которую организовал webmozg.

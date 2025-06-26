@@ -5,7 +5,7 @@ aliases:
   - Первая статья на vc и как публиковать свои ссылки в медиа
 date: 2023-12-01
 tags: 
-permalink: /moya-pervaya-statya-na-vc
+permalink: 
 draft: false
 ---
 В vc для клиентов я много материалов уже публиковал на различные темы, но вот от своего имени публиковался впервые, и [моя первая статья](https://vc.ru/seo/935968-segodnya-v-google-proishodyat-samye-bolshie-izmeneniya-za-vsyu-istoriyu-poiska) залетела в популярное за день — мелочь, но приятно.

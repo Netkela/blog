@@ -5,7 +5,7 @@ aliases:
   - Инсайты, которые я получил управляя партнеркой
 date: 2023-06-14
 tags: 
-permalink: /insayty-kotorye-ya-poluchil-upravlyaya-partnerkoy
+permalink: 
 draft: false
 ---
 Я почти три года [[prodal-majorpush|управлял рекламной сетью]]. Какие выводы я сделал и чему меня это научило.

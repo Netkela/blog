@@ -5,7 +5,7 @@ aliases:
   - Никогда никому не говори, что общался с Медведевым через Twitter
 date: 2011-03-11
 tags: 
-permalink: /nikogda-nikomu-ne-govori-chto-obschalsya-s-medvedevym-cherez-twitter
+permalink: 
 draft: false
 ---
 Недавно судьба меня закинула в очень маленький городок, где мой дядя работает преподавателем. И он мне рассказал такую удивительную историю, которая произошла в их школе.

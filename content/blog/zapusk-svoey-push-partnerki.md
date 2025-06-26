@@ -5,7 +5,7 @@ aliases:
   - Запуск своей пуш-партнерки (проект продан)
 date: 2020-01-21
 tags: 
-permalink: /zapusk-svoey-push-partnerki
+permalink: 
 draft: false
 ---
 Новый год начал с запуска нового проекта. 13.01.2020 запустил пуш-партнерку по монетизации трафика Majorpush.pro ([на данный момент проект продан](https://netkela.ru/ya-prodal-svoyu-partnerku)).
