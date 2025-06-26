@@ -36,35 +36,13 @@ export default (() => {
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
 
-
-    // --- НАЧАЛО ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
-    // Объявляем socialUrl здесь, как let, чтобы мы могли его переназначить
-    let socialUrl = "" 
-
-    if (cfg.baseUrl) {
-      // Получаем чистый baseURL без протокола и завершающего слеша
-      const cleanedBaseUrl = cfg.baseUrl.replace(/^(https?:\/\/)?/, "").replace(/\/+$/, "")
-      
-      // Определяем путь к текущей странице
-      let pagePath = fileData.slug === "404" ? "" : fileData.slug || "" // Используем slug
-
-      // Удаляем "/index" или "index" из пути, если он присутствует в конце
-      if (pagePath.endsWith("/index")) {
-        pagePath = pagePath.slice(0, -6) // Удаляем "/index"
-      } else if (pagePath === "index") {
-        pagePath = "" // Если slug просто "index", то это корень
-      }
-
-      // Собираем полный canonical URL и присваиваем его socialUrl
-      socialUrl = `https://${cleanedBaseUrl}/${pagePath}`.replace(/\/+$/, "") // Убираем завершающий слеш, если он остался
-    }
-    // --- КОНЕЦ ИЗМЕНЕНИЙ ДЛЯ CANONICAL URL ---
+    const absoluteUrl = cfg.includeRelCanonical && cfg.baseUrl && canonicalURL(cfg.baseUrl, slug) || null;
 
     return (
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
-        <link rel="canonical" href={socialUrl} />
+         {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
