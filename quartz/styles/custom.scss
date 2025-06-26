@@ -19,3 +19,33 @@
   width: 100%;
   height: 100%;
 }
+
+TelegramCommentsRussian.css = `
+  .telegram-comments {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--lightgray);
+  }
+  
+  /* Скрываем оригинальные тексты и добавляем русские */
+  .telegram-comments [data-text*="Comments"]:after {
+    content: "Комментарии";
+    position: absolute;
+    background: white;
+    padding: 2px;
+  }
+  
+  .telegram-comments [data-text*="Reply"]:after {
+    content: "Ответить";
+    position: absolute;
+    background: white;
+    padding: 2px;
+  }
+  
+  .telegram-comments [data-text*="Load more"]:after {
+    content: "Загрузить ещё";
+    position: absolute;
+    background: white;
+    padding: 2px;
+  }
+`
