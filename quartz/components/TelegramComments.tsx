@@ -202,26 +202,30 @@ body.body--dark #telegram-comments-container {
 }
 
 /* Переопределение основного фона виджета comments.app */
-body.bc-dark {
+/* Увеличиваем специфичность, используя body.body--dark */
+body.body--dark.bc-dark {
   background-color: #161618 !important;
   color: #fff !important;
 }
 
 /* Переопределение фона содержимого виджета */
-body.bc-embed-mode .bc-content,
-body.bc-dark .bc-content {
+/* Увеличиваем специфичность, используя body.body--dark */
+body.body--dark.bc-embed-mode .bc-content,
+body.body--dark.bc-dark .bc-content {
   background-color: #161618 !important;
   padding-bottom: 0;
 }
 
 /* Переопределение фона всплывающих окон и меню */
-body.bc-dark .popup,
-body.bc-dark .dropdown-menu {
+/* Увеличиваем специфичность, используя body.body--dark */
+body.body--dark.bc-dark .popup,
+body.body--dark.bc-dark .dropdown-menu {
   background-color: #161618 !important;
 }
 
 /* Переопределение фона миниатюр комментариев */
-body.bc-dark .bc-comment-thumb {
+/* Увеличиваем специфичность, используя body.body--dark */
+body.body--dark.bc-dark .bc-comment-thumb {
   background-color: #161618 !important;
 }
 
@@ -238,5 +242,6 @@ body.body--dark .telegram-comments-title {
   color: var(--text-dark) !important;
 }
   `
+
   return TelegramComments
 }) satisfies QuartzComponentConstructor
