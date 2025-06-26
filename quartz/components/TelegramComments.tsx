@@ -61,87 +61,71 @@ export default ((opts?: Options) => {
   `
 
   // Скрипт загрузки и обновления виджета с поддержкой dark-mode
-TelegramComments.afterDOMLoaded = `
-  (function() {
-    // Основная функция загрузки и перезагрузки виджета
-    function loadComments() {
-      const container = document.getElementById("telegram-comments-container");
-      if (!container) return;
+function loadComments() {
+  const container = document.getElementById("telegram-comments-container");
+  if (!container) return;
 
-      // Очищаем предыдущий виджет
-      container.innerHTML = "";
-      // Удаляем старые теги <script>
-      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+  // Очищаем контейнер полностью.
+  // Это должно удалить все дочерние элементы, включая iframe, если он был создан
+  container.innerHTML = "";
 
-      // Считаем параметры из data-атрибутов
-      const siteId   = container.getAttribute("data-website") || "";
-      const limit    = container.getAttribute("data-limit") || "5";
-      const pageFlag = container.getAttribute("data-page-id-enabled") === "true";
-      const color    = container.getAttribute("data-color") || "";
-      const dislikes = container.getAttribute("data-dislikes") || "";
-      const outlined = container.getAttribute("data-outlined") || "";
-      const colorful = container.getAttribute("data-colorful") || "";
-      const height   = container.getAttribute("data-height") || "";
+  // Удаляем старые теги <script>
+  // Используем более общий селектор, чтобы быть уверенным, что удаляем любые скрипты,
+  // которые comments.app мог добавить.
+  document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-      // Создаём новый <script> для comments.app
-      const script = document.createElement("script");
-      script.async = true;
-      script.src   = "https://comments.app/js/widget.js?3";
-      script.setAttribute("data-comments-app-website", siteId);
-      script.setAttribute("data-limit", limit);
-      if (pageFlag) script.setAttribute("data-page-id", window.location.pathname);
-      if (color)    script.setAttribute("data-color", color);
-      if (dislikes) script.setAttribute("data-dislikes", dislikes);
-      if (outlined) script.setAttribute("data-outlined", outlined);
-      if (colorful) script.setAttribute("data-colorful", colorful);
-      if (height)   script.setAttribute("data-height", height);
+  // --- Начинаем логику сбора параметров ---
 
-      // Если <body> имеет класс body--dark (Quartz Darkmode), включаем тёмный режим виджета
-      if (document.body.classList.contains("body--dark")) {
-        script.setAttribute("data-dark", "1");
-      }
+  const siteId   = container.getAttribute("data-website") || "";
+  const limit    = container.getAttribute("data-limit") || "5";
+  const pageFlag = container.getAttribute("data-page-id-enabled") === "true";
+  const color    = container.getAttribute("data-color") || "";
+  const dislikes = container.getAttribute("data-dislikes") || "";
+  const outlined = container.getAttribute("data-outlined") || "";
+  const colorful = container.getAttribute("data-colorful") || "";
+  const height   = container.getAttribute("data-height") || "";
+  // const theme    = container.getAttribute("data-theme") || ""; // Убираем, если используем data-dark
 
-      script.onload = () => console.debug("TelegramComments: виджет загружен");
-      script.onerror = () => {
-        console.warn("TelegramComments: не удалось загрузить виджет");
-        container.innerHTML = '<p class="telegram-comments-error">Комментарии временно недоступны</p>';
-      };
+  // Создаём новый <script> для comments.app
+  const script = document.createElement("script");
+  script.async = true;
+  script.src   = "https://comments.app/js/widget.js?3";
+  script.setAttribute("data-comments-app-website", siteId);
+  script.setAttribute("data-limit", limit);
+  if (pageFlag) script.setAttribute("data-page-id", window.location.pathname);
+  if (color)    script.setAttribute("data-color", color);
+  if (dislikes) script.setAttribute("data-dislikes", dislikes);
+  if (outlined) script.setAttribute("data-outlined", outlined);
+  if (colorful) script.setAttribute("data-colorful", colorful);
+  if (height)   script.setAttribute("data-height", height);
+  // if (theme)    script.setAttribute("data-theme", theme); // Убираем, если используем data-dark
 
-      container.appendChild(script);
-    }
+  // !!! ГЛАВНОЕ ИЗМЕНЕНИЕ: Установка data-dark в зависимости от темы Quartz
+  // Проверяем текущую тему Quartz через класс на <body>
+  if (document.body.classList.contains("body--dark")) {
+    script.setAttribute("data-dark", "1");
+  } else {
+    // Важно: Если виджет поддерживает светлую тему через отсутствие data-dark,
+    // или через data-dark="0", убедитесь, что вы не оставляете его в темном режиме.
+    // Если data-dark="1" включает темную тему, то отсутствие data-dark или data-dark="0"
+    // должно включать светлую тему.
+    script.setAttribute("data-dark", "0"); // Явно устанавливаем светлую тему
+  }
 
-    // Запускаем при первой загрузке страницы
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", loadComments);
-    } else {
-      loadComments();
-    }
-    // Перезагружаем при SPA-навигации
-    document.addEventListener("nav", loadComments);
 
-    // Перезагружаем при смене темы Quartz (themechange) и при любом изменении класса у <body>
-    window.addEventListener("themechange", loadComments); // Quartz генерирует это событие[2]
-    const observer = new MutationObserver(muts => {
-      for (const m of muts) {
-        if (m.attributeName === "class") {
-          loadComments();
-          break;
-        }
-      }
-    });
-    observer.observe(document.body, { attributes: true });
+  script.onload = () => console.debug("TelegramComments: виджет загружен");
+  script.onerror = () => {
+    console.warn("TelegramComments: не удалось загрузить виджет");
+    container.innerHTML = '<p class="telegram-comments-error">Комментарии временно недоступны</p>';
+  };
 
-    // Очищаем подписки и наблюдатель при выгрузке страницы
-    if (typeof window.addCleanup === "function") {
-      window.addCleanup(() => {
-        document.removeEventListener("DOMContentLoaded", loadComments);
-        document.removeEventListener("nav", loadComments);
-        window.removeEventListener("themechange", loadComments);
-        observer.disconnect();
-      });
-    }
-  })();
-`
+  // Важно: Возможно, небольшая задержка перед добавлением скрипта может помочь
+  // если виджету нужно время на "очистку".
+  // Но сначала попробуйте без задержки.
+  // setTimeout(() => {
+    container.appendChild(script);
+  // }, 50); // Задержка в 50 мс
+}
 
 
   // Встроенные стили компонента
