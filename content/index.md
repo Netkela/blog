@@ -7,6 +7,7 @@ date:
 tags: 
 permalink: 
 draft: false
+comments: false
 ---
 ![[files/netkela.jpg]]
 

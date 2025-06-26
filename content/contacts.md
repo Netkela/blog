@@ -7,6 +7,7 @@ date:
 tags: 
 permalink: 
 draft: false
+comments: false
 ---
 Email: [netkela@mail.ru](mailto:netkela@mail.ru)
 

@@ -7,6 +7,7 @@ date: 2025-06-25
 tags: 
 permalink: 
 draft: false
+comments: false
 ---
 Компьютеры и интернет интересовали меня с самого детства.
 

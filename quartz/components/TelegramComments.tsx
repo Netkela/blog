@@ -237,9 +237,6 @@ body.bc-dark .bc-comment-thumb {
 body.body--dark .telegram-comments-title {
   color: var(--text-dark) !important;
 }
-
   `
-
-
   return TelegramComments
 }) satisfies QuartzComponentConstructor

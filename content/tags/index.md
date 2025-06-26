@@ -7,5 +7,6 @@ date:
 tags: 
 permalink: 
 draft: false
+comments: false
 ---
 Здесь находятся все теги.
