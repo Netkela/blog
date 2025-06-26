@@ -12,25 +12,23 @@ interface Options {
 }
 
 export default ((opts?: Options) => {
-  // Дефолтные значения
+  // 1. Явная проверка и дефолт для opts
   const effectiveOpts: Options = opts || { website: "" }
-  const WIDGET_URL = "https://comments.app/js/widget.js?3"
+  const WIDGET_URL = "https://comments.app/js/widget.js?3"  // 2. Константа URL
 
   const TelegramComments: QuartzComponent = ({
     fileData,
     displayClass,
   }: QuartzComponentProps) => {
-    // Отключить комментарии через frontmatter
+    // Отключение через frontmatter
     if (fileData.frontmatter?.comments === false) return <></>
 
-    // Валидация обязательного параметра
+    // Нормализация опций
     const siteId = effectiveOpts.website.trim()
     if (!siteId) {
-      console.error("TelegramComments: параметр `website` обязателен")
+      console.error("TelegramComments: обязательный параметр `website` не задан")
       return <div class="telegram-comments-error">Комментарии не настроены</div>
     }
-
-    // Нормализация опций
     const limit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString()
     const pageFlag = (effectiveOpts.pageIdEnabled ?? true).toString()
     const color    = effectiveOpts.color ?? ""
@@ -41,7 +39,6 @@ export default ((opts?: Options) => {
 
     return (
       <div class={`telegram-comments ${displayClass ?? ""}`}>
-        <h2 class="telegram-comments-title">Комментарии</h2>
         <div
           id="telegram-comments-container"
           data-website={siteId}
@@ -57,7 +54,7 @@ export default ((opts?: Options) => {
     )
   }
 
-  // Предзагрузка DNS для ускорения
+  // DNS-предзагрузка
   TelegramComments.beforeDOMLoaded = `
     const link = document.createElement("link");
     link.rel = "preconnect";
@@ -65,70 +62,113 @@ export default ((opts?: Options) => {
     document.head.appendChild(link);
   `
 
-  // Базовая логика загрузки виджета без кастомных override-функций
+  // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
   TelegramComments.afterDOMLoaded = `
-    (function() {
-      function loadComments() {
-        const container = document.getElementById("telegram-comments-container");
-        if (!container) return;
+  (function() {
+    // Сохраняем предыдущее состояние темы, чтобы избежать лишних перезагрузок
+    let lastLoadedIsDark = null;
 
-        container.innerHTML = "";
-        document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+    // Определяем, в каком режиме сейчас Quartz
+    function isQuartzDark() {
+      return document.documentElement.getAttribute("saved-theme") === "dark";
+    }
 
-        const siteId = container.getAttribute("data-website") || "";
-        const limit = container.getAttribute("data-limit") || "5";
-        const pageFlag = container.getAttribute("data-page-id-enabled") === "true";
-        const color = container.getAttribute("data-color") || "";
-        const dislikes = container.getAttribute("data-dislikes") || "";
-        const outlined = container.getAttribute("data-outlined") || "";
-        const colorful = container.getAttribute("data-colorful") || "";
-        const height = container.getAttribute("data-height") || "";
+    // Функция создания или перезапуска виджета comments.app
+    function loadComments() {
+      const container = document.getElementById("telegram-comments-container");
+      if (!container) return;
 
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = "${WIDGET_URL}";
-        script.setAttribute("data-comments-app-website", siteId);
-        script.setAttribute("data-limit", limit);
-        if (pageFlag) script.setAttribute("data-page-id", window.location.pathname);
-        if (color) script.setAttribute("data-color", color);
-        if (dislikes) script.setAttribute("data-dislikes", dislikes);
-        if (outlined) script.setAttribute("data-outlined", outlined);
-        if (colorful) script.setAttribute("data-colorful", colorful);
-        if (height) script.setAttribute("data-height", height);
+      const currentIsDark = isQuartzDark();
+      // Перезагружаем только если тема реально изменилась или при первом запуске
+      if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
+      lastLoadedIsDark = currentIsDark;
 
-        script.onload = () => console.debug("TelegramComments: виджет загружен");
-        script.onerror = () => {
-          console.warn("TelegramComments: не удалось загрузить виджет");
-          container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
-        };
+      // Очищаем старый виджет и удаляем предыдущие скрипты
+      container.innerHTML = "";
+      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-        container.appendChild(script);
+      // Собираем параметры из data-атрибутов
+      const siteId    = container.getAttribute("data-website") || "";
+      const limit     = container.getAttribute("data-limit") || "5";
+      const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
+      const color     = container.getAttribute("data-color") || "";
+      const dislikes  = container.getAttribute("data-dislikes") || "";
+      const outlined  = container.getAttribute("data-outlined") || "";
+      const colorful  = container.getAttribute("data-colorful") || "";
+      const height    = container.getAttribute("data-height") || "";
+      
+      // Создаём новый скрипт виджета
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://comments.app/js/widget.js?3";
+      script.setAttribute("data-comments-app-website", siteId);
+      script.setAttribute("data-limit", limit);
+      if (pageFlag)  script.setAttribute("data-page-id", window.location.pathname);
+      if (color)     script.setAttribute("data-color", color);
+      if (dislikes)  script.setAttribute("data-dislikes", dislikes);
+      if (outlined)  script.setAttribute("data-outlined", outlined);
+      if (colorful)  script.setAttribute("data-colorful", colorful);
+      if (height)    script.setAttribute("data-height", height);
+
+      // Если Quartz в тёмной теме, добавляем атрибут data-dark
+      if (currentIsDark) {
+        script.setAttribute("data-dark", "1");
       }
 
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", loadComments);
-      } else {
-        loadComments();
+      script.onload = () => console.debug("TelegramComments: виджет загружен");
+      script.onerror = () => {
+        console.warn("TelegramComments: не удалось загрузить виджет");
+        container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
+      };
+
+      container.appendChild(script);
+    }
+
+    // Инициализируем при первой загрузке страницы
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadComments);
+    } else {
+      loadComments();
+    }
+
+    // Перезагружаем при SPA-навигации
+    document.addEventListener("nav", loadComments);
+
+    // Перезагружаем при переключении темы через событие Quartz
+    window.addEventListener("themechange", loadComments);
+
+    // Отслеживаем изменение атрибута saved-theme на <html>
+    const observer = new MutationObserver(mutations => {
+      for (const m of mutations) {
+        if (m.attributeName === "saved-theme") {
+          loadComments();
+          break;
+        }
       }
+    });
+    observer.observe(document.documentElement, { attributes: true });
 
-      document.addEventListener("nav", loadComments);
-      // Убираем все дополнительные слушатели и функции override
-    })();
-  `
+    // Очистка обработчиков при выгрузке
+    if (typeof window.addCleanup === "function") {
+      window.addCleanup(() => {
+        document.removeEventListener("DOMContentLoaded", loadComments);
+        document.removeEventListener("nav", loadComments);
+        window.removeEventListener("themechange", loadComments);
+        observer.disconnect();
+      });
+    }
+  })();
+`
 
-  // Стили компонента
+
+  // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
       padding: 1rem 0;
     }
-    .telegram-comments-title {
-      margin: 0 0 1rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--text);
-    }
+
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
@@ -141,9 +181,17 @@ export default ((opts?: Options) => {
       color: var(--secondary);
       font-style: italic;
     }
+
+    /* Текст-заглушка до подгрузки */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев...";
     }
+
+    /* Тёмный фон для dark-mode */
+    .body--dark #telegram-comments-container {
+      background-color: var(--dark);
+    }
+
     .telegram-comments-error {
       padding: 1rem;
       margin: 1rem 0;
@@ -154,6 +202,7 @@ export default ((opts?: Options) => {
       text-align: center;
       font-style: italic;
     }
+
     @media (max-width: 600px) {
       .telegram-comments {
         margin-top: 1rem;
