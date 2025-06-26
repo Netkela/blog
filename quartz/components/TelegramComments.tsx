@@ -209,6 +209,12 @@ export default ((opts?: Options) => {
       }
     }
    
+    /* Перекрываем фон виджета comments.app в тёмной теме Quartz */
+body.body--dark.bc-embed-mode .bc-content {
+  background-color: #161618 !important;
+  padding-bottom: 0; /* если нужно убрать паддинг */
+}
+
   `
 
   return TelegramComments
