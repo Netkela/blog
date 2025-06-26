@@ -36,13 +36,11 @@ export default (() => {
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
 
-    const absoluteUrl = cfg.includeRelCanonical && cfg.baseUrl && canonicalURL(cfg.baseUrl, slug) || null;
-
     return (
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
-         {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
+        <link rel="canonical" href={socialUrl} />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
