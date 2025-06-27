@@ -7,6 +7,7 @@ date:
 tags: 
 permalink: 
 draft: false
+comments: false
 ---
 Меня зовут Александр Овсянников, я SEO-специалист и вебмастер с опытом более 16 лет.
 
