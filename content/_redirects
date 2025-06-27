@@ -1,4 +1,16 @@
-https://netkela.netlify.app/* https://netkela.ru/:splat 301!
-/:splat /blog/:splat 301
+# 1. Индивидуальные редиректы для конкретных измененных URL
+# Обратите внимание, что дзен-ссылка - это внешняя ссылка, она обрабатывается иначе
 15000km https://dzen.ru/a/aEkwogpKtVTr25e2 301
 /myperviy-soft /blog/my-perviy-soft 301
+/kak-ya-testiroval-zarabotok-na-obzorah-tehniki-v-youtube /blog/
+/kak-ya-nachal-igrat-v-nastolnyy-tennis /blog/nastolnyy-tennis-nachalo 301
+/ne-ver-poka-sam-ne-poprobuesh /blog/ne-ver-poprobuy 301
+
+# 2. Правила для страниц, которые не должны быть в блоге (например, /about, /contacts)
+# Если они уже статичны в корне, эти правила могут быть избыточны, но это хорошая практика.
+/about /about 200
+/contacts /contacts 200
+
+# 3. Общее "splat" правило для всех остальных старых статей в блоге
+/:splat /blog/:splat 301
+
