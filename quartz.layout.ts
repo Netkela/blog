@@ -10,6 +10,7 @@ export const sharedPageComponents: SharedLayout = {
       Component.FixedBio({
       name: "Александр Овсянников (Netkela)", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше ФИО
       bio: "Более 16 лет помогаю людям и компаниям привлекать клиентов в свой бизнес из поисковых систем и рекомендательных алгоритмов", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше описание
+      avatarSrc: "https://webmasterie.ru/wp-content/uploads/2025/01/avatar-300x257.jpg",
       social: {
         telegram: "https://t.me/netkela", // Опционально
         vk: "https://vk.com/netkela", // Опционально

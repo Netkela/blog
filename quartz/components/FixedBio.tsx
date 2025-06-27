@@ -6,12 +6,12 @@ import { classNames } from "../util/lang"
 interface Options {
   name: string // Ваше ФИО
   bio: string // Ваше описание как специалиста
+  avatarSrc?: string // Добавлена опция для пути к аватарке
   social?: { // Опциональные ссылки на соцсети
     telegram?: string
     vk?: string
     email?: string
   }
-  // title?: string // Заголовок блока больше не нужен, так как его убираем
 }
 
 export default ((opts: Options) => {
@@ -31,18 +31,19 @@ export default ((opts: Options) => {
       return <></>
     }
 
-    // Заголовок "Об авторе" или "Обо мне" убран, ФИО будет главным заголовком блока
-
     return (
       <div class={classNames(displayClass, "fixed-bio-container")}>
-        <h3 class="fixed-bio-name">{opts.name}</h3> {/* ФИО теперь как заголовок */}
+        {opts.avatarSrc && (
+          <div class="fixed-bio-avatar-wrapper">
+            <img src={opts.avatarSrc} alt={opts.name} class="fixed-bio-avatar" />
+          </div>
+        )}
+        <h3 class="fixed-bio-name">{opts.name}</h3>
         <div class="fixed-bio-content">
           <p class="fixed-bio-text">{opts.bio}</p>
           {opts.social && (
             <>
-              {/* Заголовок "Связаться со мной:" можно оставить или убрать, если хочется еще компактнее.
-                  Пока оставим, но уменьшим его размер и отступы. */}
-              <p class="fixed-bio-social-heading">Связаться со мной:</p> {/* Изменили на <p> для меньшего размера и отступов */}
+              {/* <p class="fixed-bio-social-heading">Связаться со мной:</p>  УДАЛЕНО */}
               <div class="fixed-bio-social-links">
                 {opts.social.telegram && (
                   <a href={opts.social.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
@@ -63,57 +64,70 @@ export default ((opts: Options) => {
 
   FixedBioComponent.css = `
     .fixed-bio-container {
-      margin-top: 2.5rem; /* Немного уменьшим внешний отступ сверху */
-      margin-bottom: 2rem; /* Немного уменьшим внешний отступ снизу */
+      margin-top: 2.5rem;
+      margin-bottom: 2rem;
       background-color: var(--background);
-      padding: 0.8rem 1rem; /* Уменьшаем внутренние отступы сверху/снизу и по бокам */
+      padding: 0.8rem 1rem;
       border: 1px solid var(--lightgray);
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    /* .fixed-bio-title { Убираем этот класс, так как заголовок удален } */
+    .fixed-bio-avatar-wrapper {
+      margin-bottom: 0.5rem; /* Уменьшен отступ под аватаркой */
+    }
+
+    .fixed-bio-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--lightgray);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
     .fixed-bio-name {
-      font-size: 1.05rem; /* Чуть меньше размер для ФИО */
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--text);
-      margin-top: 0.2rem; /* Уменьшим отступ сверху */
-      margin-bottom: 0.7rem; /* Уменьшим отступ снизу */
+      margin-top: 0.2rem;
+      margin-bottom: 0.4rem; /* Уменьшен отступ под ФИО */
     }
 
     .fixed-bio-content {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem; /* Уменьшим зазор между элементами внутри контента */
+      gap: 0.4rem; /* Уменьшен зазор между элементами внутри контента */
+      width: 100%;
     }
 
     .fixed-bio-text {
-      font-size: 0.9rem; /* Меньший размер шрифта для основного текста */
-      line-height: 1.5; /* Немного уменьшим межстрочный интервал */
+      font-size: 0.9rem;
+      line-height: 1.5;
       color: var(--darkgray);
-      margin-bottom: 0.5rem; /* Уменьшим отступ между текстом био и заголовком соцсетей */
+      margin-bottom: 0.4rem; /* Уменьшен отступ между текстом био и кнопками соцсетей */
     }
 
-    .fixed-bio-social-heading {
-      font-size: 0.85rem; /* Меньший размер для заголовка соцсетей */
-      font-weight: 600;
-      color: var(--text);
-      margin-top: 0.3rem; /* Уменьшим отступ сверху */
-      margin-bottom: 0.3rem; /* Уменьшим отступ снизу */
-    }
+    /* .fixed-bio-social-heading { УДАЛЕНО: Этот класс больше не нужен } */
 
     .fixed-bio-social-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.8rem; /* Уменьшим зазор между кнопками */
+      justify-content: center;
+      gap: 0.6rem; /* Уменьшен зазор между кнопками */
+      margin-top: 0.2rem; /* Добавлен небольшой отступ сверху, чтобы отделить от текста био, если gap недостаточно */
 
       a {
         color: var(--link);
         text-decoration: none;
         font-weight: 500;
-        padding: 0.2rem 0.5rem; /* Уменьшаем внутренние отступы для кнопок */
-        font-size: 0.85rem; /* Уменьшаем размер текста на кнопках */
+        padding: 0.2rem 0.5rem;
+        font-size: 0.85rem;
         border: 1px solid var(--lightgray);
         border-radius: 4px;
         background-color: var(--code);
@@ -127,24 +141,29 @@ export default ((opts: Options) => {
 
     @media (max-width: 600px) {
       .fixed-bio-container {
-        margin-top: 1.5rem; /* Еще меньше на мобильных */
+        margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-        padding: 0.6rem 0.8rem; /* Еще меньше отступы на мобильных */
+        padding: 0.6rem 0.8rem;
+      }
+      .fixed-bio-avatar {
+        width: 70px;
+        height: 70px;
+      }
+      .fixed-bio-avatar-wrapper {
+        margin-bottom: 0.4rem;
       }
       .fixed-bio-name {
         font-size: 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
       }
       .fixed-bio-text {
         font-size: 0.85rem;
+        margin-bottom: 0.3rem;
       }
-      .fixed-bio-social-heading {
-        font-size: 0.8rem;
-        margin-top: 0.2rem;
-        margin-bottom: 0.2rem;
-      }
+      /* .fixed-bio-social-heading { УДАЛЕНО } */
       .fixed-bio-social-links {
-        gap: 0.6rem; /* Еще меньше зазор между кнопками на мобильных */
+        gap: 0.5rem;
+        margin-top: 0.1rem;
         a {
           padding: 0.15rem 0.4rem;
           font-size: 0.8rem;
