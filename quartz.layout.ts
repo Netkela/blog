@@ -34,8 +34,8 @@ export const sharedPageComponents: SharedLayout = {
       Блог: "/blog/",
       Статьи: "/articles/",
       Услуги: "/uslugi/",
-      "Обо мне": "/about/",
-      Контакты: "/contacts/",
+      "Обо мне": "/about",
+      Контакты: "/contacts",
     },
   }),
 }
