@@ -8,12 +8,12 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [
     Component.TagList(),
       Component.FixedBio({
-      name: "Ваше ФИО", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше ФИО
-      bio: "Я - опытный веб-разработчик, специализирующийся на фронтенде и бэкенде, с глубоким пониманием SEO и оптимизации производительности. Увлечен созданием чистых, масштабируемых и удобных для пользователя решений.", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше описание
+      name: "Александр Овсянников", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше ФИО
+      bio: "SEO-специалист и вебмастер с 2009 года.", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше описание
       social: {
-        github: "https://github.com/ваш_логин", // Опционально
-        linkedin: "https://linkedin.com/in/ваш_логин", // Опционально
-        twitter: "https://twitter.com/ваш_логин" // Опционально
+        Telegram: "https://t.me/netkela", // Опционально
+        VK: "https://vk.com", // Опционально
+        Email: "mailto:netkela@mail.ru" // Опционально
       },
       title: "Обо мне" // Опционально: можно настроить заголовок секции
     }), // <--- ДОБАВЬТЕ ЭТУ СТРОКУ
@@ -32,7 +32,11 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-
+      Блог: "/blog/",
+      Статьи: "/articles/",
+      Услуги: "/uslugi/",
+      "Обо мне": "/about/",
+      Контакты: "/contacts/",
     },
   }),
 }
