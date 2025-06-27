@@ -38,24 +38,22 @@ export default ((opts: Options) => {
             <img src={opts.avatarSrc} alt={opts.name} class="fixed-bio-avatar" />
           </div>
         )}
-        <h3 class="fixed-bio-name">{opts.name}</h3>
-        <div class="fixed-bio-content">
+        {/* Новый контейнер для текста и соцсетей */}
+        <div class="fixed-bio-text-content">
+          <h3 class="fixed-bio-name">{opts.name}</h3>
           <p class="fixed-bio-text">{opts.bio}</p>
           {opts.social && (
-            <>
-              {/* <p class="fixed-bio-social-heading">Связаться со мной:</p>  УДАЛЕНО */}
-              <div class="fixed-bio-social-links">
-                {opts.social.telegram && (
-                  <a href={opts.social.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
-                )}
-                {opts.social.vk && (
-                  <a href={opts.social.vk} target="_blank" rel="noopener noreferrer">VK</a>
-                )}
-                {opts.social.email && (
-                  <a href={`mailto:${opts.social.email}`} target="_blank" rel="noopener noreferrer">Email</a>
-                )}
-              </div>
-            </>
+            <div class="fixed-bio-social-links">
+              {opts.social.telegram && (
+                <a href={opts.social.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
+              )}
+              {opts.social.vk && (
+                <a href={opts.social.vk} target="_blank" rel="noopener noreferrer">VK</a>
+              )}
+              {opts.social.email && (
+                <a href={`mailto:${opts.social.email}`} target="_blank" rel="noopener noreferrer">Email</a>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -72,14 +70,15 @@ export default ((opts: Options) => {
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      display: flex; /* Делаем контейнер гибким */
+      flex-direction: row; /* Элементы располагаются в ряд (аватарка и текстовый блок) */
+      align-items: center; /* Выравниваем элементы по центру по вертикали */
+      gap: 1rem; /* Промежуток между аватаркой и текстовым блоком */
     }
 
     .fixed-bio-avatar-wrapper {
-      margin-bottom: 0.5rem; /* Уменьшен отступ под аватаркой */
+      /* margin-bottom: 0.5rem;  Удаляем, так как теперь в row-direction */
+      flex-shrink: 0; /* Аватарка не будет сжиматься */
     }
 
     .fixed-bio-avatar {
@@ -91,36 +90,37 @@ export default ((opts: Options) => {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
+    .fixed-bio-text-content { /* Новый контейнер для текста и соцсетей */
+      display: flex;
+      flex-direction: column; /* Элементы внутри будут в колонку */
+      flex-grow: 1; /* Разрешаем этому блоку занимать все доступное пространство */
+      /* text-align: center; УДАЛЕНО, так как теперь выравнивание по левому краю */
+      /* align-items: center; УДАЛЕНО, так как теперь выравнивание по левому краю */
+    }
+
     .fixed-bio-name {
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--text);
-      margin-top: 0.2rem;
-      margin-bottom: 0.4rem; /* Уменьшен отступ под ФИО */
-    }
-
-    .fixed-bio-content {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem; /* Уменьшен зазор между элементами внутри контента */
-      width: 100%;
+      margin-top: 0; /* Убираем лишний отступ сверху */
+      margin-bottom: 0.2rem; /* Уменьшен отступ под ФИО */
+      text-align: left; /* Выравниваем по левому краю */
     }
 
     .fixed-bio-text {
       font-size: 0.9rem;
       line-height: 1.5;
       color: var(--darkgray);
-      margin-bottom: 0.4rem; /* Уменьшен отступ между текстом био и кнопками соцсетей */
+      margin-bottom: 0.3rem; /* Уменьшен отступ между текстом био и кнопками соцсетей */
+      text-align: left; /* Выравниваем по левому краю */
     }
-
-    /* .fixed-bio-social-heading { УДАЛЕНО: Этот класс больше не нужен } */
 
     .fixed-bio-social-links {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start; /* Выравниваем кнопки по левому краю */
       gap: 0.6rem; /* Уменьшен зазор между кнопками */
-      margin-top: 0.2rem; /* Добавлен небольшой отступ сверху, чтобы отделить от текста био, если gap недостаточно */
+      margin-top: 0.2rem; /* Небольшой отступ сверху, если нужно */
 
       a {
         color: var(--link);
@@ -141,27 +141,31 @@ export default ((opts: Options) => {
 
     @media (max-width: 600px) {
       .fixed-bio-container {
+        flex-direction: column; /* На мобильных снова в колонку */
+        align-items: center; /* Центрируем содержимое */
+        text-align: center; /* Центрируем текст */
+        gap: 0.8rem; /* Отступ между аватаркой и текстом на мобильных */
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
         padding: 0.6rem 0.8rem;
+      }
+      .fixed-bio-avatar-wrapper {
+        margin-bottom: 0.4rem; /* Возвращаем отступ под аватаркой на мобильных */
       }
       .fixed-bio-avatar {
         width: 70px;
         height: 70px;
       }
-      .fixed-bio-avatar-wrapper {
-        margin-bottom: 0.4rem;
+      .fixed-bio-text-content {
+        align-items: center; /* Центрируем элементы внутри на мобильных */
       }
-      .fixed-bio-name {
-        font-size: 1rem;
-        margin-bottom: 0.3rem;
-      }
+      .fixed-bio-name,
       .fixed-bio-text {
-        font-size: 0.85rem;
+        text-align: center; /* Центрируем текст на мобильных */
         margin-bottom: 0.3rem;
       }
-      /* .fixed-bio-social-heading { УДАЛЕНО } */
       .fixed-bio-social-links {
+        justify-content: center; /* Центрируем кнопки на мобильных */
         gap: 0.5rem;
         margin-top: 0.1rem;
         a {
