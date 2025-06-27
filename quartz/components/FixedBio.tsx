@@ -7,9 +7,9 @@ interface Options {
   name: string // Ваше ФИО
   bio: string // Ваше описание как специалиста
   social?: { // Опциональные ссылки на соцсети
-    telegram?: string // Ссылка на Telegram
-    vk?: string      // Ссылка на VK
-    email?: string   // Email адрес (для mailto: ссылки)
+    telegram?: string
+    vk?: string
+    email?: string
   }
   title?: string // Заголовок блока (по умолчанию "Об авторе")
 }
@@ -18,7 +18,6 @@ export default ((opts: Options) => {
   // Проверяем, что обязательные опции предоставлены
   if (!opts.name || !opts.bio) {
     console.error("FixedBio: `name` and `bio` options are required.")
-    // Возвращаем пустой компонент, чтобы не ломать сборку
     return () => <></>
   }
 
@@ -32,7 +31,7 @@ export default ((opts: Options) => {
       return <></>
     }
 
-    const title = opts.title || "Об авторе"
+    const title = opts.title || "Об авторе" // По умолчанию будет "Об авторе"
 
     return (
       <div class={classNames(displayClass, "fixed-bio-container")}>
@@ -41,31 +40,32 @@ export default ((opts: Options) => {
         <div class="fixed-bio-content">
           <p class="fixed-bio-text">{opts.bio}</p>
           {opts.social && (
-            <div class="fixed-bio-social-links">
-              {opts.social.telegram && (
-                <a href={opts.social.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
-              )}
-              {opts.social.vk && (
-                <a href={opts.social.vk} target="_blank" rel="noopener noreferrer">VK</a>
-              )}
-              {opts.social.email && (
-                // Для email используем mailto: протокол
-                <a href={`mailto:${opts.social.email}`} target="_blank" rel="noopener noreferrer">Email</a>
-              )}
-              {/* Добавьте другие соцсети по необходимости */}
-            </div>
+            <> {/* Используем Fragment для группировки, так как добавляем новый заголовок */}
+              <h3 class="fixed-bio-social-heading">Связаться со мной:</h3> {/* Новый заголовок для соцсетей */}
+              <div class="fixed-bio-social-links">
+                {opts.social.telegram && (
+                  <a href={opts.social.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
+                )}
+                {opts.social.vk && (
+                  <a href={opts.social.vk} target="_blank" rel="noopener noreferrer">VK</a>
+                )}
+                {opts.social.email && (
+                  <a href={`mailto:${opts.social.email}`} target="_blank" rel="noopener noreferrer">Email</a>
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>
     )
   }
 
-  // CSS для компонента (оставляем без изменений, так как стили для ссылок общие)
   FixedBioComponent.css = `
     .fixed-bio-container {
-      margin-top: 3rem;
+      margin-top: 3rem; /* Внешний отступ сверху */
+      margin-bottom: 2.5rem; /* Увеличиваем внешний отступ снизу */
       background-color: var(--background);
-      padding: 1.5rem;
+      padding: 1rem 1.5rem 1.5rem 1.5rem; /* Уменьшаем padding-top, сохраняем padding-right/left, увеличиваем padding-bottom */
       border: 1px solid var(--lightgray);
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -95,19 +95,35 @@ export default ((opts: Options) => {
       font-size: 0.95rem;
       line-height: 1.6;
       color: var(--darkgray);
+      margin-bottom: 0.8rem; /* Отступ между текстом био и заголовком соцсетей */
+    }
+
+    .fixed-bio-social-heading {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 0.5rem; /* Отступ сверху для заголовка соцсетей */
+      margin-bottom: 0.5rem; /* Отступ снизу для заголовка соцсетей */
     }
 
     .fixed-bio-social-links {
       display: flex;
+      flex-wrap: wrap; /* Разрешаем перенос ссылок на новую строку на маленьких экранах */
       gap: 1.2rem;
-      margin-top: 0.5rem;
+      /* margin-top: 0.5rem; /* Этот отступ теперь регулируется fixed-bio-social-heading */
 
       a {
         color: var(--link);
         text-decoration: none;
         font-weight: 500;
+        padding: 0.3rem 0.6rem; /* Добавляем внутренние отступы для кнопок */
+        border: 1px solid var(--lightgray); /* Тонкая рамка для кнопок */
+        border-radius: 4px; /* Немного скругленные углы для кнопок */
+        background-color: var(--code); /* Легкий фон для кнопок */
         &:hover {
-          text-decoration: underline;
+          text-decoration: none; /* Убираем подчеркивание при наведении, так как есть фон */
+          background-color: var(--highlight); /* Изменяем фон при наведении */
+          border-color: var(--link); /* Изменяем цвет рамки при наведении */
         }
       }
     }
@@ -115,13 +131,20 @@ export default ((opts: Options) => {
     @media (max-width: 600px) {
       .fixed-bio-container {
         margin-top: 2rem;
-        padding: 1rem;
+        margin-bottom: 2rem; /* Уменьшаем отступ снизу на мобильных */
+        padding: 0.8rem 1rem 1rem 1rem; /* Уменьшаем отступы на мобильных */
       }
       .fixed-bio-title {
         font-size: 1.3rem;
       }
       .fixed-bio-name {
         font-size: 1rem;
+      }
+      .fixed-bio-social-heading {
+        font-size: 0.9rem;
+      }
+      .fixed-bio-social-links {
+        gap: 0.8rem; /* Уменьшаем зазор между кнопками на мобильных */
       }
     }
   `
