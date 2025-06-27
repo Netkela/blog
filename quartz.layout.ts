@@ -11,9 +11,9 @@ export const sharedPageComponents: SharedLayout = {
       name: "Александр Овсянников", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше ФИО
       bio: "SEO-специалист и вебмастер с 2009 года.", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше описание
       social: {
-        Telegram: "https://t.me/netkela", // Опционально
-        VK: "https://vk.com", // Опционально
-        Email: "mailto:netkela@mail.ru" // Опционально
+        telegram: "https://t.me/netkela", // Опционально
+        vk: "https://vk.com/netkela", // Опционально
+        email: "mailto:netkela@mail.ru" // Опционально
       },
       title: "Обо мне" // Опционально: можно настроить заголовок секции
     }), // <--- ДОБАВЬТЕ ЭТУ СТРОКУ
