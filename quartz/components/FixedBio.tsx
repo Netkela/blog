@@ -141,35 +141,35 @@ export default ((opts: Options) => {
         flex-direction: column; /* На мобильных снова в колонку */
         align-items: center; /* Центрируем содержимое */
         text-align: center; /* Центрируем текст */
-        gap: 0.1rem; /* ЕЩЕ УМЕНЬШЕН отступ между аватаркой и текстовым блоком - возможно, 0.1rem или даже 0 */
+        gap: 0.1rem; /* Отступ между аватаркой и текстовым блоком */
         margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem; /* УВЕЛИЧЕННЫЙ ОТСТУП СНИЗУ ДЛЯ МОБИЛЬНЫХ */
         padding: 0.6rem 0.8rem;
       }
       .fixed-bio-avatar-wrapper {
-        margin-bottom: 0; /* Убедимся, что нет собственного отступа */
+        margin-bottom: 0;
       }
       .fixed-bio-avatar {
         width: 70px;
         height: 70px;
       }
       .fixed-bio-text-content {
-        align-items: center; /* Центрируем элементы внутри на мобильных */
+        align-items: center;
       }
       .fixed-bio-name {
         font-size: 1rem;
-        margin-top: 0; /* Убираем отступ сверху у ФИО полностью на мобильных */
-        margin-bottom: 0.1rem; /* Оставляем минимальный отступ под ФИО */
-        text-align: center; /* Центрируем текст на мобильных */
+        margin-top: 0;
+        margin-bottom: 0.1rem;
+        text-align: center;
       }
       .fixed-bio-text {
         font-size: 0.85rem;
-        margin-bottom: 0.1rem; /* ЕЩЕ УМЕНЬШЕН отступ под текстом био */
-        text-align: center; /* Центрируем текст на мобильных */
+        margin-bottom: 0.1rem;
+        text-align: center;
       }
       .fixed-bio-social-links {
-        justify-content: center; /* Центрируем кнопки на мобильных */
-        gap: 0.4rem; /* ЕЩЕ УМЕНЬШЕН зазор между кнопками */
+        justify-content: center;
+        gap: 0.4rem;
         margin-top: 0.1rem;
         a {
           padding: 0.15rem 0.4rem;

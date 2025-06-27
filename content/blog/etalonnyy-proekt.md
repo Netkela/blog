@@ -8,7 +8,7 @@ tags:
 permalink: 
 draft: false
 ---
-![[../files/etalonniy-site-moneymaker.jpg]]
+![[../files/1/etalonniy-site-moneymaker.jpg]]
 
 Увидел в Miralinks информационный проект-эталон, на который многие равнялись в лучшие годы контентных проектов.
 

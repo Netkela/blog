@@ -22,4 +22,4 @@ draft: false
 
 А если обратиться к исследованиям, то там вообще печальные цифры.
 
-![[../files/vnimanie.jpg]]
+![[../files/1/vnimanie.jpg]]

@@ -21,7 +21,7 @@ draft: false
 
 Уже появляются первые отзывы, которые сравнивают на с с конкурентами, это очень приятно:
 
-![[../files/majorpush-otziv.jpg]]
+![[../files/1/majorpush-otziv.jpg]]
 
-![[../files/majorpush-otziv-2.jpg]]
+![[../files/1/majorpush-otziv-2.jpg]]
 
