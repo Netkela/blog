@@ -10,7 +10,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.Backlinks(),
     Component.Graph(),
     Component.TelegramComments({
-      website: "s-0koNjl", // ваш ID сайта
+      website: "Poy1WQpK", // ваш ID сайта
       limit: 5,
       pageIdEnabled: true,
       // дополнительные параметры при необходимости
