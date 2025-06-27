@@ -8,6 +8,7 @@ tags:
 permalink: 
 draft: false
 comments: false
+showBio: false
 ---
 Email: [netkela@mail.ru](mailto:netkela@mail.ru)
 
