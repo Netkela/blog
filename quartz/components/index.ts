@@ -54,4 +54,4 @@ export {
 
 // ... другие импорты
 export { default as TelegramComments } from "./TelegramComments"
-
+export { default as FixedBio } from "./FixedBio"
