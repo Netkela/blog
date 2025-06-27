@@ -18,8 +18,6 @@ export const sharedPageComponents: SharedLayout = {
       },
       title: "Обо мне" // Опционально: можно настроить заголовок секции
     }), // <--- ДОБАВЬТЕ ЭТУ СТРОКУ
-    Component.Backlinks(),
-    Component.Graph(),
     Component.TelegramComments({
       website: "Poy1WQpK", // ваш ID сайта
       limit: 5,
@@ -76,6 +74,8 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
+    Component.Graph(),
   ],
 }
 

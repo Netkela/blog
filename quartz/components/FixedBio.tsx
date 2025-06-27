@@ -77,7 +77,6 @@ export default ((opts: Options) => {
     }
 
     .fixed-bio-avatar-wrapper {
-      /* margin-bottom: 0.5rem;  Удаляем, так как теперь в row-direction */
       flex-shrink: 0; /* Аватарка не будет сжиматься */
     }
 
@@ -94,8 +93,6 @@ export default ((opts: Options) => {
       display: flex;
       flex-direction: column; /* Элементы внутри будут в колонку */
       flex-grow: 1; /* Разрешаем этому блоку занимать все доступное пространство */
-      /* text-align: center; УДАЛЕНО, так как теперь выравнивание по левому краю */
-      /* align-items: center; УДАЛЕНО, так как теперь выравнивание по левому краю */
     }
 
     .fixed-bio-name {
@@ -144,13 +141,13 @@ export default ((opts: Options) => {
         flex-direction: column; /* На мобильных снова в колонку */
         align-items: center; /* Центрируем содержимое */
         text-align: center; /* Центрируем текст */
-        gap: 0.8rem; /* Отступ между аватаркой и текстом на мобильных */
+        gap: 0.4rem; /* УМЕНЬШЕН отступ между аватаркой и текстовым блоком */
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
         padding: 0.6rem 0.8rem;
       }
       .fixed-bio-avatar-wrapper {
-        margin-bottom: 0.4rem; /* Возвращаем отступ под аватаркой на мобильных */
+        margin-bottom: 0; /* Убираем отступ под аватаркой, так как gap в контейнере */
       }
       .fixed-bio-avatar {
         width: 70px;
@@ -159,10 +156,16 @@ export default ((opts: Options) => {
       .fixed-bio-text-content {
         align-items: center; /* Центрируем элементы внутри на мобильных */
       }
-      .fixed-bio-name,
-      .fixed-bio-text {
+      .fixed-bio-name {
+        font-size: 1rem;
+        margin-top: 0.2rem; /* Небольшой отступ сверху для ФИО, если аватарка сразу над ним */
+        margin-bottom: 0.2rem; /* Немного уменьшаем отступ под ФИО */
         text-align: center; /* Центрируем текст на мобильных */
-        margin-bottom: 0.3rem;
+      }
+      .fixed-bio-text {
+        font-size: 0.85rem;
+        margin-bottom: 0.2rem; /* Немного уменьшаем отступ под текстом био */
+        text-align: center; /* Центрируем текст на мобильных */
       }
       .fixed-bio-social-links {
         justify-content: center; /* Центрируем кнопки на мобильных */
