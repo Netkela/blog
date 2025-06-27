@@ -8,6 +8,7 @@ tags:
 permalink: 
 draft: false
 comments: false
+showBio: false
 ---
 Компьютеры и интернет интересовали меня с самого детства.
 

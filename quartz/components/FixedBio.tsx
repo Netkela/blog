@@ -141,13 +141,13 @@ export default ((opts: Options) => {
         flex-direction: column; /* На мобильных снова в колонку */
         align-items: center; /* Центрируем содержимое */
         text-align: center; /* Центрируем текст */
-        gap: 0.2rem; /* ЕЩЕ УМЕНЬШЕН отступ между аватаркой и текстовым блоком */
+        gap: 0.1rem; /* ЕЩЕ УМЕНЬШЕН отступ между аватаркой и текстовым блоком - возможно, 0.1rem или даже 0 */
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
         padding: 0.6rem 0.8rem;
       }
       .fixed-bio-avatar-wrapper {
-        margin-bottom: 0; /* Убираем отступ под аватаркой, так как gap в контейнере */
+        margin-bottom: 0; /* Убедимся, что нет собственного отступа */
       }
       .fixed-bio-avatar {
         width: 70px;
@@ -158,8 +158,8 @@ export default ((opts: Options) => {
       }
       .fixed-bio-name {
         font-size: 1rem;
-        margin-top: 0.1rem; /* ЕЩЕ УМЕНЬШЕН отступ сверху для ФИО */
-        margin-bottom: 0.1rem; /* ЕЩЕ УМЕНЬШЕН отступ под ФИО */
+        margin-top: 0; /* Убираем отступ сверху у ФИО полностью на мобильных */
+        margin-bottom: 0.1rem; /* Оставляем минимальный отступ под ФИО */
         text-align: center; /* Центрируем текст на мобильных */
       }
       .fixed-bio-text {

@@ -7,5 +7,6 @@ tags:
 permalink: 
 draft: false
 comments: false
+showBio: false
 ---
 Здесь располагаются технические статьи и инструкции по различным темам.
