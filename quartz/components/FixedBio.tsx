@@ -7,10 +7,9 @@ interface Options {
   name: string // Ваше ФИО
   bio: string // Ваше описание как специалиста
   social?: { // Опциональные ссылки на соцсети
-    twitter?: string
-    github?: string
-    linkedin?: string
-    // Добавьте другие соцсети по необходимости
+    telegram?: string // Ссылка на Telegram
+    vk?: string      // Ссылка на VK
+    email?: string   // Email адрес (для mailto: ссылки)
   }
   title?: string // Заголовок блока (по умолчанию "Об авторе")
 }
@@ -27,10 +26,7 @@ export default ((opts: Options) => {
     fileData,
     displayClass,
   }: QuartzComponentProps) => {
-    // Проверяем Front Matter статьи для опции `showBio`
-    // Если `showBio` явно установлено в `false`, то не отображаем блок
-    // По умолчанию, если `showBio` не указано, блок отображается (или можно сделать наоборот)
-    const showBio = fileData.frontmatter?.showBio ?? true // По умолчанию true, если не указано
+    const showBio = fileData.frontmatter?.showBio ?? true
 
     if (!showBio) {
       return <></>
@@ -40,19 +36,21 @@ export default ((opts: Options) => {
 
     return (
       <div class={classNames(displayClass, "fixed-bio-container")}>
-        <h2 class="fixed-bio-title">{title}: {opts.name}</h2>
+        <h2 class="fixed-bio-title">{title}</h2>
+        <p class="fixed-bio-name">{opts.name}</p>
         <div class="fixed-bio-content">
           <p class="fixed-bio-text">{opts.bio}</p>
           {opts.social && (
             <div class="fixed-bio-social-links">
-              {opts.social.twitter && (
-                <a href={opts.social.twitter} target="_blank" rel="noopener noreferrer">Twitter</a>
+              {opts.social.telegram && (
+                <a href={opts.social.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
               )}
-              {opts.social.github && (
-                <a href={opts.social.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+              {opts.social.vk && (
+                <a href={opts.social.vk} target="_blank" rel="noopener noreferrer">VK</a>
               )}
-              {opts.social.linkedin && (
-                <a href={opts.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              {opts.social.email && (
+                // Для email используем mailto: протокол
+                <a href={`mailto:${opts.social.email}`} target="_blank" rel="noopener noreferrer">Email</a>
               )}
               {/* Добавьте другие соцсети по необходимости */}
             </div>
@@ -62,21 +60,29 @@ export default ((opts: Options) => {
     )
   }
 
-  // CSS для компонента
+  // CSS для компонента (оставляем без изменений, так как стили для ссылок общие)
   FixedBioComponent.css = `
     .fixed-bio-container {
       margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--lightgray);
       background-color: var(--background);
-      padding-bottom: 1rem;
+      padding: 1.5rem;
+      border: 1px solid var(--lightgray);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .fixed-bio-title {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       color: var(--text);
+    }
+
+    .fixed-bio-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
     }
 
     .fixed-bio-content {
@@ -109,10 +115,13 @@ export default ((opts: Options) => {
     @media (max-width: 600px) {
       .fixed-bio-container {
         margin-top: 2rem;
-        padding-top: 1rem;
+        padding: 1rem;
       }
       .fixed-bio-title {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+      }
+      .fixed-bio-name {
+        font-size: 1rem;
       }
     }
   `
