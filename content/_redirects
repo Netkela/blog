@@ -1,1 +1,2 @@
 https://netkela.netlify.app/* https://netkela.ru/:splat 301!
+/:splat /blog/:splat 301
