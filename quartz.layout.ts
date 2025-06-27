@@ -22,8 +22,11 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      Telegram: "https://t.me/netkela",
-      VK: "https://vk.com/netkela",
+      Блог: "/blog/",
+      Статьи: "/articles/",
+      Услуги: "/uslugi/",
+      Обо мне: "/about/",
+      Контакты: "/contacts/",
     },
   }),
 }

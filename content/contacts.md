@@ -15,3 +15,8 @@ Telegram: [@netkela](https://t.me/netkela)
 
 Vkontakte: [@netkela](https://vk.com/netkela)
 
+## Мои медиа
+
+Netkela не промахнулся — [подписаться на Телеграм канал](https://t.me/netkelago)
+
+
