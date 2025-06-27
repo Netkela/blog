@@ -2,23 +2,25 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 
 interface Options {
-  // Опции для comments.app
-  commentsAppWebsite: string; // ID вашего сайта в comments.app
-  commentsAppLimit?: number;
-  commentsAppPageIdEnabled?: boolean;
-  commentsAppColor?: string;
-  commentsAppDislikes?: "0" | "1";
-  commentsAppOutlined?: "0" | "1";
-  commentsAppColorful?: "0" | "1";
-  commentsAppHeight?: number;
+  // Существующие опции для comments.app (сохраняем оригинальные имена)
+  website: string;             // ID вашего сайта в comments.app
+  limit?: number;              // максимальное число отображаемых комментариев
+  pageIdEnabled?: boolean;     // разделять комментарии по страницам
+  color?: string;              // hex-цвет акцентов (без “#”)
+  dislikes?: "0" | "1";        // показывать дизлайки
+  outlined?: "0" | "1";        // контурные иконки
+  colorful?: "0" | "1";        // цветные имена пользователей
+  height?: number;             // фиксированная высота виджета в px
 
-  // Опции для Telegram (встроенного виджета)
+  // Новые опции для Telegram (встроенного виджета)
   telegramWidgetLimit?: number; // data-comments-limit для Telegram
   telegramWidgetDark?: "0" | "1"; // data-dark для Telegram (тема)
 }
 
 export default ((opts?: Options) => {
-  const effectiveOpts: Options = opts || { commentsAppWebsite: "" };
+  // Явная проверка и дефолт для opts
+  // Теперь website обязателен для comments.app, но может быть пустым, если используется Telegram
+  const effectiveOpts: Options = opts || { website: "" };
 
   // URL-ы для обоих виджетов
   const COMMENTS_APP_WIDGET_URL = "https://comments.app/js/widget.js?3";
@@ -46,18 +48,20 @@ export default ((opts?: Options) => {
     // В остальных случаях (comments: true или отсутствует, и нет telegramWidget) -> используем comments.app
 
     // --- Логика для comments.app ---
-    const commentsAppSiteId = effectiveOpts.commentsAppWebsite.trim();
+    const commentsAppSiteId = effectiveOpts.website.trim(); // Используем 'website' из opts
     if (!useTelegramWidget && !commentsAppSiteId) {
-      console.error("TelegramComments: обязательный параметр `commentsAppWebsite` не задан для comments.app");
+      // Это условие теперь срабатывает, только если мы пытаемся использовать comments.app,
+      // но 'website' не указан.
+      console.error("TelegramComments: обязательный параметр `website` не задан для comments.app");
       return <div class="comments-error">Комментарии не настроены (comments.app)</div>;
     }
-    const commentsAppLimit    = Math.min(Math.max(effectiveOpts.commentsAppLimit ?? 5, 1), 50).toString();
-    const commentsAppPageFlag = (effectiveOpts.commentsAppPageIdEnabled ?? true).toString();
-    const commentsAppColor    = effectiveOpts.commentsAppColor ?? "";
-    const commentsAppDislikes = effectiveOpts.commentsAppDislikes ?? "";
-    const commentsAppOutlined = effectiveOpts.commentsAppOutlined ?? "";
-    const commentsAppColorful = effectiveOpts.commentsAppColorful ?? "";
-    const commentsAppHeight   = effectiveOpts.commentsAppHeight ? effectiveOpts.commentsAppHeight.toString() : "";
+    const commentsAppLimit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString(); // Используем 'limit'
+    const commentsAppPageFlag = (effectiveOpts.pageIdEnabled ?? true).toString(); // Используем 'pageIdEnabled'
+    const commentsAppColor    = effectiveOpts.color ?? ""; // Используем 'color'
+    const commentsAppDislikes = effectiveOpts.dislikes ?? ""; // Используем 'dislikes'
+    const commentsAppOutlined = effectiveOpts.outlined ?? ""; // Используем 'outlined'
+    const commentsAppColorful = effectiveOpts.colorful ?? ""; // Используем 'colorful'
+    const commentsAppHeight   = effectiveOpts.height ? effectiveOpts.height.toString() : ""; // Используем 'height'
 
     // --- Логика для Telegram (встроенного виджета) ---
     const telegramWidgetLimit = (effectiveOpts.telegramWidgetLimit ?? 5).toString();
@@ -150,7 +154,7 @@ export default ((opts?: Options) => {
           script.src = "${TELEGRAM_WIDGET_URL}";
           script.setAttribute("data-telegram-discussion", container.getAttribute("data-telegram-widget-id") || ""); // Имя атрибута в скрипте Telegram
           script.setAttribute("data-comments-limit", container.getAttribute("data-telegram-widget-limit") || "5");
-          // Применяем тему: если Quartz темный, используем dark="1", иначе dark="0"
+          // Применяем тему: если Quartz темный, используем data-dark="1", иначе data-dark="0"
           script.setAttribute("data-dark", currentIsDark ? "1" : "0"); 
         } else { // comments-app
           script.src = "${COMMENTS_APP_WIDGET_URL}";
@@ -172,8 +176,9 @@ export default ((opts?: Options) => {
           if (heightAttr) script.setAttribute("data-height", heightAttr);
           
           // Для comments.app тоже применяем тему, если он ее поддерживает
+          // (предполагаем, что comments.app также может принимать data-dark)
           if (currentIsDark) {
-            script.setAttribute("data-dark", "1"); // Если comments.app поддерживает data-dark
+            script.setAttribute("data-dark", "1"); 
           }
         }
         
@@ -214,7 +219,7 @@ export default ((opts?: Options) => {
     })();
   `;
 
-  // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
+  // CSS остается прежним, общие классы
   TelegramComments.css = `
     .comments-widget { /* Общий класс для контейнера */
       margin-top: 2rem;
