@@ -22,42 +22,6 @@ export default (() => {
 
     const { css, js, additionalHead } = externalResources
 
-    // --- Начало кода Яндекс.Метрики ---
-    const yandexMetrikaScript = (
-      <script
-        type="text/javascript" // Добавляем type для ясности, хотя в HTML5 он не обязателен
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-            ym(95070723, "init", {
-              clickmap:true,
-              trackLinks:true,
-              accurateTrackBounce:true,
-              webvisor:true
-            });
-          `,
-        }}
-      />
-    )
-    // --- Конец кода Яндекс.Метрики (script) ---
-    // --- Начало кода Яндекс.Метрики (noscript) ---
-    const yandexMetrikaNoscript = (
-      <noscript>
-        <div>
-          <img src="https://mc.yandex.ru/watch/95070723" style={{position: "absolute", left: "-9999px"}} alt="" />
-        </div>
-      </noscript>
-    )
-    // --- Конец кода Яндекс.Метрики (noscript) ---
-
-      // Добавляем скрипт и noscript в additionalHead Yandex Metrika
-    additionalHead.push(yandexMetrikaScript)
-    additionalHead.push(yandexMetrikaNoscript)
-
     const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
     const path = url.pathname as FullSlug
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
