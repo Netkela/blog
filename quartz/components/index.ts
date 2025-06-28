@@ -55,3 +55,4 @@ export {
 // ... другие импорты
 export { default as TelegramComments } from "./TelegramComments"
 export { default as FixedBio } from "./FixedBio"
+export { default as YandexMetrika } from "./YandexMetrika"

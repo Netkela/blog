@@ -4,7 +4,13 @@ import * as Component from "./quartz/components"
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],
+  header: [    Component.YandexMetrika({ 
+      counterId: "95070723",
+      enableClickmap: true,
+      enableTrackLinks: true,
+      enableAccurateTrackBounce: true,
+      enableWebvisor: true
+    })],
   afterBody: [
     Component.TagList(),
       Component.FixedBio({
