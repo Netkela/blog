@@ -4,13 +4,7 @@ import * as Component from "./quartz/components"
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [    Component.YandexMetrika({ 
-      counterId: "95070723",
-      enableClickmap: true,
-      enableTrackLinks: true,
-      enableAccurateTrackBounce: true,
-      enableWebvisor: true
-    })],
+  header: [],
   afterBody: [
     Component.TagList(),
       Component.FixedBio({
@@ -34,6 +28,13 @@ export const sharedPageComponents: SharedLayout = {
       // outlined: "1",
       // colorful: "1"
     }),
+    Component.YandexMetrika({
+      counterId: "95070723",
+      enableClickmap: true,
+      enableTrackLinks: true,
+      enableAccurateTrackBounce: true,
+      enableWebvisor: true
+    })
   ],
   footer: Component.Footer({
     links: {
@@ -44,6 +45,7 @@ export const sharedPageComponents: SharedLayout = {
       Контакты: "/contacts",
     },
   }),
+  
 }
 
 // components for pages that display a single page (e.g. a single note)
