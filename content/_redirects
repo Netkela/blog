@@ -32,12 +32,11 @@
 /standalone-blog-v-techenie-100-dney-i-kakie-oshibki-dopustil /blog/standalone-blog-100-dney 301
 
 
-
-
 # 2. Правила для страниц, которые не должны быть в блоге (например, /about, /contacts)
 # Если они уже статичны в корне, эти правила могут быть избыточны, но это хорошая практика.
 /about /about 200
 /contacts /contacts 200
+/yandex_ed17f219fbeb43bc.html /yandex_ed17f219fbeb43bc.html 200
 
 # 3. Общее "splat" правило для всех остальных старых статей в блоге
 /:splat /blog/:splat 301
