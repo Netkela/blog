@@ -28,7 +28,10 @@ export const sharedPageComponents: SharedLayout = {
       // outlined: "1",
       // colorful: "1"
     }),
-    Component.TelegramWidget(),
+    Component.TelegramWidget({
+      channel: "netkelago",   // имя вашего канала без @
+      limit: 10               // опционально: сколько комментариев показать
+    }),
     Component.YandexMetrika({
       counterId: "95070723",
       enableClickmap: true,

@@ -5,22 +5,34 @@ import {
   QuartzComponentProps,
 } from "./types"
 
-// Конструктор Quartz-компонента
-const TelegramWidget: QuartzComponentConstructor = () => {
-  return ({ fileData }: QuartzComponentProps) => {
-    // Получаем значение фронтмета
-    const tgwidget = fileData.frontmatter?.tgwidget
+// Пропсы при инициализации компонента в layout
+interface TelegramWidgetOptions {
+  channel: string      // имя Telegram-канала, например "netkelago"
+  limit?: number       // максимальное число комментариев (по умолчанию 5)
+}
 
-    // Если tgwidget не включен — не отображаем ничего
+// Конструктор Quartz-компонента
+const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (options) => {
+  const { channel, limit = 5 } = options
+
+  return ({ fileData }: QuartzComponentProps) => {
+    // Читаем tgwidget из frontmatter
+    const tgwidget = fileData.frontmatter?.tgwidget as boolean
+    
+    // Если фронтмета нет или она false — не рендерим
     if (!tgwidget) return null
 
-    // Иначе рендерим скрипт виджета
+    // Дополнительно можно прочитать limit и channel из frontmatter,
+    // если нужно сделать их настраиваемыми на странице:
+    // const pageLimit = fileData.frontmatter?.tgLimit ?? limit
+    // const pageChannel = fileData.frontmatter?.tgchannel ?? channel
+
     return (
       <script
         async
         src="https://telegram.org/js/telegram-widget.js?22"
-        data-telegram-discussion="contest/198"
-        data-comments-limit="5"
+        data-telegram-discussion={channel}
+        data-comments-limit={limit.toString()}
       ></script>
     )
   }
