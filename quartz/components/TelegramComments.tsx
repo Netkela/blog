@@ -111,8 +111,10 @@ export default ((opts?: Options) => {
     }
   })();
   `;
+
+  
   // CSS только для псевдо-индикатора загрузки
-    TelegramComments.css = `
+  TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
@@ -140,15 +142,13 @@ export default ((opts?: Options) => {
       height: 100%;
     }
     
-    /* Дополнительные стили для тёмной темы */
+    /* Стили для тёмной темы */
     [saved-theme="dark"] #telegram-comments-container {
       background: transparent;
-      border: 1px solid var(--darkgray);
-      padding: 2px;
     }
     
     [saved-theme="dark"] #telegram-comments-container iframe {
-      border-radius: 10px;
+      border-radius: 12px;
     }
     
     /* Индикатор загрузки только когда контейнер действительно пуст */
@@ -178,6 +178,7 @@ export default ((opts?: Options) => {
       font-style: italic;
     }
   `;
-  
+
+
   return TelegramComments;
 }) satisfies QuartzComponentConstructor;
