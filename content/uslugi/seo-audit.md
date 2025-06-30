@@ -40,7 +40,3 @@ SEO-аудит — это не просто список ошибок. Это г
 ## Стоимость SEO-аудита 
 
 50 000 рублей
-## Для связи
-- Email [netkela@mail.ru](mailto:netkela@mail.ru)
-- Telegram [https://t.me/netkela](https://t.me/netkela)
-- Vkontakte [https://vk.com/netkela](https://vk.com/netkela)
