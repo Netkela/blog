@@ -28,17 +28,16 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
 
-    // URL для соцсетей (оставляем как есть)
     const socialUrl =
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
-
-    // НОВОЕ ИЗМЕНЕНИЕ 1: Создаем правильный канонический URL
+      
+    // ИЗМЕНЕНИЕ: Исправляем логику для добавления слеша в конце папок
     let canonicalSlug = fileData.slug!
     if (canonicalSlug.endsWith("/index")) {
-      // Для страниц-индексов в папках (например, /blog/index) убираем /index
-      canonicalSlug = canonicalSlug.slice(0, -6) as FullSlug
+      // Убираем 'index', но оставляем '/', отрезая 5 символов вместо 6
+      canonicalSlug = canonicalSlug.slice(0, -5) as FullSlug
     } else if (canonicalSlug === "index") {
-      // Для главной страницы (когда слаг просто "index") делаем пустой слаг
+      // Для главной страницы делаем пустой слаг (ведет на корень сайта)
       canonicalSlug = "" as FullSlug
     }
     const canonicalUrl = joinSegments(url.toString(), canonicalSlug)
@@ -53,7 +52,6 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
-        {/* НОВОЕ ИЗМЕНЕНИЕ 2: Используем новую переменную canonicalUrl */}
         <link rel="canonical" href={canonicalUrl} />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
@@ -92,7 +90,6 @@ export default (() => {
         {cfg.baseUrl && (
           <>
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
-            {/* Для OpenGraph и Twitter можно оставить socialUrl или тоже заменить на canonicalUrl */}
             <meta property="og:url" content={socialUrl}></meta>
             <meta property="twitter:url" content={socialUrl}></meta>
           </>
