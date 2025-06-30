@@ -57,8 +57,8 @@ export default ((opts?: Options) => {
     document.head.appendChild(link);
   `;
 
-// Логика загрузки виджета и SPA-навигации
-TelegramComments.afterDOMLoaded = `
+  // Логика загрузки виджета и SPA-навигации
+  TelegramComments.afterDOMLoaded = `
   (function() {
     let lastPath = null;
 
@@ -87,7 +87,7 @@ TelegramComments.afterDOMLoaded = `
       // Цвета: светлый из data-color, тёмный жёстко #161618
       const lightColor = c.getAttribute("data-color") || "";
       const darkOverride = "161618";
-      const chosenColor = isDark() ? darkOverride : lightColor;
+      const currentIsDark = isDark();
 
       const script = document.createElement("script");
       script.async = true;
@@ -98,18 +98,17 @@ TelegramComments.afterDOMLoaded = `
         if (val) script.setAttribute(name, val);
       });
 
-      // Страницы и цвет
-      const pageFlag = c.getAttribute("data-page-id-enabled") === "true";
-      if (pageFlag) {
+      // Страницы
+      if (c.getAttribute("data-page-id-enabled") === "true") {
         script.setAttribute("data-page-id", window.location.pathname);
       }
-      if (chosenColor) {
-        script.setAttribute("data-color", chosenColor);
-      }
 
-      // Тёмный режим флаг
-      if (isDark()) {
+      // Устанавливаем цвет для текущей темы
+      if (currentIsDark) {
         script.setAttribute("data-dark", "1");
+        script.setAttribute("data-dark-color", darkOverride);
+      } else if (lightColor) {
+        script.setAttribute("data-color", lightColor);
       }
 
       c.appendChild(script);
@@ -160,8 +159,7 @@ TelegramComments.afterDOMLoaded = `
       init();
     }
   })();
-`;
-
+  `;
 
   // CSS только для псевдо-индикатора загрузки
   TelegramComments.css = `
