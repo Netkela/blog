@@ -4,36 +4,81 @@ import {
   QuartzComponentConstructor,
   QuartzComponentProps,
 } from "./types"
+import { classNames } from "../util/lang"
 
-// Пропсы при инициализации компонента в layout
 interface TelegramWidgetOptions {
-  channel: string      // имя Telegram-канала, например "netkelago"
-  limit?: number       // максимальное число комментариев (по умолчанию 5)
+  channel: string
+  limit?: number
 }
 
-// Конструктор Quartz-компонента
 const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (options) => {
   const { channel, limit = 5 } = options
 
-  return ({ fileData }: QuartzComponentProps) => {
-    // Читаем tgwidget из frontmatter
+  return ({ fileData, displayClass }: QuartzComponentProps) => {
     const tgwidget = fileData.frontmatter?.tgwidget as boolean
     
-    // Если фронтмета нет или она false — не рендерим
     if (!tgwidget) return null
 
-    // Дополнительно можно прочитать limit и channel из frontmatter,
-    // если нужно сделать их настраиваемыми на странице:
-    // const pageLimit = fileData.frontmatter?.tgLimit ?? limit
-    // const pageChannel = fileData.frontmatter?.tgchannel ?? channel
+    // Генерируем уникальный ID для контейнера
+    const widgetId = `telegram-widget-${Math.random().toString(36).substr(2, 9)}`
 
     return (
-      <script
-        async
-        src="https://telegram.org/js/telegram-widget.js?22"
-        data-telegram-discussion={channel}
-        data-comments-limit={limit.toString()}
-      ></script>
+      <>
+        <div id={widgetId} className={classNames(displayClass, "telegram-widget-container")}>
+          {/* Виджет будет вставлен сюда через JavaScript */}
+        </div>
+        
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              // Функция для создания виджета
+              function createTelegramWidget(isDark) {
+                const container = document.getElementById('${widgetId}');
+                if (!container) return;
+                
+                // Очищаем контейнер
+                container.innerHTML = '';
+                
+                // Создаем script элемент
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://telegram.org/js/telegram-widget.js?22';
+                script.setAttribute('data-telegram-discussion', '${channel}');
+                script.setAttribute('data-comments-limit', '${limit}');
+                
+                // Добавляем темную тему если нужно
+                if (isDark) {
+                  script.setAttribute('data-dark', '1');
+                }
+                
+                container.appendChild(script);
+              }
+              
+              // Определяем текущую тему
+              function isDarkTheme() {
+                return document.documentElement.getAttribute('data-theme') === 'dark';
+              }
+              
+              // Создаем виджет при загрузке
+              createTelegramWidget(isDarkTheme());
+              
+              // Отслеживаем изменение темы
+              const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                  if (mutation.attributeName === 'data-theme') {
+                    createTelegramWidget(isDarkTheme());
+                  }
+                });
+              });
+              
+              observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+              });
+            })();
+          `
+        }} />
+      </>
     )
   }
 }
