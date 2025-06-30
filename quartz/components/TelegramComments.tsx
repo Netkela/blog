@@ -57,104 +57,87 @@ export default ((opts?: Options) => {
     document.head.appendChild(link);
   `;
 
-  // Логика загрузки виджета и SPA-навигации
-// Логика загрузки виджета и SPA-навигации
+// Вставьте этот код вместо вашего TelegramComments.afterDOMLoaded
 TelegramComments.afterDOMLoaded = `
   (function() {
-    let lastPath = null;
-
+    // Функция для проверки, включена ли тёмная тема в Quartz
     function isDark() {
       return document.documentElement.getAttribute("saved-theme") === "dark";
     }
 
+    // Основная функция для загрузки и перезагрузки виджета
     function loadComments() {
-      const c = document.getElementById("telegram-comments-container");
-      if (!c) return;
+      const container = document.getElementById("telegram-comments-container");
+      if (!container) return; // Если контейнера нет на странице, ничего не делаем
 
-      // Полная очистка контейнера и старых скриптов
-      c.innerHTML = "";
-      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+      // 1. Полностью очищаем контейнер и удаляем старый скрипт виджета
+      // Это критически важно для SPA и смены темы, чтобы избежать дубликатов
+      container.innerHTML = "";
+      document.querySelectorAll('script[src^="https://comments.app/js/widget.js"]').forEach(s => s.remove());
 
-      // Базовые атрибуты из data-*
-      const baseAttrs = [
-        ["data-comments-app-website", c.getAttribute("data-website")],
-        ["data-limit", c.getAttribute("data-limit")],
-        ["data-dislikes", c.getAttribute("data-dislikes")],
-        ["data-outlined", c.getAttribute("data-outlined")],
-        ["data-colorful", c.getAttribute("data-colorful")],
-        ["data-height", c.getAttribute("data-height")]
-      ];
+      // 2. Определяем, какой цвет использовать
+      const lightThemeColor = container.getAttribute("data-color") || ""; // из настроек компонента
+      const darkThemeColor = "161618"; // Ваш кастомный цвет для тёмной темы (без #)
+      
+      const colorToUse = isDark() ? darkThemeColor : lightThemeColor;
 
-      // Цвета: светлый из data-color, тёмный — ваш кастомный #161618
-      const lightColor = c.getAttribute("data-color") || "";
-      const darkOverride = "161618";
-      const currentIsDark = isDark();
-      const chosenColor = currentIsDark ? darkOverride : lightColor;
-
+      // 3. Создаем новый элемент <script> для виджета
       const script = document.createElement("script");
       script.async = true;
       script.src = "${WIDGET_URL}";
 
-      // Применяем базовые атрибуты
-      baseAttrs.forEach(([name, val]) => {
-        if (val) script.setAttribute(name, val);
+      // 4. Устанавливаем все необходимые атрибуты из data-* атрибутов контейнера
+      script.setAttribute("data-comments-app-website", container.getAttribute("data-website"));
+      
+      // Передаем основные настройки
+      const attributes = ["limit", "dislikes", "outlined", "colorful", "height"];
+      attributes.forEach(attr => {
+        const value = container.getAttribute("data-" + attr);
+        if (value) {
+          script.setAttribute("data-" + attr, value);
+        }
       });
-
-      // Страницы
-      if (c.getAttribute("data-page-id-enabled") === "true") {
+      
+      // Устанавливаем ID страницы для разделения комментариев
+      if (container.getAttribute("data-page-id-enabled") === "true") {
         script.setAttribute("data-page-id", window.location.pathname);
       }
-
-      // Всегда передаём data-color, в тёмной теме — ваш override
-      if (chosenColor) {
-        script.setAttribute("data-color", chosenColor);
+      
+      // 5. Устанавливаем вычисленный цвет. 
+      // Виджет сам подберет цвет текста (белый на тёмном, чёрный на светлом)
+      if (colorToUse) {
+        script.setAttribute("data-color", colorToUse);
       }
+      
+      // Важно: НЕ устанавливаем data-dark="1", чтобы наш data-color имел приоритет
 
-      // Убираем флаг data-dark, чтобы цвет из data-color применялся всегда
-      // (строку: if (isDark()) script.setAttribute("data-dark", "1"); — удалить)
-
-      c.appendChild(script);
+      // 6. Добавляем скрипт в контейнер, чтобы он загрузился
+      container.appendChild(script);
     }
 
+    // Функция для инициализации всего процесса
     function init() {
-      // Первая загрузка
+      // Первоначальная загрузка комментариев
       loadComments();
 
-      // SPA-навигация Quartz
-      document.addEventListener("nav", loadComments);
+      // Отслеживание навигации в Quartz (когда вы переходите по ссылкам внутри сайта)
+      document.addEventListener("nav", () => {
+        // Небольшая задержка, чтобы DOM успел обновиться
+        setTimeout(loadComments, 50); 
+      });
 
-      // Overwrite History API
-      const origPush = history.pushState;
-      history.pushState = function() {
-        origPush.apply(this, arguments);
-        loadComments();
-      };
-      const origReplace = history.replaceState;
-      history.replaceState = function() {
-        origReplace.apply(this, arguments);
-        loadComments();
-      };
-      window.addEventListener("popstate", loadComments);
-
-      // Резервная проверка изменения URL
-      setInterval(() => {
-        if (window.location.pathname !== lastPath) {
-          lastPath = window.location.pathname;
-          loadComments();
-        }
-      }, 1000);
-
-      // Смена темы
-      window.addEventListener("themechange", loadComments);
-      new MutationObserver(muts => {
-        muts.forEach(m => {
-          if (m.attributeName === "saved-theme") {
+      // Отслеживание смены темы в Quartz
+      new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          if (mutation.attributeName === "saved-theme") {
             loadComments();
+            break;
           }
-        });
+        }
       }).observe(document.documentElement, { attributes: true });
     }
 
+    // Запускаем init() как только DOM будет готов
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", init);
     } else {
@@ -162,6 +145,7 @@ TelegramComments.afterDOMLoaded = `
     }
   })();
 `;
+
 
 
   // CSS только для псевдо-индикатора загрузки
