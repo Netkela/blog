@@ -100,7 +100,7 @@ export default ((userOpts?: Partial<Options>) => {
           data-mobile={false}
           aria-expanded={true}
         >
-          {opts.title ?? i18n(cfg.locale).components.explorer.title}
+          <span class="heading">{opts.title ?? i18n(cfg.locale).components.explorer.title}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
