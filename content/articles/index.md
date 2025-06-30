@@ -1,7 +1,8 @@
 ---
 title: Статьи
 description: Список всех статей
-aliases: 
+aliases:
+  - Статьи
 date: 
 tags: 
 permalink: 
