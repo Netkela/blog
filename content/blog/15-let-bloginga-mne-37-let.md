@@ -7,6 +7,8 @@ date: 2025-04-30
 tags: 
 permalink: 
 draft: false
+comments: false
+tgwidget: true
 ---
 15 лет назад в свой день рождения я начал вести блог, тогда еще были [standalone блоги](https://webmasterie.ru/terms/standalone-blog). Мой первый пост выглядел так: [[den-rozhdeniya-u-menya-i-u-bloga|День рождения у меня и у блога]].
 
