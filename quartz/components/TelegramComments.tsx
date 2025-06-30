@@ -303,6 +303,11 @@ export default ((opts?: Options) => {
       font-style: italic;
     }
 
+    /* Скрывать ::before, когда внутри есть дочерние узлы */
+#telegram-comments-container:not(:empty)::before {
+  content: none !important;
+}
+
     @media (max-width: 600px) {
       .telegram-comments {
         margin-top: 1rem;
