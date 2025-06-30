@@ -302,9 +302,7 @@ export default ((opts?: Options) => {
       color: var(--secondary);
       font-style: italic;
     }
-    #telegram-comments-container:empty::before {
-      content: "Загрузка комментариев...";
-    }
+
     @media (max-width: 600px) {
       .telegram-comments {
         margin-top: 1rem;
