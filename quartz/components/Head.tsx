@@ -5,6 +5,7 @@ import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../plugins/emitters/ogImage"
+
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -27,9 +28,21 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
 
-    // Url of current page
+    // URL для соцсетей (оставляем как есть)
     const socialUrl =
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+
+    // НОВОЕ ИЗМЕНЕНИЕ 1: Создаем правильный канонический URL
+    let canonicalSlug = fileData.slug!
+    if (canonicalSlug.endsWith("/index")) {
+      // Для страниц-индексов в папках (например, /blog/index) убираем /index
+      canonicalSlug = canonicalSlug.slice(0, -6) as FullSlug
+    } else if (canonicalSlug === "index") {
+      // Для главной страницы (когда слаг просто "index") делаем пустой слаг
+      canonicalSlug = "" as FullSlug
+    }
+    const canonicalUrl = joinSegments(url.toString(), canonicalSlug)
+    
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
@@ -40,7 +53,8 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
-        <link rel="canonical" href={socialUrl} />
+        {/* НОВОЕ ИЗМЕНЕНИЕ 2: Используем новую переменную canonicalUrl */}
+        <link rel="canonical" href={canonicalUrl} />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -78,6 +92,7 @@ export default (() => {
         {cfg.baseUrl && (
           <>
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
+            {/* Для OpenGraph и Twitter можно оставить socialUrl или тоже заменить на canonicalUrl */}
             <meta property="og:url" content={socialUrl}></meta>
             <meta property="twitter:url" content={socialUrl}></meta>
           </>
