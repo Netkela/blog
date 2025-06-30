@@ -1,6 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types";
-
-// ... (вся верхняя часть компонента и JavaScript остаются без изменений) ...
 interface Options {
   website: string;             // ID вашего сайта в comments.app
   limit?: number;              // макс. комментариев
@@ -113,9 +111,8 @@ export default ((opts?: Options) => {
     }
   })();
   `;
-
-  // ИЗМЕНЕНИЯ В CSS
-  TelegramComments.css = `
+  // CSS только для псевдо-индикатора загрузки
+    TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
@@ -127,24 +124,34 @@ export default ((opts?: Options) => {
       font-weight: 600;
       color: var(--text);
     }
-
-    /* --- ИЗМЕНЕНИЕ №1: делаем контейнер flex-контейнером --- */
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
+      background: var(--light);
+      border-radius: 12px;
       position: relative;
-      border-radius: 14px;
       overflow: hidden;
-      display: flex; /* Превращаем в flex-контейнер */
     }
     
-    /* --- ИЗМЕНЕНИЕ №2: заставляем iframe растянуться --- */
-    #telegram-comments-container > iframe {
+    /* Закругляем iframe внутри контейнера */
+    #telegram-comments-container iframe {
+      border-radius: 12px;
       width: 100%;
-      flex-grow: 1; /* Позволяет элементу занять всё доступное пространство */
-      border: none; /* Убираем рамку по умолчанию, на всякий случай */
+      height: 100%;
     }
-
+    
+    /* Дополнительные стили для тёмной темы */
+    [saved-theme="dark"] #telegram-comments-container {
+      background: transparent;
+      border: 1px solid var(--darkgray);
+      padding: 2px;
+    }
+    
+    [saved-theme="dark"] #telegram-comments-container iframe {
+      border-radius: 10px;
+    }
+    
+    /* Индикатор загрузки только когда контейнер действительно пуст */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
@@ -171,5 +178,6 @@ export default ((opts?: Options) => {
       font-style: italic;
     }
   `;
+  
   return TelegramComments;
 }) satisfies QuartzComponentConstructor;
