@@ -27,13 +27,9 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
     const text = fileData.text
 
     if (text) {
-      // ИЗМЕНЕНИЕ 1: Читаем флаг `dateoff` из фронтматтера
-      const hideDate = fileData.frontmatter?.dateoff ?? false
-      
       const segments: (string | JSX.Element)[] = []
 
-      // ИЗМЕНЕНИЕ 2: Добавляем проверку на !hideDate
-      if (fileData.dates && !hideDate) {
+      if (fileData.dates) {
         segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
       }
 
