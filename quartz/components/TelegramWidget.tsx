@@ -1,4 +1,5 @@
 // quartz/components/TelegramWidget.tsx
+
 import React from "react"
 import {
   QuartzComponentConstructor,
