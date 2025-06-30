@@ -10,6 +10,7 @@ draft: false
 comments: false
 showBio: false
 dateoff: true
+readoff: true
 ---
 Email: [netkela@mail.ru](mailto:netkela@mail.ru)
 

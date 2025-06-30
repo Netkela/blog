@@ -10,6 +10,7 @@ draft: false
 comments: false
 showBio: false
 dateoff: true
+readoff: true
 ---
 Компьютеры и интернет интересовали меня с самого детства.
 

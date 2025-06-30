@@ -11,5 +11,6 @@ comments: false
 showBio: false
 datalistoff: true
 dateoff: true
+readoff: true
 ---
 Здесь располагаются технические статьи и инструкции по аналитике.
