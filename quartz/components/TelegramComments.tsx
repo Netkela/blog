@@ -28,7 +28,7 @@ export default ((opts?: Options) => {
     const height   = effectiveOpts.height?.toString() ?? "";
     return (
       <div class={`telegram-comments ${displayClass ?? ""}`}>
-        <h2 class="telegram-comments-title">Комментарии</h2>
+        <div class="telegram-comments-title">Комментарии</div>
         <div
           id="telegram-comments-container"
           data-website={site}

@@ -22,7 +22,7 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
 
     return (
       <div className={classNames(displayClass, "telegram-widget-wrapper")}>
-        <h2 className="telegram-widget-title">Комментарии</h2>
+        <div className="telegram-widget-title">Комментарии</div>
         {/* Передаём postId в data-атрибут контейнера */}
         <div
           id="telegram-widget-container"

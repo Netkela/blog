@@ -40,7 +40,7 @@ export default ((opts: Options) => {
         )}
         {/* Новый контейнер для текста и соцсетей */}
         <div class="fixed-bio-text-content">
-          <h3 class="fixed-bio-name">{opts.name}</h3>
+          <div class="fixed-bio-name">{opts.name}</div>
           <p class="fixed-bio-text">{opts.bio}</p>
           {opts.social && (
             <div class="fixed-bio-social-links">
