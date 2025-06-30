@@ -58,7 +58,8 @@ export default ((opts?: Options) => {
   `;
 
   // Логика загрузки виджета и SPA-навигации
-  TelegramComments.afterDOMLoaded = `
+// Логика загрузки виджета и SPA-навигации
+TelegramComments.afterDOMLoaded = `
   (function() {
     let lastPath = null;
 
@@ -84,10 +85,11 @@ export default ((opts?: Options) => {
         ["data-height", c.getAttribute("data-height")]
       ];
 
-      // Цвета: светлый из data-color, тёмный жёстко #161618
+      // Цвета: светлый из data-color, тёмный — ваш кастомный #161618
       const lightColor = c.getAttribute("data-color") || "";
       const darkOverride = "161618";
       const currentIsDark = isDark();
+      const chosenColor = currentIsDark ? darkOverride : lightColor;
 
       const script = document.createElement("script");
       script.async = true;
@@ -103,13 +105,13 @@ export default ((opts?: Options) => {
         script.setAttribute("data-page-id", window.location.pathname);
       }
 
-      // Устанавливаем цвет для текущей темы
-      if (currentIsDark) {
-        script.setAttribute("data-dark", "1");
-        script.setAttribute("data-dark-color", darkOverride);
-      } else if (lightColor) {
-        script.setAttribute("data-color", lightColor);
+      // Всегда передаём data-color, в тёмной теме — ваш override
+      if (chosenColor) {
+        script.setAttribute("data-color", chosenColor);
       }
+
+      // Убираем флаг data-dark, чтобы цвет из data-color применялся всегда
+      // (строку: if (isDark()) script.setAttribute("data-dark", "1"); — удалить)
 
       c.appendChild(script);
     }
@@ -159,7 +161,8 @@ export default ((opts?: Options) => {
       init();
     }
   })();
-  `;
+`;
+
 
   // CSS только для псевдо-индикатора загрузки
   TelegramComments.css = `
