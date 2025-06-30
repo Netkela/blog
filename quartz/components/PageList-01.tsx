@@ -55,13 +55,9 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
 type Props = {
   limit?: number
   sort?: SortFn
-  disableDate?: boolean
 } & QuartzComponentProps
 
-export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort, disableDate }: Props) => {
-  // Проверяем флаг отключения дат из фронтматтера или пропсов
-  const hideDates = disableDate ?? fileData.frontmatter?.dataoff ?? false
-  
+export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
   if (limit) {
@@ -78,7 +74,7 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
           <li class="section-li">
             <div class="section">
               <p class="meta">
-                {page.dates && !hideDates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
+                {page.dates && <Date date={getDate(cfg, page)!} locale={cfg.locale} />}
               </p>
               <div class="desc">
                 <h3>
