@@ -1,20 +1,18 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types";
-
 interface Options {
   website: string;             // ID вашего сайта в comments.app
   limit?: number;              // макс. комментариев
   pageIdEnabled?: boolean;     // разделять по страницам
-  color?: string;              // hex-цвет (без “#”)
+  color?: string;              // hex-цвет (без "#")
+  darkColor?: string;          // цвет для тёмной темы
   dislikes?: "0" | "1";        // показывать дизлайки
   outlined?: "0" | "1";        // контурные иконки
   colorful?: "0" | "1";        // цветные имена
   height?: number;             // фикс. высота в px
 }
-
 export default ((opts?: Options) => {
   const effectiveOpts: Options = { website: "", ...(opts || {}) };
   const WIDGET_URL = "https://comments.app/js/widget.js?3";
-
   const TelegramComments: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
     if (fileData.frontmatter?.comments === false) return <></>;
     const site = effectiveOpts.website.trim();
@@ -25,6 +23,7 @@ export default ((opts?: Options) => {
     const limit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString();
     const pageFlag = (effectiveOpts.pageIdEnabled ?? true).toString();
     const color    = effectiveOpts.color ?? "";
+    const darkColor = effectiveOpts.darkColor ?? "161618"; // Ваш цвет для тёмной темы
     const dislikes = effectiveOpts.dislikes ?? "";
     const outlined = effectiveOpts.outlined ?? "";
     const colorful = effectiveOpts.colorful ?? "";
@@ -38,6 +37,7 @@ export default ((opts?: Options) => {
           data-limit={limit}
           data-page-id-enabled={pageFlag}
           data-color={color}
+          data-dark-color={darkColor}
           data-dislikes={dislikes}
           data-outlined={outlined}
           data-colorful={colorful}
@@ -46,15 +46,14 @@ export default ((opts?: Options) => {
       </div>
     );
   };
-
-  // JavaScript-часть остается вашей оригинальной. Мы ее не трогаем.
+  // Предзагрузка DNS
   TelegramComments.beforeDOMLoaded = `
     const link = document.createElement("link");
     link.rel = "preconnect";
     link.href = "https://comments.app";
     document.head.appendChild(link);
   `;
-
+  // Логика загрузки виджета и SPA-навигации
   TelegramComments.afterDOMLoaded = `
   (function() {
     let lastPath = null;
@@ -64,12 +63,20 @@ export default ((opts?: Options) => {
     function loadComments() {
       const c = document.getElementById("telegram-comments-container");
       if (!c) return;
+      // Полная очистка контейнера
       c.innerHTML = "";
+      // Удаляем старые скрипты
       document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+      
+      // Определяем цвет в зависимости от темы
+      const lightColor = c.getAttribute("data-color") || "";
+      const darkColor = c.getAttribute("data-dark-color") || "161618";
+      const currentColor = isDark() ? darkColor : lightColor;
+      
       const attrs = [
         ["data-comments-app-website", c.getAttribute("data-website")],
         ["data-limit", c.getAttribute("data-limit")],
-        ["data-color", c.getAttribute("data-color")],
+        ["data-color", currentColor], // Используем правильный цвет для текущей темы
         ["data-dislikes", c.getAttribute("data-dislikes")],
         ["data-outlined", c.getAttribute("data-outlined")],
         ["data-colorful", c.getAttribute("data-colorful")],
@@ -80,22 +87,30 @@ export default ((opts?: Options) => {
       script.src = "${WIDGET_URL}";
       attrs.forEach(([name, val]) => val && script.setAttribute(name, val));
       script.setAttribute("data-page-id", c.getAttribute("data-page-id-enabled") === "true" ? window.location.pathname : "");
-      if (isDark()) script.setAttribute("data-dark", "1");
+      
+      // НЕ устанавливаем data-dark, чтобы виджет использовал наш цвет
+      // if (isDark()) script.setAttribute("data-dark", "1");
+      
       c.appendChild(script);
     }
+    // Инициализация и слушатели SPA
     function init() {
       loadComments();
+      // React-style навигация в Quartz
       document.addEventListener("nav", loadComments);
+      // pushState/replaceState
       const origPush = history.pushState, origReplace = history.replaceState;
       history.pushState = function() { origPush.apply(this, arguments); loadComments(); };
       history.replaceState = function() { origReplace.apply(this, arguments); loadComments(); };
       window.addEventListener("popstate", loadComments);
+      // Монитор внешних изменений пути (резерв)
       setInterval(() => {
         if (window.location.pathname !== lastPath) {
           lastPath = window.location.pathname;
           loadComments();
         }
       }, 1000);
+      // Тема
       window.addEventListener("themechange", loadComments);
       new MutationObserver(muts => muts.forEach(m => {
         if (m.attributeName === "saved-theme") loadComments();
@@ -108,8 +123,7 @@ export default ((opts?: Options) => {
     }
   })();
   `;
-
-  // ИЗМЕНЕНИЯ ТОЛЬКО ЗДЕСЬ
+  // CSS с дополнительными стилями для тёмной темы
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
@@ -125,13 +139,17 @@ export default ((opts?: Options) => {
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
-      /* background: var(--light); Убираем фон, чтобы не было "скачка" цвета при загрузке */
+      background: var(--light);
+      border-radius: 4px;
       position: relative;
-      
-      /* --- ИЗМЕНЕНИЯ --- */
-      border-radius: 14px; /* Увеличиваем радиус скругления */
-      overflow: hidden;    /* Прячем острые углы виджета, которые выходят за рамки */
     }
+    
+    /* Переопределение фона для тёмной темы */
+    [saved-theme="dark"] #telegram-comments-container {
+      background: #161618;
+    }
+    
+    /* Индикатор загрузки только когда контейнер действительно пуст */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
