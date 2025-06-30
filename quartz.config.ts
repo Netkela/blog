@@ -27,30 +27,31 @@ const config: QuartzConfig = {
         body: "Inter",
         code: "IBM Plex Mono",
       },
-      colors: {
-        lightMode: {
-          light: "#ffffff",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
-        },
-        darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
-        },
-      },
+colors: {
+  lightMode: {
+    light: "#ffffff",        // оставляем белый фон
+    lightgray: "#f0f0f2",    // более мягкий серый для границ
+    gray: "#6b7280",         // современный средний серый
+    darkgray: "#374151",     // глубокий серый для текста
+    dark: "#111827",         // почти черный
+    secondary: "#3246e3",    // королевский синий (ваш цвет)
+    tertiary: "#84a59d",     // тускло зеленый
+    highlight: "rgba(50, 70, 227, 0.1)",  // подсветка на основе #3246e3
+    textHighlight: "#fbbf2488",  // янтарная подсветка текста
+  },
+  darkMode: {
+    light: "#161618",        // оставляем темный фон
+    lightgray: "#27272a",    // мягкий темно-серый
+    gray: "#71717a",         // нейтральный серый
+    darkgray: "#e4e4e7",     // светло-серый для текста
+    dark: "#fafafa",         // почти белый
+    secondary: "#5b6ff5",    // более светлый вариант #3246e3 для темной темы
+    tertiary: "#84a59d",     // тускло зеленый
+    highlight: "rgba(91, 111, 245, 0.15)",  // подсветка на основе светлого варианта
+    textHighlight: "#fbbf2455",  // янтарная подсветка текста
+  },
+},
+
     },
   },
   plugins: {
