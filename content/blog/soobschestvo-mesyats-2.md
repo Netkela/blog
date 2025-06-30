@@ -7,8 +7,8 @@ date: 2025-05-03
 tags: 
 permalink: 
 draft: false
-tgwidget: false
-comments: false
+tgwidget: true
+comments: true
 ---
 Весь второй месяц я продумывал и строил стратегию развития сообщества, планировал как привлекать пользователей.
 ## Подготовка к оформлению канала
