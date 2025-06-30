@@ -5,20 +5,27 @@ import {
   QuartzComponentProps,
 } from "./types"
 
-// Описание пропсов для вызова компонента
+// Пропсы при инициализации компонента в layout
 interface TelegramWidgetOptions {
   channel: string      // имя Telegram-канала, например "netkelago"
-  limit?: number       // максимальное число комментариев, по умолчанию 5
+  limit?: number       // максимальное число комментариев (по умолчанию 5)
 }
 
 // Конструктор Quartz-компонента
-// Теперь принимает опции при вызове
 const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (options) => {
   const { channel, limit = 5 } = options
 
-  return (_props: QuartzComponentProps) => {
-    // Если не передали обязательный канал — ничего не рендерим
-    if (!channel) return null
+  return ({ fileData }: QuartzComponentProps) => {
+    // Читаем tgwidget из frontmatter
+    const tgwidget = fileData.frontmatter?.tgwidget as boolean
+    
+    // Если фронтмета нет или она false — не рендерим
+    if (!tgwidget) return null
+
+    // Дополнительно можно прочитать limit и channel из frontmatter,
+    // если нужно сделать их настраиваемыми на странице:
+    // const pageLimit = fileData.frontmatter?.tgLimit ?? limit
+    // const pageChannel = fileData.frontmatter?.tgchannel ?? channel
 
     return (
       <script
