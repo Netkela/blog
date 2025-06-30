@@ -11,7 +11,13 @@ draft: false
 При переезде к морю, я мечтал начать бегать вдоль моря, как в фильмах. Бежать на беговой и любоваться морем, тоже нормальная перспектива. Но все это обман — я проверил уже несколько раз.
 
 <div class="video-container">
-<iframe src="https://vk.com/video_ext.php?oid=4542922&id=456239071&hd=2&autoplay=1" width="325" height="646" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://vk.com/video_ext.php?oid=4542922&id=456239071&hd=2&autoplay=0"
+        width="325"
+        height="646"
+        allow="encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+        frameborder="0"
+        allowfullscreen>
+</iframe>
 </div>
 
 Пару недель покайфовал, поностальгировал и забыл. Да, прекрасный вид когда бежишь, но воспоминаний никаких от этого спортзала не остается. А нет, один раз видел дельфинов когда бежал. Но все равно, слишком все ванильно в зале, а души то вот в нем нет.
