@@ -1,11 +1,10 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types";
-
-// ... (вся верхняя часть компонента и JavaScript остаются без изменений) ...
 interface Options {
   website: string;             // ID вашего сайта в comments.app
   limit?: number;              // макс. комментариев
   pageIdEnabled?: boolean;     // разделять по страницам
-  color?: string;              // hex-цвет (без “#”)
+  color?: string;              // hex-цвет (без "#")
+  darkColor?: string;          // цвет для тёмной темы
   dislikes?: "0" | "1";        // показывать дизлайки
   outlined?: "0" | "1";        // контурные иконки
   colorful?: "0" | "1";        // цветные имена
@@ -24,6 +23,7 @@ export default ((opts?: Options) => {
     const limit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString();
     const pageFlag = (effectiveOpts.pageIdEnabled ?? true).toString();
     const color    = effectiveOpts.color ?? "";
+    const darkColor = effectiveOpts.darkColor ?? "161618";
     const dislikes = effectiveOpts.dislikes ?? "";
     const outlined = effectiveOpts.outlined ?? "";
     const colorful = effectiveOpts.colorful ?? "";
@@ -37,6 +37,7 @@ export default ((opts?: Options) => {
           data-limit={limit}
           data-page-id-enabled={pageFlag}
           data-color={color}
+          data-dark-color={darkColor}
           data-dislikes={dislikes}
           data-outlined={outlined}
           data-colorful={colorful}
@@ -66,10 +67,16 @@ export default ((opts?: Options) => {
       c.innerHTML = "";
       // Удаляем старые скрипты
       document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+      
+      // Получаем цвета
+      const lightColor = c.getAttribute("data-color") || "";
+      const darkColor = c.getAttribute("data-dark-color") || "161618";
+      const currentColor = isDark() ? darkColor : lightColor;
+      
       const attrs = [
         ["data-comments-app-website", c.getAttribute("data-website")],
         ["data-limit", c.getAttribute("data-limit")],
-        ["data-color", c.getAttribute("data-color")],
+        ["data-color", currentColor],
         ["data-dislikes", c.getAttribute("data-dislikes")],
         ["data-outlined", c.getAttribute("data-outlined")],
         ["data-colorful", c.getAttribute("data-colorful")],
@@ -80,8 +87,39 @@ export default ((opts?: Options) => {
       script.src = "${WIDGET_URL}";
       attrs.forEach(([name, val]) => val && script.setAttribute(name, val));
       script.setAttribute("data-page-id", c.getAttribute("data-page-id-enabled") === "true" ? window.location.pathname : "");
-      if (isDark()) script.setAttribute("data-dark", "1");
+      
+      // Устанавливаем data-dark для тёмной темы
+      if (isDark()) {
+        script.setAttribute("data-dark", "1");
+      }
+      
       c.appendChild(script);
+      
+      // Применяем CSS хаки после загрузки виджета
+      setTimeout(() => {
+        if (isDark()) {
+          const iframe = c.querySelector('iframe');
+          if (iframe) {
+            // Пытаемся внедрить стили через postMessage или другие методы
+            try {
+              iframe.style.colorScheme = 'dark';
+              // Добавляем фильтр для инверсии белого фона
+              if (iframe.contentDocument) {
+                const style = iframe.contentDocument.createElement('style');
+                style.textContent = \`
+                  body, .comments-app-widget {
+                    background-color: #161618 !important;
+                  }
+                \`;
+                iframe.contentDocument.head.appendChild(style);
+              }
+            } catch (e) {
+              // CORS блокирует доступ, используем CSS фильтры
+              console.log("Cannot access iframe content, applying CSS filters");
+            }
+          }
+        }
+      }, 1000);
     }
     // Инициализация и слушатели SPA
     function init() {
@@ -113,8 +151,7 @@ export default ((opts?: Options) => {
     }
   })();
   `;
-
-  // ИЗМЕНЕНИЯ В CSS
+  // CSS с агрессивными стилями для тёмной темы
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
@@ -130,18 +167,47 @@ export default ((opts?: Options) => {
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
+      background: var(--light);
+      border-radius: 4px;
       position: relative;
-      border-radius: 14px; /* Ваши скругленные углы */
-      overflow: hidden;    /* Ваше свойство для обрезки */
     }
     
-    /* --- ВОТ РЕШЕНИЕ --- */
-    /* Это правило говорит iframe внутри контейнера вести себя как блок */
-    #telegram-comments-container > iframe {
-      display: block;
+    /* Стили для тёмной темы */
+    [saved-theme="dark"] #telegram-comments-container {
+      background: #161618 !important;
     }
-    /* --- КОНЕЦ РЕШЕНИЯ --- */
-
+    
+    /* Попытка стилизовать iframe в тёмной теме */
+    [saved-theme="dark"] #telegram-comments-container iframe {
+      background: #161618 !important;
+      color-scheme: dark;
+    }
+    
+    /* CSS хак для изменения фона внутри iframe (может не работать) */
+    [saved-theme="dark"] #telegram-comments-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #161618;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    /* Альтернативный подход - использование фильтров для iframe */
+    [saved-theme="dark"] #telegram-comments-container iframe[src*="comments.app"] {
+      /* Инвертируем белый фон и затем корректируем оттенок */
+      filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+    }
+    
+    /* Но кнопку нужно вернуть обратно */
+    [saved-theme="dark"] #telegram-comments-container iframe[src*="comments.app"] button {
+      filter: invert(1) hue-rotate(180deg);
+    }
+    
+    /* Индикатор загрузки */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
