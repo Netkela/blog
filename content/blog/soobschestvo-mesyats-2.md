@@ -49,5 +49,3 @@ comments: false
 Работаем дальше.
 
 Сайт сообщества [https://club.webmasterie.ru](https://club.webmasterie.ru/)
-
-1

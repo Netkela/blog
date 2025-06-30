@@ -21,6 +21,7 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
 
     return (
       <div className={classNames(displayClass, "telegram-widget-wrapper")}>
+        <h2 className="telegram-widget-title">Комментарии</h2>
         <div id="telegram-widget-container">
           {/* Виджет будет вставлен сюда через JavaScript */}
         </div>
@@ -96,9 +97,16 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
   // CSS стили для виджета
   TelegramWidgetComponent.css = `
     .telegram-widget-wrapper {
-      margin: 2rem 0;
-      padding: 1rem 0;
+      margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
+      padding: 1rem 0;
+    }
+    
+    .telegram-widget-title {
+      margin: 0 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
     }
     
     #telegram-widget-container {
@@ -107,7 +115,7 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
     }
     
     #telegram-widget-container:empty::before {
-      content: "Загрузка комментариев Telegram…";
+      content: "Загрузка комментариев…";
       position: absolute;
       top: 50%;
       left: 50%;
@@ -120,6 +128,13 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
     #telegram-widget-container iframe {
       max-width: 100%;
       border-radius: 8px;
+    }
+    
+    @media (max-width: 600px) {
+      .telegram-widget-wrapper {
+        margin-top: 1rem;
+        padding: 0.5rem 0;
+      }
     }
   `
 
