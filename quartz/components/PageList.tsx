@@ -42,6 +42,22 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
   }
 }
 
+// НОВОЕ ИЗМЕНЕНИЕ 1: Добавляем функцию для сортировки по алфавиту
+export function byAlphabeticalFolderFirst(cfg: GlobalConfiguration): SortFn {
+  return (f1, f2) => {
+    // Сначала папки
+    const f1IsFolder = isFolderPath(f1.slug ?? "")
+    const f2IsFolder = isFolderPath(f2.slug ?? "")
+    if (f1IsFolder && !f2IsFolder) return -1
+    if (!f1IsFolder && f2IsFolder) return 1
+
+    // Затем по алфавиту
+    const f1Title = f1.frontmatter?.title.toLowerCase() ?? ""
+    const f2Title = f2.frontmatter?.title.toLowerCase() ?? ""
+    return f1Title.localeCompare(f2Title)
+  }
+}
+
 type Props = {
   limit?: number
   sort?: SortFn
@@ -49,15 +65,27 @@ type Props = {
 } & QuartzComponentProps
 
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort, disableDate }: Props) => {
-  // ИЗМЕНЕНИЕ: Проверяем флаг для полного скрытия списка
   if (fileData.frontmatter?.hidelist) {
-    return null // Если флаг hidelist: true, компонент ничего не рендерит
+    return null
   }
 
-  // Проверяем флаг отключения дат из фронтматтера или пропсов
+  // НОВОЕ ИЗМЕНЕНИЕ 2: Логика выбора функции сортировки
+  let sorter: SortFn
+  const sortByAlphabet = fileData.frontmatter?.sortby === true
+
+  if (sort) {
+    // Если функция передана напрямую через пропсы, используем ее
+    sorter = sort
+  } else if (sortByAlphabet) {
+    // Если во фронтматтере стоит sortby: true, сортируем по алфавиту
+    sorter = byAlphabeticalFolderFirst(cfg)
+  } else {
+    // По умолчанию сортируем по дате
+    sorter = byDateAndAlphabeticalFolderFirst(cfg)
+  }
+
   const hideDates = disableDate ?? fileData.frontmatter?.datalistoff ?? false
   
-  const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
   if (limit) {
     list = list.slice(0, limit)
