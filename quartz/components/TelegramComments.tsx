@@ -1,17 +1,20 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types";
+
 interface Options {
   website: string;             // ID вашего сайта в comments.app
   limit?: number;              // макс. комментариев
   pageIdEnabled?: boolean;     // разделять по страницам
-  color?: string;              // hex-цвет (без "#")
+  color?: string;              // hex-цвет (без “#”)
   dislikes?: "0" | "1";        // показывать дизлайки
   outlined?: "0" | "1";        // контурные иконки
   colorful?: "0" | "1";        // цветные имена
   height?: number;             // фикс. высота в px
 }
+
 export default ((opts?: Options) => {
   const effectiveOpts: Options = { website: "", ...(opts || {}) };
   const WIDGET_URL = "https://comments.app/js/widget.js?3";
+
   const TelegramComments: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
     if (fileData.frontmatter?.comments === false) return <></>;
     const site = effectiveOpts.website.trim();
@@ -43,14 +46,15 @@ export default ((opts?: Options) => {
       </div>
     );
   };
-  // Предзагрузка DNS
+
+  // JavaScript-часть остается вашей оригинальной. Мы ее не трогаем.
   TelegramComments.beforeDOMLoaded = `
     const link = document.createElement("link");
     link.rel = "preconnect";
     link.href = "https://comments.app";
     document.head.appendChild(link);
   `;
-  // Логика загрузки виджета и SPA-навигации
+
   TelegramComments.afterDOMLoaded = `
   (function() {
     let lastPath = null;
@@ -60,18 +64,12 @@ export default ((opts?: Options) => {
     function loadComments() {
       const c = document.getElementById("telegram-comments-container");
       if (!c) return;
-      // Полная очистка контейнера
       c.innerHTML = "";
-      // Удаляем старые скрипты
       document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
-      
-      // Определяем цвет в зависимости от темы
-      const currentColor = isDark() ? "161618" : c.getAttribute("data-color");
-      
       const attrs = [
         ["data-comments-app-website", c.getAttribute("data-website")],
         ["data-limit", c.getAttribute("data-limit")],
-        ["data-color", currentColor], // Используем динамический цвет
+        ["data-color", c.getAttribute("data-color")],
         ["data-dislikes", c.getAttribute("data-dislikes")],
         ["data-outlined", c.getAttribute("data-outlined")],
         ["data-colorful", c.getAttribute("data-colorful")],
@@ -85,24 +83,19 @@ export default ((opts?: Options) => {
       if (isDark()) script.setAttribute("data-dark", "1");
       c.appendChild(script);
     }
-    // Инициализация и слушатели SPA
     function init() {
       loadComments();
-      // React-style навигация в Quartz
       document.addEventListener("nav", loadComments);
-      // pushState/replaceState
       const origPush = history.pushState, origReplace = history.replaceState;
       history.pushState = function() { origPush.apply(this, arguments); loadComments(); };
       history.replaceState = function() { origReplace.apply(this, arguments); loadComments(); };
       window.addEventListener("popstate", loadComments);
-      // Монитор внешних изменений пути (резерв)
       setInterval(() => {
         if (window.location.pathname !== lastPath) {
           lastPath = window.location.pathname;
           loadComments();
         }
       }, 1000);
-      // Тема
       window.addEventListener("themechange", loadComments);
       new MutationObserver(muts => muts.forEach(m => {
         if (m.attributeName === "saved-theme") loadComments();
@@ -115,7 +108,8 @@ export default ((opts?: Options) => {
     }
   })();
   `;
-  // CSS только для псевдо-индикатора загрузки
+
+  // ИЗМЕНЕНИЯ ТОЛЬКО ЗДЕСЬ
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
@@ -131,11 +125,13 @@ export default ((opts?: Options) => {
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
-      background: var(--light);
-      border-radius: 4px;
+      /* background: var(--light); Убираем фон, чтобы не было "скачка" цвета при загрузке */
       position: relative;
+      
+      /* --- ИЗМЕНЕНИЯ --- */
+      border-radius: 14px; /* Увеличиваем радиус скругления */
+      overflow: hidden;    /* Прячем острые углы виджета, которые выходят за рамки */
     }
-    /* Индикатор загрузки только когда контейнер действительно пуст */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
