@@ -68,33 +68,47 @@ export default ((opts?: Options) => {
 
   // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
   TelegramComments.afterDOMLoaded = `
-    (function() {
-      let lastLoadedIsDark = null;
+  (function() {
+    let lastLoadedIsDark = null;
+    let isInitialized = false;
 
-      function isQuartzDark() {
-        return document.documentElement.getAttribute("saved-theme") === "dark";
+    function isQuartzDark() {
+      return document.documentElement.getAttribute("saved-theme") === "dark";
+    }
+
+    function loadComments() {
+      const container = document.getElementById("telegram-comments-container");
+      if (!container) {
+        console.warn("TelegramComments: контейнер не найден");
+        return;
       }
 
-      function loadComments() {
-        const container = document.getElementById("telegram-comments-container");
-        if (!container) return;
-
-        const currentIsDark = isQuartzDark();
-        if (lastLoadedIsDark !== null && lastLoadedIsDark === currentIsDark) return;
+      const currentIsDark = isQuartzDark();
+      
+      // Принудительная перезагрузка при навигации
+      if (!isInitialized || lastLoadedIsDark !== currentIsDark) {
         lastLoadedIsDark = currentIsDark;
+        isInitialized = true;
+      } else {
+        // При навигации всегда перезагружаем виджет
+        console.debug("TelegramComments: перезагрузка при навигации");
+      }
 
-        container.innerHTML = "";
-        document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+      // Очистка предыдущего виджета
+      container.innerHTML = "Загрузка комментариев...";
+      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-        const siteId    = container.getAttribute("data-website") || "";
-        const limit     = container.getAttribute("data-limit") || "5";
-        const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
-        const color     = container.getAttribute("data-color") || "";
-        const dislikes  = container.getAttribute("data-dislikes") || "";
-        const outlined  = container.getAttribute("data-outlined") || "";
-        const colorful  = container.getAttribute("data-colorful") || "";
-        const height    = container.getAttribute("data-height") || "";
+      const siteId    = container.getAttribute("data-website") || "";
+      const limit     = container.getAttribute("data-limit") || "5";
+      const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
+      const color     = container.getAttribute("data-color") || "";
+      const dislikes  = container.getAttribute("data-dislikes") || "";
+      const outlined  = container.getAttribute("data-outlined") || "";
+      const colorful  = container.getAttribute("data-colorful") || "";
+      const height    = container.getAttribute("data-height") || "";
 
+      // Добавляем небольшую задержку для завершения навигации DOM
+      setTimeout(() => {
         const script = document.createElement("script");
         script.async = true;
         script.src   = "${WIDGET_URL}";
@@ -110,42 +124,77 @@ export default ((opts?: Options) => {
           script.setAttribute("data-dark", "1");
         }
 
-        script.onload = () => console.debug("TelegramComments: виджет загружен");
+        script.onload = () => {
+          console.debug("TelegramComments: виджет загружен для " + window.location.pathname);
+          container.innerHTML = ""; // Убираем текст загрузки
+        };
+        
         script.onerror = () => {
           console.warn("TelegramComments: не удалось загрузить виджет");
           container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
         };
 
+        container.innerHTML = ""; // Очищаем перед добавлением скрипта
         container.appendChild(script);
-      }
+      }, 100);
+    }
 
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", loadComments);
-      } else {
+    // Множественные обработчики событий для надежности
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", loadComments);
+    } else {
+      loadComments();
+    }
+
+    // Основной обработчик навигации Quartz
+    document.addEventListener("nav", function(event) {
+      console.debug("TelegramComments: обнаружена навигация", event);
+      loadComments();
+    });
+
+    // Резервные обработчики для случаев, когда nav не срабатывает
+    window.addEventListener("popstate", loadComments);
+    window.addEventListener("hashchange", loadComments);
+    
+    // Обработчик изменения темы
+    window.addEventListener("themechange", loadComments);
+
+    // MutationObserver для изменений темы
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName === "saved-theme") {
+          loadComments();
+        }
+      });
+    });
+    observer.observe(document.documentElement, { attributes: true });
+
+    // Альтернативный способ отслеживания изменений URL
+    let currentPath = window.location.pathname;
+    const checkPathChange = () => {
+      if (window.location.pathname !== currentPath) {
+        currentPath = window.location.pathname;
+        console.debug("TelegramComments: обнаружено изменение пути", currentPath);
         loadComments();
       }
-      document.addEventListener("nav", loadComments);
-      window.addEventListener("themechange", loadComments);
+    };
+    
+    // Периодическая проверка изменения пути (резерв)
+    setInterval(checkPathChange, 1000);
 
-      const observer = new MutationObserver(muts => {
-        muts.forEach(m => {
-          if (m.attributeName === "saved-theme") {
-            loadComments();
-          }
-        });
+    // Очистка при выгрузке страницы
+    if (typeof window.addCleanup === "function") {
+      window.addCleanup(() => {
+        document.removeEventListener("DOMContentLoaded", loadComments);
+        document.removeEventListener("nav", loadComments);
+        window.removeEventListener("popstate", loadComments);
+        window.removeEventListener("hashchange", loadComments);
+        window.removeEventListener("themechange", loadComments);
+        observer.disconnect();
       });
-      observer.observe(document.documentElement, { attributes: true });
-
-      if (typeof window.addCleanup === "function") {
-        window.addCleanup(() => {
-          document.removeEventListener("DOMContentLoaded", loadComments);
-          document.removeEventListener("nav", loadComments);
-          window.removeEventListener("themechange", loadComments);
-          observer.disconnect();
-        });
-      }
-    })();
-  `
+    }
+  })();
+`
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
   TelegramComments.css = `
