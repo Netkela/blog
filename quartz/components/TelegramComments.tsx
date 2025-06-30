@@ -112,9 +112,9 @@ export default ((opts?: Options) => {
   })();
   `;
 
-  
+
   // CSS только для псевдо-индикатора загрузки
-  TelegramComments.css = `
+   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
@@ -129,29 +129,29 @@ export default ((opts?: Options) => {
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
-      background: var(--light);
+      /* По умолчанию фон светлый, чтобы соответствовать теме */
+      background: var(--light); 
       border-radius: 12px;
       position: relative;
+      /* overflow: hidden оставляем как хорошую практику на всякий случай */
       overflow: hidden;
     }
     
-    /* Закругляем iframe внутри контейнера */
+
     #telegram-comments-container iframe {
       border-radius: 12px;
       width: 100%;
       height: 100%;
+      /* Убираем возможную рамку и делаем его блочным элементом */
+      border: none;
+      display: block;
     }
     
-    /* Стили для тёмной темы */
+    /* В темной теме делаем фон контейнера прозрачным, чтобы не было белой вспышки */
     [saved-theme="dark"] #telegram-comments-container {
       background: transparent;
     }
     
-    [saved-theme="dark"] #telegram-comments-container iframe {
-      border-radius: 12px;
-    }
-    
-    /* Индикатор загрузки только когда контейнер действительно пуст */
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
