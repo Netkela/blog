@@ -57,8 +57,8 @@ export default ((opts?: Options) => {
     document.head.appendChild(link);
   `;
 
-  // Логика загрузки виджета и SPA-навигации
-  TelegramComments.afterDOMLoaded = `
+// Логика загрузки виджета и SPA-навигации
+TelegramComments.afterDOMLoaded = `
   (function() {
     let lastPath = null;
 
@@ -69,51 +69,89 @@ export default ((opts?: Options) => {
     function loadComments() {
       const c = document.getElementById("telegram-comments-container");
       if (!c) return;
-      // Полная очистка контейнера
+
+      // Полная очистка контейнера и старых скриптов
       c.innerHTML = "";
-      // Удаляем старые скрипты
       document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
 
-      const attrs = [
+      // Базовые атрибуты из data-*
+      const baseAttrs = [
         ["data-comments-app-website", c.getAttribute("data-website")],
         ["data-limit", c.getAttribute("data-limit")],
-        ["data-color", c.getAttribute("data-color")],
         ["data-dislikes", c.getAttribute("data-dislikes")],
         ["data-outlined", c.getAttribute("data-outlined")],
         ["data-colorful", c.getAttribute("data-colorful")],
         ["data-height", c.getAttribute("data-height")]
       ];
+
+      // Цвета: светлый из data-color, тёмный жёстко #161618
+      const lightColor = c.getAttribute("data-color") || "";
+      const darkOverride = "161618";
+      const chosenColor = isDark() ? darkOverride : lightColor;
+
       const script = document.createElement("script");
       script.async = true;
       script.src = "${WIDGET_URL}";
-      attrs.forEach(([name, val]) => val && script.setAttribute(name, val));
-      script.setAttribute("data-page-id", c.getAttribute("data-page-id-enabled") === "true" ? window.location.pathname : "");
-      if (isDark()) script.setAttribute("data-dark", "1");
+
+      // Применяем базовые атрибуты
+      baseAttrs.forEach(([name, val]) => {
+        if (val) script.setAttribute(name, val);
+      });
+
+      // Страницы и цвет
+      const pageFlag = c.getAttribute("data-page-id-enabled") === "true";
+      if (pageFlag) {
+        script.setAttribute("data-page-id", window.location.pathname);
+      }
+      if (chosenColor) {
+        script.setAttribute("data-color", chosenColor);
+      }
+
+      // Тёмный режим флаг
+      if (isDark()) {
+        script.setAttribute("data-dark", "1");
+      }
+
       c.appendChild(script);
     }
 
-    // Инициализация и слушатели SPA
     function init() {
+      // Первая загрузка
       loadComments();
-      // React-style навигация в Quartz
+
+      // SPA-навигация Quartz
       document.addEventListener("nav", loadComments);
-      // pushState/replaceState
-      const origPush = history.pushState, origReplace = history.replaceState;
-      history.pushState = function() { origPush.apply(this, arguments); loadComments(); };
-      history.replaceState = function() { origReplace.apply(this, arguments); loadComments(); };
+
+      // Overwrite History API
+      const origPush = history.pushState;
+      history.pushState = function() {
+        origPush.apply(this, arguments);
+        loadComments();
+      };
+      const origReplace = history.replaceState;
+      history.replaceState = function() {
+        origReplace.apply(this, arguments);
+        loadComments();
+      };
       window.addEventListener("popstate", loadComments);
-      // Монитор внешних изменений пути (резерв)
+
+      // Резервная проверка изменения URL
       setInterval(() => {
         if (window.location.pathname !== lastPath) {
           lastPath = window.location.pathname;
           loadComments();
         }
       }, 1000);
-      // Тема
+
+      // Смена темы
       window.addEventListener("themechange", loadComments);
-      new MutationObserver(muts => muts.forEach(m => {
-        if (m.attributeName === "saved-theme") loadComments();
-      })).observe(document.documentElement, { attributes: true });
+      new MutationObserver(muts => {
+        muts.forEach(m => {
+          if (m.attributeName === "saved-theme") {
+            loadComments();
+          }
+        });
+      }).observe(document.documentElement, { attributes: true });
     }
 
     if (document.readyState === "loading") {
@@ -122,7 +160,8 @@ export default ((opts?: Options) => {
       init();
     }
   })();
-  `;
+`;
+
 
   // CSS только для псевдо-индикатора загрузки
   TelegramComments.css = `
