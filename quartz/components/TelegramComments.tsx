@@ -1,10 +1,11 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types";
+
+// ... (вся верхняя часть компонента и JavaScript остаются без изменений) ...
 interface Options {
   website: string;             // ID вашего сайта в comments.app
   limit?: number;              // макс. комментариев
   pageIdEnabled?: boolean;     // разделять по страницам
-  color?: string;              // hex-цвет (без "#")
-  darkColor?: string;          // цвет для тёмной темы
+  color?: string;              // hex-цвет (без “#”)
   dislikes?: "0" | "1";        // показывать дизлайки
   outlined?: "0" | "1";        // контурные иконки
   colorful?: "0" | "1";        // цветные имена
@@ -23,7 +24,6 @@ export default ((opts?: Options) => {
     const limit    = Math.min(Math.max(effectiveOpts.limit ?? 5, 1), 50).toString();
     const pageFlag = (effectiveOpts.pageIdEnabled ?? true).toString();
     const color    = effectiveOpts.color ?? "";
-    const darkColor = effectiveOpts.darkColor ?? "161618"; // Ваш цвет для тёмной темы
     const dislikes = effectiveOpts.dislikes ?? "";
     const outlined = effectiveOpts.outlined ?? "";
     const colorful = effectiveOpts.colorful ?? "";
@@ -37,7 +37,6 @@ export default ((opts?: Options) => {
           data-limit={limit}
           data-page-id-enabled={pageFlag}
           data-color={color}
-          data-dark-color={darkColor}
           data-dislikes={dislikes}
           data-outlined={outlined}
           data-colorful={colorful}
@@ -67,16 +66,10 @@ export default ((opts?: Options) => {
       c.innerHTML = "";
       // Удаляем старые скрипты
       document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
-      
-      // Определяем цвет в зависимости от темы
-      const lightColor = c.getAttribute("data-color") || "";
-      const darkColor = c.getAttribute("data-dark-color") || "161618";
-      const currentColor = isDark() ? darkColor : lightColor;
-      
       const attrs = [
         ["data-comments-app-website", c.getAttribute("data-website")],
         ["data-limit", c.getAttribute("data-limit")],
-        ["data-color", currentColor], // Используем правильный цвет для текущей темы
+        ["data-color", c.getAttribute("data-color")],
         ["data-dislikes", c.getAttribute("data-dislikes")],
         ["data-outlined", c.getAttribute("data-outlined")],
         ["data-colorful", c.getAttribute("data-colorful")],
@@ -87,10 +80,7 @@ export default ((opts?: Options) => {
       script.src = "${WIDGET_URL}";
       attrs.forEach(([name, val]) => val && script.setAttribute(name, val));
       script.setAttribute("data-page-id", c.getAttribute("data-page-id-enabled") === "true" ? window.location.pathname : "");
-      
-      // НЕ устанавливаем data-dark, чтобы виджет использовал наш цвет
-      // if (isDark()) script.setAttribute("data-dark", "1");
-      
+      if (isDark()) script.setAttribute("data-dark", "1");
       c.appendChild(script);
     }
     // Инициализация и слушатели SPA
@@ -123,7 +113,8 @@ export default ((opts?: Options) => {
     }
   })();
   `;
-  // CSS с дополнительными стилями для тёмной темы
+
+  // ИЗМЕНЕНИЯ В CSS
   TelegramComments.css = `
     .telegram-comments {
       margin-top: 2rem;
@@ -139,17 +130,18 @@ export default ((opts?: Options) => {
     #telegram-comments-container {
       width: 100%;
       min-height: 200px;
-      background: var(--light);
-      border-radius: 4px;
       position: relative;
+      border-radius: 14px; /* Ваши скругленные углы */
+      overflow: hidden;    /* Ваше свойство для обрезки */
     }
     
-    /* Переопределение фона для тёмной темы */
-    [saved-theme="dark"] #telegram-comments-container {
-      background: #161618;
+    /* --- ВОТ РЕШЕНИЕ --- */
+    /* Это правило говорит iframe внутри контейнера вести себя как блок */
+    #telegram-comments-container > iframe {
+      display: block;
     }
-    
-    /* Индикатор загрузки только когда контейнер действительно пуст */
+    /* --- КОНЕЦ РЕШЕНИЯ --- */
+
     #telegram-comments-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
