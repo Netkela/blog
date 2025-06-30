@@ -56,3 +56,4 @@ export {
 export { default as TelegramComments } from "./TelegramComments"
 export { default as FixedBio } from "./FixedBio"
 export { default as YandexMetrika } from "./YandexMetrika"
+export { default as TelegramWidget } from "./TelegramWidget"

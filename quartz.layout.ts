@@ -28,6 +28,11 @@ export const sharedPageComponents: SharedLayout = {
       // outlined: "1",
       // colorful: "1"
     }),
+    TelegramWidget({
+  defaultChannel: "netkelago",  // канал по умолчанию
+  defaultLimit: 5,                 // лимит комментариев
+  darkMode: "auto"                 // авто-переключение тёмной темы
+})
     Component.YandexMetrika({
       counterId: "95070723",
       enableClickmap: true,
