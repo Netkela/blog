@@ -7,7 +7,7 @@ date: 2025-05-03
 tags: 
 permalink: 
 draft: false
-tgwidget: true
+tgwidget: false
 comments: false
 ---
 Весь второй месяц я продумывал и строил стратегию развития сообщества, планировал как привлекать пользователей.
