@@ -49,3 +49,5 @@ comments: false
 Работаем дальше.
 
 Сайт сообщества [https://club.webmasterie.ru](https://club.webmasterie.ru/)
+
+<script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-discussion="netkelago" data-comments-limit="5"></script>
