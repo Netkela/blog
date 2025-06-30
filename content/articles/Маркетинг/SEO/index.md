@@ -1,8 +1,8 @@
 ---
-title: Статьи по SEO
+title: SEO
 description: Список всех статей по SEO
 aliases:
-  - Статьи по SEO
+  - SEO
 date: 
 tags: 
 permalink: 
