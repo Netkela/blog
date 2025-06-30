@@ -60,7 +60,7 @@ type Props = {
 
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort, disableDate }: Props) => {
   // Проверяем флаг отключения дат из фронтматтера или пропсов
-  const hideDates = disableDate ?? fileData.frontmatter?.dataoff ?? false
+  const hideDates = disableDate ?? fileData.frontmatter?.datalistoff ?? false
   
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)

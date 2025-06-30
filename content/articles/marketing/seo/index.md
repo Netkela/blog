@@ -9,6 +9,6 @@ permalink:
 draft: false
 comments: false
 showBio: false
-dataoff: true
+datalistoff: true
 ---
 Здесь располагаются технические статьи и инструкции по SEO.
