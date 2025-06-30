@@ -27,18 +27,20 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
     const text = fileData.text
 
     if (text) {
-      // ИЗМЕНЕНИЕ 1: Читаем флаг `dateoff` из фронтматтера
+      // Читаем флаг `dateoff`
       const hideDate = fileData.frontmatter?.dateoff ?? false
+      // НОВОЕ ИЗМЕНЕНИЕ 1: Читаем флаг `readoff`
+      const hideReadingTime = fileData.frontmatter?.readoff ?? false
       
       const segments: (string | JSX.Element)[] = []
 
-      // ИЗМЕНЕНИЕ 2: Добавляем проверку на !hideDate
+      // Условие для даты
       if (fileData.dates && !hideDate) {
         segments.push(<Date date={getDate(cfg, fileData)!} locale={cfg.locale} />)
       }
 
-      // Display reading time if enabled
-      if (options.showReadingTime) {
+      // НОВОЕ ИЗМЕНЕНИЕ 2: Добавляем проверку на !hideReadingTime
+      if (options.showReadingTime && !hideReadingTime) {
         const { minutes, words: _words } = readingTime(text)
         const displayedTime = i18n(cfg.locale).components.contentMeta.readingTime({
           minutes: Math.ceil(minutes),
@@ -46,11 +48,16 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
         segments.push(<span>{displayedTime}</span>)
       }
 
-      return (
-        <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
-          {segments}
-        </p>
-      )
+      // Не рендерим пустой <p> тег, если и дата, и время чтения отключены
+      if (segments.length > 0) {
+        return (
+          <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
+            {segments}
+          </p>
+        )
+      } else {
+        return null
+      }
     } else {
       return null
     }

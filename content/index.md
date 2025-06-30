@@ -10,6 +10,7 @@ draft: false
 comments: false
 showBio: false
 dateoff: true
+readoff: true
 ---
 ![[files/post/1/netkela.jpg]]
 
