@@ -69,132 +69,213 @@ export default ((opts?: Options) => {
   // Логика загрузки и перезагрузки виджета с оптимизацией MutationObserver
   TelegramComments.afterDOMLoaded = `
   (function() {
-    let lastLoadedIsDark = null;
     let isInitialized = false;
+    let observer = null;
+    let pathCheckInterval = null;
 
     function isQuartzDark() {
       return document.documentElement.getAttribute("saved-theme") === "dark";
     }
 
-    function loadComments() {
+    function loadCommentsWidget() {
       const container = document.getElementById("telegram-comments-container");
       if (!container) {
         console.warn("TelegramComments: контейнер не найден");
         return;
       }
 
-      const currentIsDark = isQuartzDark();
+      console.debug("TelegramComments: загрузка виджета для", window.location.pathname);
       
-      // Принудительная перезагрузка при навигации
-      if (!isInitialized || lastLoadedIsDark !== currentIsDark) {
-        lastLoadedIsDark = currentIsDark;
-        isInitialized = true;
-      } else {
-        // При навигации всегда перезагружаем виджет
-        console.debug("TelegramComments: перезагрузка при навигации");
+      // Показываем индикатор загрузки
+      container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--secondary);">Загрузка комментариев...</div>';
+      
+      // Полная очистка предыдущих скриптов
+      document.querySelectorAll('script[src*="comments.app"]').forEach(script => {
+        script.remove();
+      });
+      
+      // Очистка глобальных переменных comments.app (если есть)
+      if (window.commentsApp) {
+        delete window.commentsApp;
       }
 
-      // Очистка предыдущего виджета
-      container.innerHTML = "Загрузка комментариев...";
-      document.querySelectorAll('script[src*="comments.app"]').forEach(s => s.remove());
+      const siteId = container.getAttribute("data-website") || "";
+      const limit = container.getAttribute("data-limit") || "5";
+      const pageFlag = container.getAttribute("data-page-id-enabled") === "true";
+      const color = container.getAttribute("data-color") || "";
+      const dislikes = container.getAttribute("data-dislikes") || "";
+      const outlined = container.getAttribute("data-outlined") || "";
+      const colorful = container.getAttribute("data-colorful") || "";
+      const height = container.getAttribute("data-height") || "";
+      const currentIsDark = isQuartzDark();
 
-      const siteId    = container.getAttribute("data-website") || "";
-      const limit     = container.getAttribute("data-limit") || "5";
-      const pageFlag  = container.getAttribute("data-page-id-enabled") === "true";
-      const color     = container.getAttribute("data-color") || "";
-      const dislikes  = container.getAttribute("data-dislikes") || "";
-      const outlined  = container.getAttribute("data-outlined") || "";
-      const colorful  = container.getAttribute("data-colorful") || "";
-      const height    = container.getAttribute("data-height") || "";
-
-      // Добавляем небольшую задержку для завершения навигации DOM
+      // Задержка для стабилизации DOM после навигации
       setTimeout(() => {
         const script = document.createElement("script");
         script.async = true;
-        script.src   = "${WIDGET_URL}";
+        script.src = "${WIDGET_URL}" + "&_t=" + Date.now(); // Добавляем timestamp для предотвращения кеширования
         script.setAttribute("data-comments-app-website", siteId);
         script.setAttribute("data-limit", limit);
-        if (pageFlag)  script.setAttribute("data-page-id", window.location.pathname);
-        if (color)     script.setAttribute("data-color", color);
-        if (dislikes)  script.setAttribute("data-dislikes", dislikes);
-        if (outlined)  script.setAttribute("data-outlined", outlined);
-        if (colorful)  script.setAttribute("data-colorful", colorful);
-        if (height)    script.setAttribute("data-height", height);
+        
+        if (pageFlag) {
+          script.setAttribute("data-page-id", window.location.pathname);
+        }
+        if (color) script.setAttribute("data-color", color);
+        if (dislikes) script.setAttribute("data-dislikes", dislikes);
+        if (outlined) script.setAttribute("data-outlined", outlined);
+        if (colorful) script.setAttribute("data-colorful", colorful);
+        if (height) script.setAttribute("data-height", height);
         if (currentIsDark) {
           script.setAttribute("data-dark", "1");
         }
 
         script.onload = () => {
-          console.debug("TelegramComments: виджет загружен для " + window.location.pathname);
-          container.innerHTML = ""; // Убираем текст загрузки
+          console.debug("TelegramComments: виджет успешно загружен");
+          // Убираем индикатор загрузки через небольшую задержку
+          setTimeout(() => {
+            const loadingDiv = container.querySelector('div[style*="Загрузка комментариев"]');
+            if (loadingDiv) {
+              loadingDiv.remove();
+            }
+          }, 500);
         };
         
         script.onerror = () => {
-          console.warn("TelegramComments: не удалось загрузить виджет");
-          container.innerHTML = '<p class="telegram-comments-error">Комментарии недоступны</p>';
+          console.error("TelegramComments: ошибка загрузки виджета");
+          container.innerHTML = '<div class="telegram-comments-error">Не удалось загрузить комментарии</div>';
         };
 
-        container.innerHTML = ""; // Очищаем перед добавлением скрипта
+        // Очищаем контейнер и добавляем новый скрипт
+        container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--secondary);">Загрузка комментариев...</div>';
         container.appendChild(script);
-      }, 100);
+      }, 200);
     }
 
-    // Множественные обработчики событий для надежности
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", loadComments);
-    } else {
-      loadComments();
-    }
+    // Множественные способы отслеживания навигации
+    function setupNavigationListeners() {
+      // 1. Основной обработчик Quartz nav
+      document.addEventListener("nav", function(event) {
+        console.debug("TelegramComments: nav событие обнаружено");
+        loadCommentsWidget();
+      });
 
-    // Основной обработчик навигации Quartz
-    document.addEventListener("nav", function(event) {
-      console.debug("TelegramComments: обнаружена навигация", event);
-      loadComments();
-    });
+      // 2. Отслеживание изменений в History API
+      const originalPushState = history.pushState;
+      const originalReplaceState = history.replaceState;
 
-    // Резервные обработчики для случаев, когда nav не срабатывает
-    window.addEventListener("popstate", loadComments);
-    window.addEventListener("hashchange", loadComments);
-    
-    // Обработчик изменения темы
-    window.addEventListener("themechange", loadComments);
+      history.pushState = function() {
+        originalPushState.apply(history, arguments);
+        console.debug("TelegramComments: pushState обнаружен");
+        setTimeout(loadCommentsWidget, 100);
+      };
 
-    // MutationObserver для изменений темы
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.attributeName === "saved-theme") {
-          loadComments();
+      history.replaceState = function() {
+        originalReplaceState.apply(history, arguments);
+        console.debug("TelegramComments: replaceState обнаружен");
+        setTimeout(loadCommentsWidget, 100);
+      };
+
+      // 3. Отслеживание popstate
+      window.addEventListener("popstate", function() {
+        console.debug("TelegramComments: popstate обнаружен");
+        setTimeout(loadCommentsWidget, 100);
+      });
+
+      // 4. Периодическая проверка URL (резервный механизм)
+      let currentPath = window.location.pathname;
+      pathCheckInterval = setInterval(() => {
+        if (window.location.pathname !== currentPath) {
+          currentPath = window.location.pathname;
+          console.debug("TelegramComments: изменение пути обнаружено:", currentPath);
+          loadCommentsWidget();
+        }
+      }, 1000);
+
+      // 5. MutationObserver для отслеживания изменений в основном контенте
+      observer = new MutationObserver((mutations) => {
+        let shouldReload = false;
+        
+        mutations.forEach((mutation) => {
+          // Проверяем изменения темы
+          if (mutation.type === 'attributes' && mutation.attributeName === 'saved-theme') {
+            shouldReload = true;
+          }
+          
+          // Проверяем появление нового контейнера комментариев
+          if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach((node) => {
+              if (node.nodeType === 1 && (
+                node.id === 'telegram-comments-container' || 
+                node.querySelector && node.querySelector('#telegram-comments-container')
+              )) {
+                shouldReload = true;
+              }
+            });
+          }
+        });
+
+        if (shouldReload) {
+          console.debug("TelegramComments: DOM изменения обнаружены");
+          setTimeout(loadCommentsWidget, 150);
         }
       });
-    });
-    observer.observe(document.documentElement, { attributes: true });
 
-    // Альтернативный способ отслеживания изменений URL
-    let currentPath = window.location.pathname;
-    const checkPathChange = () => {
-      if (window.location.pathname !== currentPath) {
-        currentPath = window.location.pathname;
-        console.debug("TelegramComments: обнаружено изменение пути", currentPath);
-        loadComments();
-      }
-    };
-    
-    // Периодическая проверка изменения пути (резерв)
-    setInterval(checkPathChange, 1000);
-
-    // Очистка при выгрузке страницы
-    if (typeof window.addCleanup === "function") {
-      window.addCleanup(() => {
-        document.removeEventListener("DOMContentLoaded", loadComments);
-        document.removeEventListener("nav", loadComments);
-        window.removeEventListener("popstate", loadComments);
-        window.removeEventListener("hashchange", loadComments);
-        window.removeEventListener("themechange", loadComments);
-        observer.disconnect();
+      // Наблюдаем за изменениями в документе
+      observer.observe(document.documentElement, { 
+        attributes: true, 
+        childList: true, 
+        subtree: true 
+      });
+      observer.observe(document.body, { 
+        childList: true, 
+        subtree: true 
       });
     }
+
+    // Инициализация
+    function initialize() {
+      if (isInitialized) return;
+      isInitialized = true;
+
+      console.debug("TelegramComments: инициализация");
+      
+      // Первоначальная загрузка
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadCommentsWidget);
+      } else {
+        loadCommentsWidget();
+      }
+
+      // Настройка всех слушателей навигации
+      setupNavigationListeners();
+    }
+
+    // Очистка ресурсов
+    function cleanup() {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+      if (pathCheckInterval) {
+        clearInterval(pathCheckInterval);
+        pathCheckInterval = null;
+      }
+      isInitialized = false;
+    }
+
+    // Запуск инициализации
+    initialize();
+
+    // Регистрация очистки для Quartz
+    if (typeof window.addCleanup === "function") {
+      window.addCleanup(cleanup);
+    }
+
+    // Дополнительная очистка при выгрузке страницы
+    window.addEventListener("beforeunload", cleanup);
   })();
 `
+
 
   // 4. Улучшенный UX: индикатор загрузки и фон для контейнера
   TelegramComments.css = `
