@@ -65,7 +65,7 @@ export default ((opts?: Partial<GraphOptions>) => {
     const globalGraph = { ...defaultOptions.globalGraph, ...opts?.globalGraph }
     return (
       <div class={classNames(displayClass, "graph")}>
-        <span class="heading"><{i18n(cfg.locale).components.graph.title}</span>
+        <span class="heading">{i18n(cfg.locale).components.graph.title}</span>
         <div class="graph-outer">
           <div class="graph-container" data-cfg={JSON.stringify(localGraph)}></div>
           <button class="global-graph-icon" aria-label="Global Graph">
