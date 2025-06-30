@@ -9,6 +9,7 @@ permalink:
 draft: false
 comments: false
 showBio: false
+dateoff: true
 ---
 Компьютеры и интернет интересовали меня с самого детства.
 

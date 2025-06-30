@@ -9,6 +9,7 @@ permalink:
 draft: false
 comments: false
 showBio: false
+dateoff: true
 ---
 ![[files/post/1/netkela.jpg]]
 
