@@ -9,5 +9,6 @@ permalink:
 draft: false
 comments: false
 showBio: false
+dataoff: true
 ---
 Здесь располагаются технические статьи и инструкции по аналитике.
