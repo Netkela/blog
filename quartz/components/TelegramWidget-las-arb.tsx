@@ -7,8 +7,8 @@ import {
 import { classNames } from "../util/lang"
 
 interface TelegramWidgetOptions {
-  channel: string      // имя Telegram-канала, например "netkelago"
-  limit?: number       // максимальное число комментариев (по умолчанию 5)
+  channel: string
+  limit?: number
 }
 
 const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (options) => {
@@ -16,69 +16,76 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
 
   const TelegramWidgetComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
     const tgwidget = fileData.frontmatter?.tgwidget as boolean
-    const postId  = fileData.frontmatter?.tgpost as string  // читаем номер поста
-
+    
     if (!tgwidget) return null
 
     return (
       <div className={classNames(displayClass, "telegram-widget-wrapper")}>
         <h2 className="telegram-widget-title">Комментарии</h2>
-        {/* Передаём postId в data-атрибут контейнера */}
-        <div
-          id="telegram-widget-container"
-          data-post-id={postId ?? ""}
-        />
+        <div id="telegram-widget-container">
+          {/* Виджет будет вставлен сюда через JavaScript */}
+        </div>
       </div>
     )
   }
 
-  // Скрипт загрузки виджета с поддержкой тёмной темы и учётом postId
+  // Скрипт загрузки виджета с поддержкой темной темы
   TelegramWidgetComponent.afterDOMLoaded = `
     (function() {
       function isDark() {
         return document.documentElement.getAttribute("saved-theme") === "dark";
       }
-
+      
       function loadTelegramWidget() {
         const container = document.getElementById("telegram-widget-container");
         if (!container) return;
-
-        // Определяем номер поста из data-атрибута
-        const postId = container.getAttribute("data-post-id");
-        // Формируем значение data-telegram-discussion
-        const discussion = postId
-          ? "${channel}/" + postId
-          : "${channel}";
-
-        // Очищаем контейнер и удаляем старые скрипты
+        
+        // Очищаем контейнер
         container.innerHTML = "";
+        
+        // Удаляем старые скрипты Telegram
         document.querySelectorAll('script[src*="telegram.org/js/telegram-widget.js"]').forEach(s => s.remove());
-
-        // Создаём новый <script> для виджета
+        
+        // Создаем новый script элемент
         const script = document.createElement("script");
         script.async = true;
-        script.src   = "https://telegram.org/js/telegram-widget.js?22";
-        script.setAttribute("data-telegram-discussion", discussion);
+        script.src = "https://telegram.org/js/telegram-widget.js?22";
+        script.setAttribute("data-telegram-discussion", "${channel}");
         script.setAttribute("data-comments-limit", "${limit}");
+        
+        // Добавляем темную тему если нужно
         if (isDark()) {
           script.setAttribute("data-dark", "1");
         }
+        
         container.appendChild(script);
       }
-
-      // Инициализация и слушатели
+      
+      // Инициализация
       function init() {
         loadTelegramWidget();
+        
+        // Слушаем изменение темы через кастомное событие
         window.addEventListener("themechange", loadTelegramWidget);
-        const observer = new MutationObserver(muts => {
-          muts.forEach(m => {
-            if (m.attributeName === "saved-theme") loadTelegramWidget();
+        
+        // Также отслеживаем изменение атрибута saved-theme
+        const observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            if (mutation.attributeName === "saved-theme") {
+              loadTelegramWidget();
+            }
           });
         });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["saved-theme"] });
+        
+        observer.observe(document.documentElement, { 
+          attributes: true,
+          attributeFilter: ["saved-theme"]
+        });
+        
+        // Слушаем навигацию в SPA
         document.addEventListener("nav", loadTelegramWidget);
       }
-
+      
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", init);
       } else {
@@ -87,23 +94,26 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
     })();
   `
 
-  // Стили компонента
+  // CSS стили для виджета
   TelegramWidgetComponent.css = `
     .telegram-widget-wrapper {
       margin-top: 2rem;
       border-top: 1px solid var(--lightgray);
       padding: 1rem 0;
     }
+    
     .telegram-widget-title {
       margin: 0 0 1rem;
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--text);
     }
+    
     #telegram-widget-container {
       min-height: 200px;
       position: relative;
     }
+    
     #telegram-widget-container:empty::before {
       content: "Загрузка комментариев…";
       position: absolute;
@@ -113,10 +123,13 @@ const TelegramWidget: QuartzComponentConstructor<TelegramWidgetOptions> = (optio
       color: var(--secondary);
       font-style: italic;
     }
+    
+    /* Стили для iframe виджета */
     #telegram-widget-container iframe {
       max-width: 100%;
       border-radius: 8px;
     }
+    
     @media (max-width: 600px) {
       .telegram-widget-wrapper {
         margin-top: 1rem;
