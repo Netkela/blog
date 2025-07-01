@@ -18,7 +18,7 @@ When loading the frontmatter, the value of [[Frontmatter#List]] is used.
 > [!warning]
 > If you rely on `git` for dates, make sure `defaultDateType` is set to `modified` in `quartz.config.ts`.
 >
-> Depending on how you [[hosting|host]] your Quartz, the `filesystem` dates of your local files may not match the final dates. In these cases, it may be better to use `git` or `frontmatter` to guarantee correct dates.
+> Depending on how you [[../hosting|host]] your Quartz, the `filesystem` dates of your local files may not match the final dates. In these cases, it may be better to use `git` or `frontmatter` to guarantee correct dates.
 
 ## API
 
