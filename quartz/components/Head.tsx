@@ -14,8 +14,11 @@ export default (() => {
     ctx,
   }: QuartzComponentProps) => {
     const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title =
-      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
+    
+    // ИЗМЕНЕНИЕ 1: Создаем отдельные переменные для заголовка страницы и мета-заголовка
+    const pageTitle = fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
+    const metaTitle = (fileData.frontmatter?.metatitle ?? pageTitle) + titleSuffix
+    
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??
@@ -31,18 +34,15 @@ export default (() => {
     const socialUrl =
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
       
-    // ИЗМЕНЕНИЕ: Исправляем логику для добавления слеша в конце папок
+    // Исправляем логику для добавления слеша в конце папок
     let canonicalSlug = fileData.slug!
     if (canonicalSlug.endsWith("/index")) {
-      // Убираем 'index', но оставляем '/', отрезая 5 символов вместо 6
       canonicalSlug = canonicalSlug.slice(0, -5) as FullSlug
     } else if (canonicalSlug === "index") {
-      // Для главной страницы делаем пустой слаг (ведет на корень сайта)
       canonicalSlug = "" as FullSlug
     }
     const canonicalUrl = joinSegments(url.toString(), canonicalSlug)
     
-
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
     )
@@ -50,7 +50,8 @@ export default (() => {
 
     return (
       <head>
-        <title>{title}</title>
+        {/* ИЗМЕНЕНИЕ 2: Используем metaTitle для <title> */}
+        <title>{metaTitle}</title>
         <meta charSet="utf-8" />
         <link rel="canonical" href={canonicalUrl} />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
@@ -67,10 +68,12 @@ export default (() => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <meta name="og:site_name" content={cfg.pageTitle}></meta>
-        <meta property="og:title" content={title} />
+        {/* ИЗМЕНЕНИЕ 3: Используем metaTitle для OpenGraph */}
+        <meta property="og:title" content={metaTitle} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
+        {/* ИЗМЕНЕНИЕ 4: Используем metaTitle для Twitter */}
+        <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={description} />
         <meta property="og:description" content={description} />
         <meta property="og:image:alt" content={description} />
