@@ -1,6 +1,7 @@
 ---
+metatitle: Контакты Овсянникова Александра (Netkela)
 title: Контакты
-description: 
+description: Все способы связи с Александром Овсянниковым (Netkela) — email, Telegram, VK. Выберите удобный канал связи для консультации или сотрудничества.
 aliases:
   - Контакты
 date: 
