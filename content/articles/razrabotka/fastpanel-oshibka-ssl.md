@@ -28,9 +28,7 @@ draft: false
 
 2) Вводим команду:
 
-```
-sudo nano /etc/hosts
-```
+`sudo nano /etc/hosts`
 
 3) Попадаем в файл hosts, он у меня выглядит вот так:
 

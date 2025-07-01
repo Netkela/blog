@@ -34,10 +34,8 @@ draft: false
 
 После удачного подключения должна появится кнопка с надписью «New Terminal Console».
 
-
-
+![[../../files/post/1/bitvise-terminal 1.jpg]]
 Нажимаем на нее и у нас открывается терминал в котором нам будет необходимо прописать несколько команд, чтобы установить FasPanel.
-
 ## Установка FastPanel
 
 Команды, которые мы будем прописывать находятся в базе знаний на официальном сайте FastPanel вот по этой ссылке [https://fastpanel.direct/wiki/ru/how-to-install-fastpanel](https://fastpanel.direct/wiki/ru/how-to-install-fastpanel).
@@ -46,9 +44,7 @@ draft: false
 
 Копируем первую команду:
 
-```
-apt-get update
-```
+`apt-get update`
 
 И вставляем в терминал нажав правую кнопку мыши.
 
@@ -60,9 +56,7 @@ apt-get update
 
 Теперь повторяем тоже самое со второй командой, копируем ее:
 
-```
-apt-get install wget
-```
+`apt-get install wget`
 
 И вставляем правой кнопкой мыши в терминал, нажимаем Enter. После завершения установки у вас появится курсор терминала.
 
@@ -70,9 +64,7 @@ apt-get install wget
 
 Таким способом мы установили утилиту wget, которая нужна для запуска скрипта распаковки FastPanel. Теперь нам надо прописать в терминал последнюю команду, которая и установит саму FastPanel. Копируем ее:
 
-```
-wget http://repo.fastpanel.direct/install_fastpanel.sh -O - | bash -
-```
+`wget http://repo.fastpanel.direct/install_fastpanel.sh -O - | bash -`
 
 И вставляем правой кнопкой мыши в терминал. Нажимаем Enter. Установка FastPanel может занимать до 5 минут, в зависимости от вашего сервера. Поэтому, чтобы не терять время и пока идет установка, активируем нашу лицензию FastPanel.
 
