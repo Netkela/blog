@@ -1,9 +1,9 @@
 ---
 metatitle: "Обзор Hara Chair Nietzsche: компьютерное кресло для IT специалистов"
-title: Обзор компьютерного кресла для IT специалистов Hara Chair Nietzsche
+title: Обзор Hara Chair Nietzsche — компьютерное кресло для IT специалистов
 description: "Обзор кресла Hara Chair Nietzsche: эргономичное решение для IT-специалистов. Узнайте о его преимуществах и особенностях для комфортной работы."
 aliases:
-  - Обзор компьютерного кресла для IT специалистов Hara Chair Nietzsche
+  - Обзор Hara Chair Nietzsche — компьютерное кресло для IT специалистов
 date: 2019-12-28
 tags: 
 draft: false
