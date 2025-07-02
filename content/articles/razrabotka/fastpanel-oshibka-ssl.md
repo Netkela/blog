@@ -24,7 +24,7 @@ draft: false
 
 1) Открываем терминал через программу Putty или [Bitvise Client SSH](https://www.bitvise.com/download-area) указав свои данные от сервера — host, username, password:
 
-<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/bitvise-terminal.jpg" alt="Настраиваем bitvise для входа в терминал">
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/bitvise-terminal.webp" alt="Настраиваем bitvise для входа в терминал">
 
 2) Вводим команду:
 
