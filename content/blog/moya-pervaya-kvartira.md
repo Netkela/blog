@@ -34,17 +34,20 @@ draft: false
 
 Вся мебель и техника была в квартире, кроме телевизора, тумбы под него и ноутбука с девайсами. Первая комната совмещена с кухней, я не стал париться и разместил всё в ней, чтобы далеко не надо было ходить.
 
-![[../files/post/1/kuhnya.jpg]]
+<img src="https://files.netkela.ru/img/blog/moya-pervaya-kvartira/kuhnya.webp" alt="Кухня гостиная">
 
-![[../files/post/1/kuhnya1.jpg]]
+<img src="https://files.netkela.ru/img/blog/moya-pervaya-kvartira/kuhnya1.webp" alt="Кухня гостиная с другой стороны">
 
 На фотографии часть ванны, на самом деле она очень огромная.
-![[../files/post/1/vanna.jpg]]
+
+<img src="https://files.netkela.ru/img/blog/moya-pervaya-kvartira/vanna.webp" alt="Ванная">
 
 Вторая комната не большая, примерно квадратов 12. Пока она мне не нужна, храню в ней весь хлам.
-![[../files/post/1/komnata.jpg]]
+
+<img src="https://files.netkela.ru/img/blog/moya-pervaya-kvartira/komnata.webp" alt="Комната">
 
 Вид с балкона на лесок и гаражи.
-![[../files/post/1/balkon.jpg]]
+
+<img src="https://files.netkela.ru/img/blog/moya-pervaya-kvartira/balkon.webp" alt="Вид с балкона">
 
 Вот так выглядит моя квартира. На первое время пойдет, ну а потом всё по красоте переделаю.
