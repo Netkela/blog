@@ -22,7 +22,7 @@ draft: false
 
 А да, о самом главном чуть не забыл. Еще на сайте клиента я первый раз тогда поработал с конверсией и дизайном, сделал вот такие ярлычки:
 
-![[../files/post/1/marketing-hod.jpg]]
+<img src="https://files.netkela.ru/img/blog/pervie-seo-uspehi/marketing-hod.webp" alt="Маркетинговый ход">
 
 Ими я тогда гордился 🙂
 
