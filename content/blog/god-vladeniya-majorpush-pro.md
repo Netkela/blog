@@ -20,7 +20,7 @@ draft: false
 
 Мы же наоборот увеличили процент выплат до 100%. То есть лично мы в тот период вообще ничего не зарабатывали, а все отдавали своим вебмастерам.
 
-![[../files/post/1/majorpush-lokdaun.jpg]]
+<img src="https://files.netkela.ru/img/blog/god-vladeniya-majorpush-pro/majorpush-lokdaun.webp" alt="">
 
 **Мы даже работали в минус.** Так как новым вебмастерам и арбитражникам, которые пришли к нам в этот период мы доплачивали +50% сверху. Если например новый вебмастер у нас заработал 1000$, то мы из своего кармана давали +500$ к заработанной сумме.
 
@@ -28,7 +28,7 @@ draft: false
 
 Продолжительное время партнерка находилась в ТОПе рейтинга от Partnerkina.
 
-![[../files/post/1/rating-1.jpg]]
+<img src="https://files.netkela.ru/img/blog/god-vladeniya-majorpush-pro/majorpush-rating.webp" alt="">
 
 Но потом конкуренты начали херачить фейковые негативные отзывы. И я перестал гнаться за этим статусом. Но в ТОПе было находиться приятно, частенько обновлял эту страницу и начинал день с самолюбования 🙂
 
@@ -43,18 +43,19 @@ draft: false
 
 И после него посыпался негатив.
 
-![[../files/post/1/majorpush-pro-ruki-bazuki-edited.jpg]]
-![[../files/post/1/vk-majorpush-ruki-bazuki.jpg]]
+<img src="https://files.netkela.ru/img/blog/god-vladeniya-majorpush-pro/majorpush-pro-ruki-bazuki.webp" alt="">
+
+<img src="https://files.netkela.ru/img/blog/god-vladeniya-majorpush-pro/vk-majorpush-ruki-bazuki.webp" alt="">
 
 Но настоящее положение дел видел только я. После этой рекламы в партнерку пришли несколько крупных вебмастеров. Так что это был неплохой пира.
 
 Потом была вот такая видео-интеграция на 23 февраля. Вебмастеров таким уже не удивишь. Это приевшиеся тема. Затестировать все таки стоило.
 
-![[../files/post/1/god-majorpush.jpg]]
+<img src="https://files.netkela.ru/img/blog/god-vladeniya-majorpush-pro/god-majorpush.webp" alt="">
 
-Ну и чтобы не плодитиь феминизм, для девчуль тоже был этот чувак с видеопоздравлением.
+Ну и чтобы не плодить феминизм, для девчуль тоже был этот чувак с видеопоздравлением.
 
-![[../files/post/1/majorpush-8-marta.jpg]]
+<img src="https://files.netkela.ru/img/blog/god-vladeniya-majorpush-pro/majorpush-8-marta.webp" alt="">
 
 В общем это было весело, прикольно и мы выделялись. Но решил больше не делать такую рекламу. попробовали и хватит.
 ## Выводы
