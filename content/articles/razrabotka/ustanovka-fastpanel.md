@@ -39,7 +39,7 @@ draft: false
 Нажимаем на нее и у нас открывается терминал в котором нам будет необходимо прописать несколько команд, чтобы установить FasPanel.
 ## Установка FastPanel
 
-Команды, которые мы будем прописывать находятся в базе знаний на официальном сайте FastPanel вот по этой ссылке [https://fastpanel.direct/wiki/ru/how-to-install-fastpanel](https://fastpanel.direct/wiki/ru/how-to-install-fastpanel).
+Команды, которые мы будем прописывать находятся в базе знаний на официальном сайте FastPanel вот по этой ссылке [https://kb.fastpanel.direct/quick_start/how-to-install-fastpanel/](https://kb.fastpanel.direct/quick_start/how-to-install-fastpanel/). 
 
 Первый пункт мы уже выполнили, подключились к терминалу. Поэтому переходим, ко второму. Наша операционная система Debian, поэтому команды будем прописывать для нее.
 
