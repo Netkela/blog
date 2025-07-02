@@ -19,6 +19,7 @@ draft: false
 3. Пароль
 
 <img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/vps-aeza-net.webp" alt="Настройки в VPS aeza">
+
 ## Подключение к серверу
 
 Для подключения к серверу и терминалу я буду использовать программу [Bitvise SSH Client](https://www.bitvise.com/download-area). Мне она нравится тем, что в нее встроен FTP клиент, хоть он нам и не понадобиться, но в других операциях, это очень удобная интеграция и не надо запускать несколько программ. Но вы также можете использовать и [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/), чтобы подключиться к терминалу.
