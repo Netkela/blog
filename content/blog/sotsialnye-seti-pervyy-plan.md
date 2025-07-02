@@ -22,4 +22,4 @@ draft: false
 
 Поэтому пришло время решиться и действовать. Нарисовал примерную схему, как все должно работать.
 
-![[../files/post/1/plan-7up.jpg]]
+<img src="https://files.netkela.ru/img/blog/sotsialnye-seti-pervyy-plan/plan-7up.webp" alt="">

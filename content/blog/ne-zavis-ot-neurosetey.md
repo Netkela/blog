@@ -14,11 +14,11 @@ draft: false
 
 Было так
 
-![[../files/post/1/generacia-dobrogo-robota.jpg]]
+<img src="https://files.netkela.ru/img/blog/ne-zavis-ot-neurosetey/generacia-dobrogo-robota.webp" alt="">
 
 Стало так
 
-![[../files/post/1/generacia-zlogo-robota.jpg]]
+<img src="https://files.netkela.ru/img/blog/ne-zavis-ot-neurosetey/generacia-zlogo-robota.webp" alt="">
 
 Если бы это был крупный бренд или бизнес, который положился на нейросеть, которая рисует в одном стиле, а потом бац и что-то сломалось, я даже не знаю, что бы они делали. Стали бы нанимать дизайнера, который теперь будет уметь рисовать в таком же стиле. 🙂
 

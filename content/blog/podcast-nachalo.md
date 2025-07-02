@@ -20,14 +20,14 @@ draft: false
 
 Быстро, дома соорудил место для записи подкаста.
 
-![[../files/post/1/podcast-rab-mesto-2.jpg]]
-![[../files/post/1/podcast-rab-mesto.jpg]]
+<img src="https://files.netkela.ru/img/blog/podcast-nachalo/podcast-rab-mesto.webp" alt="">
+<img src="https://files.netkela.ru/img/blog/podcast-nachalo/podcast-rab-mesto-2.webp" alt="">
 
 Подкаст записали, а при монтаже понял, что забыл представить гостя, пришлось записывать отдельное видео. Мне интересно изучить монтаж, хотя бы на базовом уровне, но пока не было времени разбираться в DaVinci Resolve. Поэтому вспомнил, что у меня в свое время была куплена Camtasia 2019, с этим софтом я был знаком, да и там любой разберется, программа ведь для сильно начального уровня. Поэтому за несколько вечеров сверстал видео.
 
 После записи первого выпуска, я еще написал знакомым, некоторые отказали по личным соображениям.
 
-![[../files/post/1/otkaz-podcasts.jpg]]
+<img src="https://files.netkela.ru/img/blog/podcast-nachalo/otkaz-podcasts.webp" alt="">
 
 Другие согласились. И бац, еще два подкаста уже записаны, осталось только немного их подшаманить и выложить.
 

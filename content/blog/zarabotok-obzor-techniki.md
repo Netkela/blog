@@ -20,11 +20,11 @@ draft: false
 **Заработок:**  
 Яндекс Маркет = 662,88 руб. (из них 561,48 руб. в обработке)
 
-![[../files/post/1/zarabotok-market.jpg]]
+<img src="https://files.netkela.ru/img/blog/zarabotok-obzor-techniki/zarabotok-market.webp" alt="">
 
 Алиэкспресс = 311,60 руб. (пока в обработке).
 
-![[../files/post/1/zarabotok-aliexpress.jpg]]
+<img src="https://files.netkela.ru/img/blog/zarabotok-obzor-techniki/zarabotok-aliexpress.webp" alt="">
 
 **Итого заработано:** 974,48 рублей и 7 хвалебных комментариев.
 
@@ -36,8 +36,9 @@ draft: false
 
 А 561,48 руб. в обработке, и они пока не отображаются. Это другой чел, который уже купил камеру, но пока она ему дойдет и он ее проверит. Заказ считается подтвержденным, если с момента его доставки прошло 14 дней и пользователь не начал его возвращать.
 
-![[../files/post/1/tovarooborot-partnera.jpg]]
-![[../files/post/1/istoria-zakaza-yandex-distribucia.jpg]]
+<img src="https://files.netkela.ru/img/blog/zarabotok-obzor-techniki/tovarooborot-partnera.webp" alt="">
+
+<img src="https://files.netkela.ru/img/blog/zarabotok-obzor-techniki/istoria-zakaza-yandex-distribucia.webp" alt="">
 
 - Получается, в Яндекс Дистрибуции я получил за лид 561,48 руб.
 - А на Aliexpress через Admitad я получил 311,60 руб.

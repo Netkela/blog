@@ -22,4 +22,4 @@ draft: false
 
 А если обратиться к исследованиям, то там вообще печальные цифры.
 
-![[../files/post/1/vnimanie.jpg]]
+<img src="https://files.netkela.ru/img/blog/glavnoe-eto-vnimanie/vnimanie.webp" alt="">
