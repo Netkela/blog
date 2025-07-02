@@ -10,7 +10,7 @@ draft: false
 ---
 Я уже рассказывал, [[ustanovka-fastpanel|как установить бесплатную панель управления сайтами FastPanel]]. Я ее использую уже давно и никогда не было проблем. Но недавно на новом сервере при выпуске SSL сертификата Lets Encrypt в FastPanel возникла такая ошибка «certificate cannot be issued as URL».
 
-<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/error-ssl-fastpanel.jpg" alt="Ошибка certificate cannot be issued as URL в Fastpanel">
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/error-ssl-fastpanel.webp" alt="Ошибка certificate cannot be issued as URL в Fastpanel">
 
 Полдня потратил, чтобы найти решение и нашел его. Пишу статью, чтобы сэкономить время, если вдруг у вас будет такая же проблема.
 
@@ -18,7 +18,7 @@ draft: false
 
 Я написал в поддержку FastPanel с этой проблемой, они подтвердили, что исправлять нужно файл /etc/hosts.
 
-<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/otvet-podderzhki-fastpanel.jpg" alt="Ответ поддержки Fastpanel по поводу ошибки этой ошибки">
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/otvet-podderzhki-fastpanel.webp" alt="Ответ поддержки Fastpanel по поводу ошибки этой ошибки">
 
 Для того, чтобы изменить hosts:
 
@@ -34,11 +34,11 @@ sudo nano /etc/hosts
 
 3) Попадаем в файл hosts, он у меня выглядит вот так:
 
-<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/hosts-bilo.jpg" alt="Как выглядит файл hosts изначально">
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/hosts-bilo.webp" alt="Как выглядит файл hosts изначально">
 
 4) Удаляем вторую и последнюю строчку с доменом, нажимаем CTRL+O и потом Enter, чтобы сохранить изменения.
 
-<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/del-domen-hosts.jpg" alt="Удаляем строчки из hosts">
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/del-domen-hosts.webp" alt="Удаляем строчки из hosts">
 
 5) А потом CTRL+X, чтобы выйти в терминала. Теперь терминал можно закрыть.
 
