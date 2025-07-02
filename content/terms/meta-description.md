@@ -13,12 +13,12 @@ dateoff: true
 
 В коде выглядит так: `<meta name="description" content="Описание страницы."/>`.
 
-![[../files/post/1/primer-description-v-code-1536x243.jpg]]
+<img src="https://files.netkela.ru/img/terms/meta-description/primer-description-v-code.webp" alt="Description в коде сайта">
 
 Description, наряду с title, является важным элементом взаимодействия с поисковыми системами. Он влияет на представление страницы в результатах поиска, помогая как пользователям, так и поисковым системам понять содержание страницы.
 
 Description формирует сниппет в поисковой выдаче, определяя, перейдет ли пользователь на страницу. Качественное описание повышает кликабельность и трафик. Вместе с title, description относится к внутренней оптимизации сайта и может влиять на ранжирование.
 
-![[../files/post/1/description-v-vidache-1.jpg]]
+<img src="https://files.netkela.ru/img/terms/meta-description/description-v-vidache.webp" alt="Отображение description в выдаче поисковой системы">
 
 Хотя вебмастер и задает description, поисковики часто формируют описание самостоятельно из фрагментов контента, подходящих под запрос, например, из первых предложений, ключевых фраз или их комбинаций.
