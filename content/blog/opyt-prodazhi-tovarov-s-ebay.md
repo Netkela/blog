@@ -43,15 +43,15 @@ draft: false
 
 Сумка merc. Куплена за 25$. Продана за 50.
 
-![[../files/post/1/sumka-merc.jpg]]
+<img src="https://files.netkela.ru/img/blog/opyt-prodazhi-tovarov-s-ebay/sumka-merc.webp" alt="Сумка Merc">
 
 Джинсы Такеши Куросава. Куплены за 30$. Проданы за 60.
 
-![[../files/post/1/takeshi.jpg]]
+<img src="https://files.netkela.ru/img/blog/opyt-prodazhi-tovarov-s-ebay/takeshi.webp" alt="Джинсы Такеши Курасава">
 
 Макасины без фирмы. Просто понравились. Куплены за 30$. Проданы за 50.
 
-![[../files/post/1/macasi.jpg]]
+<img src="https://files.netkela.ru/img/blog/opyt-prodazhi-tovarov-s-ebay/macasi.webp" alt="Красные макасины">
 
 Обычно такие носят лица кавказской национальности. Так и произошло, в трубке телефона раздался не русский акцент, договорились о встрече. Приехав, он начал торговаться, что поделать в крови у них такое. Но русская душа не дрогнула и не поддалась на его уговоры. В итоге туфли ему подошли и он сказал: «Братышке вазьму!» и купил.
 
