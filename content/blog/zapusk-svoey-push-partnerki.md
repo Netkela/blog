@@ -21,7 +21,7 @@ draft: false
 
 Уже появляются первые отзывы, которые сравнивают на с с конкурентами, это очень приятно:
 
-![[../files/post/1/majorpush-otziv.jpg]]
+<img src="https://files.netkela.ru/img/blog/zapusk-svoey-push-partnerki/majorpush-otziv.webp" alt="Отзыв о MajorPush">
 
-![[../files/post/1/majorpush-otziv-2.jpg]]
+<img src="https://files.netkela.ru/img/blog/zapusk-svoey-push-partnerki/majorpush-otziv-2.webp" alt="Отзыв 2 о MajorPush">
 

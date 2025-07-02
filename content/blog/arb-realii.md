@@ -12,11 +12,9 @@ draft: false
 
 Но я сейчас стал интересоваться командной работой и общаясь со знакомым арбитражником, который работал в таком отделе, вот что вскрывается.
 
-![[../files/post/1/arb-realii1-800x561-1.jpg]]
-
-![[../files/post/1/arb-realii2-532x600-1.jpg]]
-
-![[../files/post/1/arb-realii3-800x448-1.jpg]]
+<img src="https://files.netkela.ru/img/blog/arb-realii/arb-realii1.webp" alt="Переписка">
+<img src="https://files.netkela.ru/img/blog/arb-realii/arb-realii2.webp" alt="Переписка">
+<img src="https://files.netkela.ru/img/blog/arb-realii/arb-realii3.webp" alt="Переписка">
 
 К сожалению я не могу показать всю переписку, потому что там есть нюансы, по которым можно идентифицировать этот офис, а так же фотки. Но там все еще хуже, чем в этой переписке.
 

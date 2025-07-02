@@ -42,34 +42,28 @@ draft: false
 
 ## Некоторые примеры сайтов в сложных нишах (сбор семантики по ходу работы)
 
-![[../files/post/1/metrika5-640x316-1.jpg]]
-
-![[../files/post/1/metrika1-640x327-1.jpg]]
-
-![[../files/post/1/metrika2-640x320-1.jpg]]
-
-![[../files/post/1/metrika3-640x436-1.jpg]]
-
-![[../files/post/1/metrika7.jpg]]
-
-![[../files/post/1/metrika4-640x131-1.jpg]]
-
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika1.webp" alt="">
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika2.webp" alt="">
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika3.webp" alt="">
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika4.webp" alt="">
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika5.webp" alt="">
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika7.webp" alt="">
 ## Видеотзыв
 
 **Видео недоступно**
 
 Результаты Алексея за последние три месяца только на контекстной рекламе, не считая личных консультаций и прямых рекламодателей.
 
-![[../files/post/1/adsense-alex.jpg]]
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/adsense-alex.webp" alt="">
 
-![[../files/post/1/direct-alex.jpg]]
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/direct-alex.webp" alt="">
 ## Почему это работает до сих пор
 
 Три месяца назад я запустил сайт по диабету. Сейчас на сайте 11 статей, и он уже собирает 300 посетителей в месяц. Никакая семантика не собиралась, все делалось в процессе создания сайта.
 
 Эндокринолог, который работает над этим сайтом, получил заявки на консультации на **18 000руб.
 
-![[../files/post/1/metrika6-640x319-1.jpg]]
+<img src="https://files.netkela.ru/img/blog/my-perviy-kurs/metrika6.webp" alt="">
 ## Программа курса
 
 Если вы видите пугающие вас слова, не бойтесь, все это в курсе будет разжевано наглядно и в понятной форме. Модули курса могут меняться местами или добавляться новые уроки.
