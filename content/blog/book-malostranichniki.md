@@ -8,7 +8,7 @@ tags:
 permalink: 
 draft: false
 ---
-![[../files/post/1/malostranichniki-book.jpg]]
+<img src="https://files.netkela.ru/img/blog/book-malostranichniki/malostranichniki-book.webp" alt="Книга про малостраничники">
 
 Неделю назад я опубликовал пост в телеграме в котором заявил, что заработок на малостраничниках существовал очень давно, а сейчас его преподносят, как что-то новое…
 
@@ -96,4 +96,4 @@ draft: false
 > [!SUCCESS] Заметка из 2020 года
 > Книга получилась мега успешной, продано более 200 экземпляров. Всем спасибо за такое количество комментариев. Этот пост набрал 137 комментариев — это для меня рекорд. Сохраню этот скрин, так как переезжаю на другой движок для блога.
 
-![[../files/post/1/metodichka-malostranichniki-commenti.jpg]]
+<img src="https://files.netkela.ru/img/blog/book-malostranichniki/metodichka-malostranichniki-commenti.webp" alt="Комментарии к книге">
