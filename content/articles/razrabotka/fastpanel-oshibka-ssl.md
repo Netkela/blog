@@ -10,7 +10,7 @@ draft: false
 ---
 Я уже рассказывал, [[ustanovka-fastpanel|как установить бесплатную панель управления сайтами FastPanel]]. Я ее использую уже давно и никогда не было проблем. Но недавно на новом сервере при выпуске SSL сертификата Lets Encrypt в FastPanel возникла такая ошибка «certificate cannot be issued as URL».
 
-![[../../files/post/1/error-ssl-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/error-ssl-fastpanel.jpg" alt="Ошибка certificate cannot be issued as URL в Fastpanel">
 
 Полдня потратил, чтобы найти решение и нашел его. Пишу статью, чтобы сэкономить время, если вдруг у вас будет такая же проблема.
 
@@ -18,25 +18,27 @@ draft: false
 
 Я написал в поддержку FastPanel с этой проблемой, они подтвердили, что исправлять нужно файл /etc/hosts.
 
-![[../../files/post/1/otvet-podderzhki-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/otvet-podderzhki-fastpanel.jpg" alt="Ответ поддержки Fastpanel по поводу ошибки этой ошибки">
 
 Для того, чтобы изменить hosts:
 
 1) Открываем терминал через программу Putty или [Bitvise Client SSH](https://www.bitvise.com/download-area) указав свои данные от сервера — host, username, password:
 
-![[../../files/post/1/bitvise-terminal.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/bitvise-terminal.jpg" alt="Настраиваем bitvise для входа в терминал">
 
 2) Вводим команду:
 
-`sudo nano /etc/hosts`
+```
+sudo nano /etc/hosts
+```
 
 3) Попадаем в файл hosts, он у меня выглядит вот так:
 
-![[../../files/post/1/hosts-bilo.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/hosts-bilo.jpg" alt="Как выглядит файл hosts изначально">
 
 4) Удаляем вторую и последнюю строчку с доменом, нажимаем CTRL+O и потом Enter, чтобы сохранить изменения.
 
-![[../../files/post/1/del-domen-hosts.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/fastpanel-oshibka-ssl/del-domen-hosts.jpg" alt="Удаляем строчки из hosts">
 
 5) А потом CTRL+X, чтобы выйти в терминала. Теперь терминал можно закрыть.
 
