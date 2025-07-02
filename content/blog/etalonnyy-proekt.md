@@ -8,7 +8,7 @@ tags:
 permalink: 
 draft: false
 ---
-![[../files/post/1/etalonniy-site-moneymaker.jpg]]
+<img src="https://files.netkela.ru/img/blog/etalonnyy-proekt/etalonniy-site-moneymaker.webp" alt="">
 
 Увидел в Miralinks информационный проект-эталон, на который многие равнялись в лучшие годы контентных проектов.
 

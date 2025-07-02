@@ -8,7 +8,7 @@ tags:
 permalink: 
 draft: false
 ---
-![[../files/post/1/beliy-offer-stata.jpg]]
+<img src="https://files.netkela.ru/img/blog/odin-beliy-offer/beliy-offer-stata.webp" alt="">
 
 [[belaya-stororna|Переход в белые темы]] проходит удачно. В этом месяце на одном белом оффере пробил планку в 30 000руб. заработка в месяц чистыми. Это кстати график с excel. Я много программ перепробовал для учета финансов, но пришел к выводу, что рабочие доходы и расходы лучше всего вести в excel.
 

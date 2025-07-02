@@ -24,4 +24,4 @@ draft: false
 
 Стал искать пруфы, сколько это примерно по цене будет стоить, и нашел в чате онлайн-школы такую историю на скриншоте. Получается вполне себе выгодное решение. Минус, что нужно заморочиться и всё это настроить.
 
-![[../files/post/1/yandex-cloud-hls.jpg]]
+<img src="https://files.netkela.ru/img/blog/hranim-transliruem-video/yandex-cloud-hls.webp" alt="">
