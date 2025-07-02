@@ -18,23 +18,23 @@ draft: false
 2. Имя пользователя
 3. Пароль
 
-![[../../files/post/1/vps-aeza-net.jpg]]
-
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/vps-aeza-net.webp" alt="Настройки в VPS aeza">
 ## Подключение к серверу
 
 Для подключения к серверу и терминалу я буду использовать программу [Bitvise SSH Client](https://www.bitvise.com/download-area). Мне она нравится тем, что в нее встроен FTP клиент, хоть он нам и не понадобиться, но в других операциях, это очень удобная интеграция и не надо запускать несколько программ. Но вы также можете использовать и [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/), чтобы подключиться к терминалу.
 
 Установив программу открываем ее и вписываем наш IP-адрес, имя пользователя и пароль от нашего сервера.
 
-![[../../files/post/1/bitvise-nastroyki.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/bitvise-nastroyki.webp" alt="Настройки Bitvise для подключения к серверу">
 
 Нажимаем «Log in», если появляется новое окошко с выбором, то выбираем «Accept and Save»
 
-![[../../files/post/1/bitvise-accept-save.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/bitvise-accept-save.webp" alt="Сохраняем данные входа в Bitvise">
 
 После удачного подключения должна появится кнопка с надписью «New Terminal Console».
 
-![[../../files/post/1/bitvise-terminal 1.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/bitvise-terminal.webp" alt="Входим в терминал Bitvise">
+
 Нажимаем на нее и у нас открывается терминал в котором нам будет необходимо прописать несколько команд, чтобы установить FasPanel.
 ## Установка FastPanel
 
@@ -50,11 +50,11 @@ apt-get update
 
 И вставляем в терминал нажав правую кнопку мыши.
 
-![[../../files/post/1/ustanovka-wget-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/ustanovka-wget-fastpanel.webp" alt="Установка wget в FastPanel">
 
 Нажимаем Enter, чтобы применить команду. Начинается установка пакетов. После завершения установки вы увидите надпись Done и у вас опять появится возможность вставлять команды.
 
-![[../../files/post/1/finish-install-wget-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/finish-install-wget-fastpanel.webp" alt="Установка апдейта закончена">
 
 Теперь повторяем тоже самое со второй командой, копируем ее:
 
@@ -64,7 +64,7 @@ apt-get install wget
 
 И вставляем правой кнопкой мыши в терминал, нажимаем Enter. После завершения установки у вас появится курсор терминала.
 
-![[../../files/post/1/finish-install-wget-2-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/finish-install-wget-2-fastpanel.webp" alt="Установка wget закончена">
 
 Таким способом мы установили утилиту wget, которая нужна для запуска скрипта распаковки FastPanel. Теперь нам надо прописать в терминал последнюю команду, которая и установит саму FastPanel. Копируем ее:
 
@@ -76,24 +76,24 @@ apt-get install wget
 
 Хоть FastPanel и бесплатная панель управления сервером, но лицензию для нее надо все равно привязывать к своему IP хосту. Переходим на официальный сайт [https://fastpanel.direct](https://fastpanel.direct/). Нажимаем «Login» в правом верхнем углу. Если вы еще не регистрировались, то делаем это. Если у вас уже есть аккаунт, то просто входим в него. Нажимаем «Новая лицензия».
 
-![[../../files/post/1/fastpanel-vipusk-licenzii.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/fastpanel-vipusk-licenzii.webp" alt="Выпуск лицензии в FastPanel">
 
 Нас перекидывает на страницу с описанием лицензии. Нажимаем «В корзину», вводим свой Ip-адрес сервера, где устанавливается FastPanel и нажимаем кнопку «Оформить».
 
-![[../../files/post/1/oformlenie-licenzii-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/oformlenie-licenzii-fastpanel.webp" alt="Оформление лицензии в FastPanel">
 
 Нас перекидывает на страницу корзины, нажимаем «Перейти к оплате» и попадаем на главную страницу билинга со своей активированной лицензией.
 
-![[../../files/post/1/licenzia-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/licenzia-fastpanel.webp" alt="Лицензия выдана в Fastpanel">
 ## Завершение установки
 
 Возвращаемся в наш терминал. И там уже должна завершиться установка FastPanel. У вас отобразится URL доступа в админку, логин, пароль.
 
-![[../../files/post/1/ustanovka-fastpanel-zavershena.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/ustanovka-fastpanel-zavershena.webp" alt="Установка FastPanel завершена">
 
 Переходим по предоставленному URL. Нажимаем «Подробнее» и «Перейти».
 
-![[../../files/post/1/vhod-fastpanel.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/ustanovka-fastpanel/vhod-fastpanel.webp" alt="Вход в FastPanel">
 
 Вводим логин и пароль, которые вам были предоставлены в терминале и попадаем в панель управления сервером FastPanel.
 

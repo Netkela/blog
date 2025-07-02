@@ -23,16 +23,17 @@ draft: false
 
 Заходим в Панель управления Fastpanel «Настройки > Приложения» и там находим fail2ban и жмем значок «Установить». При установке fail2ban создается стандартный конфиг с общими правилами, которые сразу работают. Но для более точной и специфичной настройки потребуется вручную редактировать конфиги на сервере.
 
-![[../../files/post/1/fastpanel-fail2ban.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/zashita-fastpanel/fastpanel-fail2ban.webp" alt="Настройка fail2ban в Fastpanel">
 
 2. **Поставить двухфакторную аутентификацию через приложение.**
 
 Заходим в панели «Настройки > Основные > Двухфакторная аутентификация». Включаем ее, качаем любой TOTP-клиент (Google Authenticator, Яндекс Ключ, Aegis или другие) сканируем QR-код с помощью скаченного приложения или вводим секретный ключ. Вводим сгенерированный код из приложения и подтверждаем.
 
-![[../../files/post/1/fastpanel-dvuhfaktorka.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/zashita-fastpanel/fastpanel-dvuhfaktorka.webp" alt="Настройка двухфакторной авторизации в Fastpanel">
 
 Теперь помимо логина и пароля от панели, при входе всегда будет запрашиваться код, который генерирует TOTP-клиент.
 
 3. **Выключить FTP, использовать только SFTP.** По-умолчанию через пользователей FASTPANEL нельзя подключиться через FTP. Вы можете установить модуль SFTP в разделе «Настройки > Приложения».
 
-![[../../files/post/1/fastpanel-sftp.jpg]]
+<img src="https://files.netkela.ru/img/articles/razrabotka/zashita-fastpanel/fastpanel-sftp.webp" alt="Включение SFTP в Fastpanel">
+
