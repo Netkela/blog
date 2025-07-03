@@ -6,7 +6,7 @@ aliases:
   - Punycode
 date: 
 tags: 
-draft: false
+draft: true
 dateoff: true
 ---
 **Punycode** — это метод преобразования символов, содержащихся в доменных именах, из Unicode в ACE (ASCII Compatible Encoding). Полученные на выходе символы, полностью соответствуют стандартам инфраструктуры DNS.

@@ -6,7 +6,7 @@ aliases:
   - FastPanel не может выпустить SSL сертификат
 date: 2025-02-17
 tags: 
-draft: false
+draft: true
 ---
 Я уже рассказывал, [[ustanovka-fastpanel|как установить бесплатную панель управления сайтами FastPanel]]. Я ее использую уже давно и никогда не было проблем. Но недавно на новом сервере при выпуске SSL сертификата Lets Encrypt в FastPanel возникла такая ошибка «certificate cannot be issued as URL».
 

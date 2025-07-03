@@ -6,7 +6,7 @@ aliases:
   - Standalone (Автономный блог)
 date: 
 tags: 
-draft: false
+draft: true
 dateoff: true
 ---
 **Standalone блог (Автономный)** — это независимый блог, он имеет собственное доменное имя, хостинг и CMS.

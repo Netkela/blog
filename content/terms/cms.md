@@ -6,7 +6,7 @@ aliases:
   - CMS (Content management system)
 date: 
 tags: 
-draft: false
+draft: true
 dateoff: true
 ---
 **CMS (Content management system)** — это система или программа (пакет программ), предназначенная для управления, редактирования, создания содержимого сайта, страницы, блога, позволяющая взаимодействовать администратору с посетителями.

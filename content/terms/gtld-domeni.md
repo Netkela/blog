@@ -6,7 +6,7 @@ aliases:
   - gTLD домены
 date: 
 tags: 
-draft: false
+draft: true
 dateoff: true
 ---
 **gTLD (Generic Top-Level Domain)** — это домен верхнего уровня. Он не привязан к определённому географическому местоположению, как [[cctld-domeni|ccTLD домен]] и может быть зарегистрирован кем угодно и из любой точки мира. Состоит из трех и более символов. Например .com, .org, .net.

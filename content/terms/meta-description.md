@@ -6,7 +6,7 @@ aliases:
   - Мета-тег Description
 date: 
 tags: 
-draft: false
+draft: true
 dateoff: true
 ---
 **Мета-тег description** — это краткое описание веб-страницы, отображаемое в поисковой выдаче. Он располагается в HTML-коде, в разделе head, и не виден на самой странице.
