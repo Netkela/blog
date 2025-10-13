@@ -13,7 +13,7 @@ showBio: false
 dateoff: true
 readoff: true
 ---
-Оптимист, вебмастер и digital-блогер
+Соло-предприниматель и блогер
 
 ![[files/site/netkela.jpg]]
 
