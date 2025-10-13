@@ -1,11 +1,11 @@
 ---
-title: Блог
+title: Хроника
 description: Личный блог Netkela.
 aliases:
   - Блог
-date: 
-tags: 
-permalink: 
+date:
+tags:
+permalink:
 draft: false
 comments: false
 showBio: false

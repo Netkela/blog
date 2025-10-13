@@ -1,11 +1,11 @@
 ---
-title: Статьи
+title: Принципы
 description: Список всех статей
 aliases:
   - Статьи
-date: 
-tags: 
-permalink: 
+date:
+tags:
+permalink:
 draft: false
 comments: false
 showBio: false
