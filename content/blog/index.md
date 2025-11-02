@@ -1,5 +1,5 @@
 ---
-title: Хроника
+title: Статьи
 description: Личный блог Netkela.
 aliases:
   - Блог
