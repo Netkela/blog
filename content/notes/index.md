@@ -9,7 +9,7 @@ permalink:
 draft: false
 comments: false
 showBio: false
-datalistoff: true
+datalistoff: false
 dateoff: true
 readoff: true
 ---
