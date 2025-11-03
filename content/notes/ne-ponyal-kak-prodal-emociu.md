@@ -4,9 +4,10 @@ description: Сгоревший офис и SEO. Как история, а не 
 aliases:
   - Сам не понял, как продал эмоцию
 date: 2025-02-10
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 В [подкасте с Петей](https://webmasterie.ru/podcast/put-seo-agentstva-wpnew) я упомянул историю, как возвращался в клиентское SEO. Опубликовал фото сгоревшего офиса клиента.
 

@@ -7,7 +7,7 @@ aliases:
 date: 2025-08-04
 tags:
 draft: false
-tgwidget: true
+tgwidget: false
 comments: false
 tgpost: "1021"
 ---

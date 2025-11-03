@@ -4,9 +4,10 @@ description: От миллионной прибыли к продаже ссыл
 aliases:
   - Эталонный проект, который помним
 date: 2025-01-27
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 <img src="https://files.netkela.ru/img/blog/etalonnyy-proekt/etalonniy-site-moneymaker.webp" alt="">
 

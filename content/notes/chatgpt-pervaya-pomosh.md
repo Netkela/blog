@@ -4,9 +4,10 @@ description: Как я обновил плагин WordPress с помощью C
 aliases:
   - ChatGPT существенно помог мне первый раз
 date: 2024-08-27
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 Купил плагин на WordPress для перевода статей, в нем оказалось старое API Yandex Translate 1,5. Написал разработчику-индусу с просьбой обновить API версию в плагине до 2.0, так как старая уже не поддерживается Яндексом.
 

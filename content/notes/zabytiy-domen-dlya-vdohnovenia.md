@@ -4,9 +4,10 @@ description: Как я боролся за культовый SEO-домен и 
 aliases:
   - Забытый домен, который дарит вдохновение
 date: 2025-01-16
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 С 2017 года я боролся за домен westseo.
 
