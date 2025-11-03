@@ -85,7 +85,12 @@ export const defaultContentPageLayout: PageLayout = {
         /* { Component: Component.ReaderMode() }, */
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+    folderClickBehavior: "link",      // Клик по папке = переход
+    folderDefaultState: "collapsed",  // Все папки свернуты
+    useSavedState: false,             // Не сохранять состояние
+    title: "Навигация",               // Название (опционально)
+  }),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
