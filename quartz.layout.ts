@@ -85,16 +85,16 @@ export const defaultContentPageLayout: PageLayout = {
         /* { Component: Component.ReaderMode() }, */
       ],
     }),
-    Component.Explorer({
-  title: "Навигация",
-  folderDefaultState: "collapsed",
-  folderClickBehavior: "link",
-  useSavedState: false,
-  filterFn: (node) => {
-    // Показывать ТОЛЬКО папки, скрыть все файлы
-    return node.isFolder === true
-  },
-})
+    Component.CustomMenu({
+      title: "Навигация",
+      items: [
+        { title: "Основы SEO", href: "/seo" },
+        { title: "Контент-маркетинг", href: "/content" },
+        { title: "Автоматизация", href: "/automation" },
+        { title: "Монетизация", href: "/monetization" },
+        { title: "Психология", href: "/psychology" },
+      ],
+    })
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),

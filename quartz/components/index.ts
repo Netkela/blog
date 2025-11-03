@@ -24,6 +24,7 @@ import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import TelegramSubscribe from "./TelegramSubscribe"
+import CustomMenu from "./CustomMenu"
 
 export {
   ArticleTitle,
@@ -52,6 +53,7 @@ export {
   Flex,
   ConditionalRender,
   TelegramSubscribe,
+  CustomMenu,
 }
 
 // ... другие импорты
