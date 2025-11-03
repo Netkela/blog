@@ -7,6 +7,11 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [
     Component.TagList(),
+    Component.TelegramSubscribe({
+      channelUrl: "https://t.me/netkela",
+      buttonText: "Подписаться на Telegram",
+      description: "Получайте новые статьи и эксклюзивный контент первыми"
+    }),
       Component.FixedBio({
       name: "Александр Овсянников (Netkela)",
       bio: 'Соло-предприниматель и блогер. Основатель <a href="https://webmasterie.ru/club" target="_blank" rel="noopener">сообщества Вебмастерье</a> и автор телеграм канала <a href="https://t.me/netkelago" target="_blank" rel="noopener">Netkela не промахнулся</a>.',
