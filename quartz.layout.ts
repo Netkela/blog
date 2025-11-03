@@ -8,8 +8,8 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [
     Component.TagList(),
       Component.FixedBio({
-      name: "Александр Овсянников (Netkela)", // <--- ОБЯЗАТЕЛЬНО: Вставьте ваше ФИО
-      bio: "Соло-предприниматель и блогер. Основатель <a href="https://webmasterie.ru/club" target=_blank>сообщества Вебмастерье</a> и автор телеграм канала <a href="https://t.me/netkelago" target=_blank>Netkela не промазнулся</a>.",
+      name: "Александр Овсянников (Netkela)",
+      bio: "Соло-предприниматель и блогер.",
       avatarSrc: "/files/site/avatar.jpg",
       social: {
         telegram: "https://t.me/netkela", // Опционально
