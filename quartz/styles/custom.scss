@@ -37,3 +37,19 @@ img {
     border-radius: 10px;
     border: 1px solid #ccc;
 }
+
+/* Скрыть содержимое всех папок */
+#explorer-content .folder-outer > ul {
+  display: none !important;
+}
+
+/* Убрать стрелочки раскрытия */
+#explorer-content button.folder-button svg {
+  display: none !important;
+}
+
+/* Сделать папки некликабельными (опционально) */
+#explorer-content button.folder-button {
+  pointer-events: none;
+  cursor: default !important;
+}
