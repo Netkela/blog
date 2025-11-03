@@ -38,18 +38,28 @@ img {
     border: 1px solid #ccc;
 }
 
-/* Скрыть содержимое всех папок */
-#explorer-content .folder-outer > ul {
-  display: none !important;
+/* Скрыть все дочерние элементы папок */
+#explorer-content .folder-outer ul,
+#explorer-content .folder-outer > ul,
+#explorer-content li[data-folderpath] ul,
+#explorer-content .folder-container ul {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
 }
 
-/* Убрать стрелочки раскрытия */
-#explorer-content button.folder-button svg {
-  display: none !important;
+/* Убрать стрелки */
+#explorer-content button.folder-button svg,
+#explorer-content .folder-button svg,
+#explorer-content button[data-folderpath] svg {
+    display: none !important;
 }
 
-/* Сделать папки некликабельными (опционально) */
-#explorer-content button.folder-button {
-  pointer-events: none;
-  cursor: default !important;
+/* Отключить клик */
+#explorer-content button.folder-button,
+#explorer-content .folder-button,
+#explorer-content button[data-folderpath] {
+    pointer-events: none !important;
+    cursor: default !important;
 }
