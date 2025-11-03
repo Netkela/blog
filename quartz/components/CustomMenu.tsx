@@ -62,7 +62,7 @@ export default ((opts?: Options) => {
     .custom-menu { position: relative; }
     
     .custom-menu-toggle {
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       width: 44px;

@@ -117,7 +117,16 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.CustomMenu({
+      title: "Навигация",
+      items: [
+        { title: "Блог", href: "/blog/" },
+        { title: "Заметки", href: "/articles/" },
+        { title: "Статьи", href: "/notes/" },
+        { title: "Обо мне", href: "/about" },
+        { title: "Контакты", href: "/contacts" },
+      ],
+    })
   ],
   right: [],
 }
