@@ -41,7 +41,7 @@ export default ((opts: Options) => {
         {/* Новый контейнер для текста и соцсетей */}
         <div class="fixed-bio-text-content">
           <div class="fixed-bio-name">{opts.name}</div>
-          <p class="fixed-bio-text">{opts.bio}</p>
+          <p class="fixed-bio-text" dangerouslySetInnerHTML={{ __html: opts.bio }} />
           {opts.social && (
             <div class="fixed-bio-social-links">
               {opts.social.telegram && (
@@ -111,6 +111,14 @@ export default ((opts: Options) => {
       margin-bottom: 0.3rem; /* Уменьшен отступ между текстом био и кнопками соцсетей */
       text-align: left; /* Выравниваем по левому краю */
     }
+
+    a {
+    color: var(--secondary);
+    text-decoration: underline;
+    &:hover {
+      color: var(--tertiary);
+    }
+  }
 
     .fixed-bio-social-links {
       display: flex;
