@@ -1,5 +1,5 @@
 ---
-title: Статьи
+title: Блог
 description: Личный блог Netkela.
 aliases:
   - Блог
