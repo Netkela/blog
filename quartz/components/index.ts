@@ -51,6 +51,7 @@ export {
   Comments,
   Flex,
   ConditionalRender,
+  TelegramSubscribe,
 }
 
 // ... другие импорты
