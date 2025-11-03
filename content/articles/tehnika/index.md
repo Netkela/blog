@@ -1,11 +1,11 @@
 ---
-title: Техника
+title: "Рубрика: Техника"
 description: Список всех статей обзор техники
 aliases:
   - Техника
-date: 
-tags: 
-permalink: 
+date:
+tags:
+permalink:
 draft: false
 comments: false
 showBio: false
