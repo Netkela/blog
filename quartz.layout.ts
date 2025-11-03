@@ -47,7 +47,6 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      Услуги: "/uslugi/",
       "Обо мне": "/about",
       Контакты: "/contacts",
     },
@@ -88,11 +87,11 @@ export const defaultContentPageLayout: PageLayout = {
     Component.CustomMenu({
       title: "Навигация",
       items: [
-        { title: "Основы SEO", href: "/seo" },
-        { title: "Контент-маркетинг", href: "/content" },
-        { title: "Автоматизация", href: "/automation" },
-        { title: "Монетизация", href: "/monetization" },
-        { title: "Психология", href: "/psychology" },
+        { title: "Блог", href: "/blog/" },
+        { title: "Заметки", href: "/articles/" },
+        { title: "Статьи", href: "/notes/" },
+        { title: "Обо мне", href: "/about" },
+        { title: "Контакты", href: "/contacts" },
       ],
     })
   ],
