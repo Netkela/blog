@@ -124,34 +124,12 @@ export default ((userOpts?: Partial<Options>) => {
             <a href="#"></a>
           </li>
         </template>
-        <template id="template-folder">
-          <li>
-            <div class="folder-container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                viewBox="5 8 14 8"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="folder-icon"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-              <div>
-                <button class="folder-button">
-                  <span class="folder-title"></span>
-                </button>
-              </div>
-            </div>
-            <div class="folder-outer">
-              <ul class="content"></ul>
-            </div>
-          </li>
-        </template>
+   <template id="template-folder">
+  <li>
+    <a href="#" class="folder-title"></a>
+  </li>
+</template>
+
       </div>
     )
   }
