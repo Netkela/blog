@@ -5,8 +5,9 @@ description: "Обзор кресла Hara Chair Nietzsche: эргономичн
 aliases:
   - Обзор Hara Chair Nietzsche — компьютерное кресло для IT специалистов
 date: 2019-12-28
-tags: 
+tags:
 draft: false
+comments: false
 ---
 Хочу вам рассказать об ортопедическом кресле, на котором я проработал полгода.
 
