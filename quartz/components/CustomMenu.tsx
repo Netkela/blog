@@ -59,7 +59,10 @@ export default ((opts?: Options) => {
   }
 
   CustomMenu.css = `
-    .custom-menu { position: relative; }
+    .custom-menu {
+    position: relative;
+    margin-left: 0.5rem;
+    }
     
     .custom-menu-toggle {
       display: flex;
@@ -73,6 +76,7 @@ export default ((opts?: Options) => {
       cursor: pointer;
       color: var(--text);
       border-radius: 6px;
+      margin-left: 0.5rem;
     }
 
     .custom-menu-toggle:hover {
@@ -156,7 +160,7 @@ export default ((opts?: Options) => {
       padding-left: 1.75rem;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 800px) {
       .custom-menu-toggle { display: none !important; }
       .custom-menu-overlay { display: none !important; }
       .custom-menu-nav {
