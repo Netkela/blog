@@ -13,7 +13,7 @@ showBio: false
 dateoff: true
 readoff: true
 ---
-Соло-предприниматель и блогер
+Соло-предприниматель, вебмастер и блогер
 
 ![[files/site/netkela.jpg]]
 
