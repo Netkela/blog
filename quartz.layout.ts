@@ -9,15 +9,15 @@ export const sharedPageComponents: SharedLayout = {
     Component.TagList(),
       Component.FixedBio({
       name: "Александр Овсянников (Netkela)",
-      bio: "Соло-предприниматель и блогер.",
+      bio: "Соло-предприниматель и блогер. Основатель <a href="" target=_blank>сообщества Вебмастерье</a> и автор телеграм канала <a href="" target=_blank>Netkela не промазнулся</a>.",
       avatarSrc: "/files/site/avatar.jpg",
       social: {
-        telegram: "https://t.me/netkela", // Опционально
-        vk: "https://vk.com/netkela", // Опционально
-        email: "mailto:netkela@mail.ru" // Опционально
+        telegram: "https://t.me/netkela",
+        vk: "https://vk.com/netkela",
+        email: "mailto:netkela@mail.ru"
       },
-      title: "Обо мне" // Опционально: можно настроить заголовок секции
-    }), // <--- ДОБАВЬТЕ ЭТУ СТРОКУ
+      title: "Обо мне"
+    }), 
     Component.TelegramComments({
       website: "Poy1WQpK", // ваш ID сайта
       limit: 5,
