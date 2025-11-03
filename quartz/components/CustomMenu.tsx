@@ -58,30 +58,40 @@ export default ((opts?: Options) => {
     )
   }
 
-  CustomMenu.css = `
-    .custom-menu {
+ CustomMenu.css = `
+  .custom-menu { 
     position: relative;
     margin-left: 0.5rem;
-    }
-    
-    .custom-menu-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      padding: 0;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--text);
-      border-radius: 6px;
-      margin-left: 0.5rem;
-    }
+  }
+  
+  .custom-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background-color: var(--highlight);
+    border: 1px solid var(--lightgray);
+    cursor: pointer;
+    color: var(--text);
+    border-radius: 8px;
+    margin-left: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
 
-    .custom-menu-toggle:hover {
-      background-color: var(--highlight);
-    }
+  .custom-menu-toggle:hover {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .custom-menu-toggle:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
     .custom-menu-overlay {
       display: none;
