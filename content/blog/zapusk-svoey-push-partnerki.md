@@ -6,8 +6,9 @@ aliases:
 date: 2020-01-21
 tags:
   - majorpush
-permalink: 
+permalink:
 draft: false
+comments: false
 ---
 Новый год начал с запуска нового проекта. 13.01.2020 запустил пуш-партнерку по монетизации трафика Majorpush.pro ([[prodal-majorpush|на данный момент проект продан]]).
 

@@ -4,9 +4,10 @@ description: Хвалюсь, что привел 1000 рефералов за 12
 aliases:
   - 1000 рефералов за год на хостинг
 date: 2023-12-14
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 <img src="https://files.netkela.ru/img/blog/1000-refov-za-god/1000-refov-za-god.webp" alt="">
 

@@ -1,12 +1,13 @@
 ---
 title: Самый жирный лид от хостинга
-description: 
+description:
 aliases:
   - Самый жирный лид от хостинга
 date: 2024-01-10
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 <img src="https://files.netkela.ru/img/blog/zhirniy-lid-hostinga/zhirniy-lid-hostinga.webp" alt="">
 

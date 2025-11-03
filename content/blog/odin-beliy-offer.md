@@ -4,9 +4,10 @@ description: В этом месяце на одном белом оффере п
 aliases:
   - Один белый оффер и 30 000руб.
 date: 2023-12-01
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 <img src="https://files.netkela.ru/img/blog/odin-beliy-offer/beliy-offer-stata.webp" alt="">
 

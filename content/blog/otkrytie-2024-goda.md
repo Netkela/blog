@@ -4,9 +4,10 @@ description: От Huawei без Google до универсального Google 
 aliases:
   - Открытие 2024 года о Google Auth
 date: 2024-11-29
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 Когда Трамп ввел санкции на Huawei я продал всю технику Apple и купил всю продукцию Huawei без поддержки Google сервисов. Мне было интересно, что у них за экосистема и смогу ли я использовать Android, который не поддерживает Google.
 

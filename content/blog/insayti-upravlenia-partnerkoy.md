@@ -6,8 +6,9 @@ aliases:
 date: 2023-06-14
 tags:
   - majorpush
-permalink: 
+permalink:
 draft: false
+comments: false
 ---
 Я почти три года [[prodal-majorpush|управлял рекламной сетью]]. Какие выводы я сделал и чему меня это научило.
 

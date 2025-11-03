@@ -4,9 +4,10 @@ description: Моя история успеха с фан-сайтом "Реал
 aliases:
   - Как ТНТ мне не дали заработать на сайте
 date: 2011-04-08
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 В своем посте — [[na-kinotrendah-stalo-zarabotat-slozhnee|на кинотрендах стало заработать сложнее]], я писал, что пытаюсь повторить свой давний успех [[perviy-money-site|300$ за неделю]]. Как Вы помните я создал сайт про только вышедший сериал.
 

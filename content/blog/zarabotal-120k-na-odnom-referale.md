@@ -4,9 +4,10 @@ description: Неожиданные 120 000 рублей. Как один реф
 aliases:
   - Заработал 120 000р. на одном реферале
 date: 2023-04-30
-tags: 
-permalink: 
+tags:
+permalink:
 draft: false
+comments: false
 ---
 Так произошло, что [[kak-ya-viygral-iphone|после выигрыша iphone]], я открыл сервис RuCaptcha и увидел, что у меня там на счету 120 000руб.
 
