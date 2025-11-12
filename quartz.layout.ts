@@ -88,8 +88,6 @@ export const defaultContentPageLayout: PageLayout = {
       title: "Навигация",
       items: [
         { title: "Блог", href: "/blog/" },
-         { title: "Заметки", href: "/notes/" },
-        { title: "Статьи", href: "/articles/" },
         { title: "Обо мне", href: "/about" },
         { title: "Контакты", href: "/contacts" },
       ],
