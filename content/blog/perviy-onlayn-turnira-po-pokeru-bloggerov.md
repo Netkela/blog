@@ -5,6 +5,8 @@ aliases:
   - Итоги первого онлайн турнира по покеру среди блоггеров
 date: 2010-12-12
 tags:
+  - путь
+  - покер
 permalink:
 draft: false
 comments: false

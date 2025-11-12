@@ -5,6 +5,7 @@ aliases:
   - Как я продавал зарубежную одежду через Авито
 date: 2023-05-11
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

@@ -5,6 +5,8 @@ aliases:
   - Сообществу когда-нибудь быть
 date: 2022-06-10
 tags:
+  - путь
+  - сообщество
 permalink:
 draft: false
 comments: false

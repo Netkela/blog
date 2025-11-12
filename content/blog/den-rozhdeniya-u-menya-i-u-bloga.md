@@ -5,6 +5,7 @@ aliases:
   - День рождения у меня и у блога
 date: 2010-04-30
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

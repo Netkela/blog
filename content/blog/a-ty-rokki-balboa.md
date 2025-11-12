@@ -5,6 +5,7 @@ aliases:
   - А ты Рокки Бальбоа?
 date: 2010-06-25
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

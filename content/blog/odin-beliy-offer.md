@@ -5,6 +5,7 @@ aliases:
   - Один белый оффер и 30 000руб.
 date: 2023-12-01
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

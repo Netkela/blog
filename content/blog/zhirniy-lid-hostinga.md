@@ -5,6 +5,7 @@ aliases:
   - Самый жирный лид от хостинга
 date: 2024-01-10
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

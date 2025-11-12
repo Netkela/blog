@@ -5,6 +5,8 @@ aliases:
   - Про вымирание сообществ
 date: 2025-03-06
 tags:
+  - путь
+  - сообщество
 permalink:
 draft: false
 comments: false

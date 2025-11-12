@@ -5,6 +5,7 @@ aliases:
   - Перешел на белую сторону
 date: 2023-11-29
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

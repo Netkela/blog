@@ -5,6 +5,7 @@ aliases:
   - 15 лет блогинга и мне 37 лет
 date: 2025-04-30
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

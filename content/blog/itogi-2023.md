@@ -5,6 +5,8 @@ aliases:
   - Итоги 2023 года — первая депра
 date: 2024-01-12
 tags:
+  - путь
+  - итоги
 permalink:
 draft: false
 comments: false

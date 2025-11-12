@@ -5,6 +5,8 @@ aliases:
   - Как я планирую и веду дела?
 date: 2016-06-26
 tags:
+  - путь
+  - продуктивность
 permalink:
 draft: false
 comments: false

@@ -6,6 +6,7 @@ aliases:
 date: 2023-06-14
 tags:
   - majorpush
+  - путь
 permalink:
 draft: false
 comments: false

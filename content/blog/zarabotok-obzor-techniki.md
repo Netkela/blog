@@ -5,6 +5,7 @@ aliases:
   - Как я тестировал заработок на обзорах техники в YouTube
 date: 2025-01-15
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

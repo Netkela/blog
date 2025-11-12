@@ -5,6 +5,7 @@ aliases:
   - Дань уважения Леониду Гроховскому
 date: 2024-01-22
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

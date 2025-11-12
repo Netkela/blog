@@ -5,6 +5,8 @@ aliases:
   - "Итоги 2018 года: переезд в Сочи, курсы и рождение сына"
 date: 2018-12-31
 tags:
+  - путь
+  - итоги
 permalink:
 draft: false
 comments: false

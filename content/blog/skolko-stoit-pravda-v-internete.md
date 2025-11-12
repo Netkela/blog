@@ -5,6 +5,7 @@ aliases:
   - Сколько стоит правда в Интернете?
 date: 2010-07-14
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

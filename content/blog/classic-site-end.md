@@ -5,6 +5,7 @@ aliases:
   - Это точно конец классическим статейным сайтам
 date: 2020-12-13
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

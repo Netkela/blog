@@ -5,6 +5,7 @@ aliases:
   - Социальные сети — первый план
 date: 2024-05-23
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

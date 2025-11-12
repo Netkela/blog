@@ -5,6 +5,8 @@ aliases:
   - "Сообщество «Месяц 2»: поиск стратегии продвижения"
 date: 2025-05-03
 tags:
+  - путь
+  - сообщество
 permalink:
 draft: false
 tgwidget: false

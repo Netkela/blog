@@ -5,6 +5,7 @@ aliases:
   - 7 онлайн-проектов за 7 месяцев
 date: 2024-05-23
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

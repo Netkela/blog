@@ -5,6 +5,7 @@ aliases:
   - Мои якоря в работе
 date: 2010-11-02
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

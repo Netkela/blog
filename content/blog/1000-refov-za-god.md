@@ -5,6 +5,7 @@ aliases:
   - 1000 рефералов за год на хостинг
 date: 2023-12-14
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

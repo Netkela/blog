@@ -5,6 +5,8 @@ aliases:
   - Запустил клуб с платной подпиской
 date: 2025-03-05
 tags:
+  - путь
+  - сообщество
 permalink:
 draft: false
 comments: false

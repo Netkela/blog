@@ -5,6 +5,7 @@ aliases:
   - "Мой самый первый заработок на сайте: 300$ за неделю"
 date: 2010-05-03
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

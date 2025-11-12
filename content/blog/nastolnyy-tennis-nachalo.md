@@ -5,6 +5,7 @@ aliases:
   - Как я начал играть в настольный теннис
 date: 2023-04-29
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

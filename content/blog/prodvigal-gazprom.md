@@ -5,6 +5,7 @@ aliases:
   - Я продвигал Газпром, а ты нет. Значит, тебе повезло!
 date: 2016-10-17
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

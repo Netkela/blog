@@ -5,6 +5,8 @@ aliases:
   - "Итоги 2011 года: первая квартира, машина и закончил универ"
 date: 2012-01-10
 tags:
+  - путь
+  - итоги
 permalink:
 draft: false
 comments: false

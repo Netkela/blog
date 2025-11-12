@@ -5,6 +5,7 @@ aliases:
   - Моя первая книга «Заработок на малостраничниках»
 date: 2018-04-10
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

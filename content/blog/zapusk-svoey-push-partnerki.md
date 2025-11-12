@@ -6,6 +6,7 @@ aliases:
 date: 2020-01-21
 tags:
   - majorpush
+  - путь
 permalink:
 draft: false
 comments: false

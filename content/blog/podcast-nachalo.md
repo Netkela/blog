@@ -5,6 +5,7 @@ aliases:
   - Как начинался мой подкастинг
 date: 2024-09-18
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

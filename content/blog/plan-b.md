@@ -5,6 +5,7 @@ aliases:
   - Снова все не по плану и нужен план Б
 date: 2024-06-02
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

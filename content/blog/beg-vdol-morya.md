@@ -5,6 +5,7 @@ aliases:
   - Бег вдоль моря
 date: 2024-04-18
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

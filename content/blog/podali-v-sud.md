@@ -5,6 +5,7 @@ aliases:
   - Друг на меня подал в суд
 date: 2024-02-28
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

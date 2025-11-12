@@ -5,6 +5,8 @@ aliases:
   - Покер клуб для блоггеров закрыт и продан
 date: 2012-02-13
 tags:
+  - путь
+  - покер
 permalink:
 draft: false
 comments: false

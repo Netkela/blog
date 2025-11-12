@@ -5,6 +5,7 @@ aliases:
   - Как ТНТ мне не дали заработать на сайте
 date: 2011-04-08
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

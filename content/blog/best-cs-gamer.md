@@ -5,6 +5,7 @@ aliases:
   - Как я провел самый крупный турнир по Quake 4 в Сибири и стал лучшим игроком CS в Тюменской области
 date: 2025-04-22
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

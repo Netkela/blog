@@ -5,6 +5,7 @@ aliases:
   - Запустил свой первый софт — MajorPanel
 date: 2018-06-03
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

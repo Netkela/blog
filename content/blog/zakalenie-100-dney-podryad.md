@@ -5,6 +5,8 @@ aliases:
   - Закалялся 100 дней подряд и какие выводы сделал
 date: 2024-05-03
 tags:
+  - путь
+  - продуктивность
 permalink:
 draft: false
 comments: false

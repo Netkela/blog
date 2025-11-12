@@ -5,6 +5,7 @@ aliases:
   - Мои первые успехи в поисковом продвижении коммерческого проекта
 date: 2011-04-28
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

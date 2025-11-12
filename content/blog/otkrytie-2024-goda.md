@@ -5,6 +5,7 @@ aliases:
   - Открытие 2024 года о Google Auth
 date: 2024-11-29
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

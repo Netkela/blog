@@ -5,6 +5,7 @@ aliases:
   - Опыт продажи товаров купленных на ebay (перепродажа)
 date: 2012-09-28
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

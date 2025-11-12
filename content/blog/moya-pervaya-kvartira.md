@@ -5,6 +5,7 @@ aliases:
   - Моя первая квартира
 date: 2011-02-7
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

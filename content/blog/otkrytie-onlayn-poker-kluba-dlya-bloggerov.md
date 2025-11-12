@@ -5,6 +5,8 @@ aliases:
   - Открытие онлайн покер клуба для блоггеров
 date: 2011-05-08
 tags:
+  - путь
+  - покер
 permalink:
 draft: false
 comments: false

@@ -5,6 +5,7 @@ aliases:
   - Китайский чай Пуэр, Да Хун Пао, Те Гуань Инь — эффект и как правильно заваривать
 date: 2011-02-09
 tags:
+  - чай
 permalink:
 draft: false
 comments: false

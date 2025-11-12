@@ -5,6 +5,7 @@ aliases:
   - Как я реализую свои детские вебмастерские мечты
 date: 2019-01-25
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

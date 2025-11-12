@@ -5,6 +5,7 @@ aliases:
   - Мой первый курс
 date: 2018-06-13
 tags:
+  - путь
 permalink:
 draft: false
 comments: false

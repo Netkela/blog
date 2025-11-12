@@ -5,6 +5,7 @@ aliases:
   - Заработал 120 000р. на одном реферале
 date: 2023-04-30
 tags:
+  - путь
 permalink:
 draft: false
 comments: false
