@@ -82,7 +82,7 @@ export default {
       tagIndex: "Индекс тегов",
       itemsUnderTag: ({ count }) => `С этим тегом связано ${count} пост${getForm(count, "", "а", "ов")}:`,
       showingFirst: ({ count }) =>
-        `Показыва${getForm(count, "ется", "ются", "ются")} ${count} пост${getForm(count, "", "а", "ов")}`,
+        `показыва${getForm(count, "ется", "ются", "ются")} ${count} пост${getForm(count, "", "а", "ов")}. Нажмите на тег, чтобы увидеть все посты.`,
       totalTags: ({ count }) => `Всего ${count} тег${getForm(count, "", "а", "ов")}`,
     },
   },
