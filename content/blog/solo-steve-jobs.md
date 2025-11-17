@@ -6,6 +6,7 @@ aliases:
   - Одинокий Стив Джобс
 date: 2025-11-08
 tags:
+  - заработок
 draft: false
 comments: false
 dateoff: false
