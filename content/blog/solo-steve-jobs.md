@@ -11,7 +11,7 @@ draft: false
 comments: false
 dateoff: false
 tgwidget: false
-tgpost:
+tgpost: "1063"
 ---
 Мы уже говорили про то, что [[../../blog/ne-rost|гонка за больше]] может стать ловушкой. Но эта ловушка особенно опасна, когда ты создаешь продукт в одиночку. 
 
