@@ -10,7 +10,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.TelegramSubscribe({
       channelUrl: "https://t.me/netkela",
       buttonText: "Подписаться на Telegram",
-      description: "Получайте новые статьи и эксклюзивный контент первыми"
+      description: "Более 16 лет в онлайн-бизнесе. Честно о заработке и продуктивности. Строю проекты без хайпа и мутных схем."
     }),
       Component.FixedBio({
       name: "Александр Овсянников (Netkela)",
