@@ -1,35 +1,35 @@
 # 1. Индивидуальные редиректы для конкретных измененных URL
 # Обратите внимание, что дзен-ссылка - это внешняя ссылка, она обрабатывается иначе
 /15000km https://dzen.ru/a/aEkwogpKtVTr25e2 301
-/perviy-pohod /blog/https://dzen.ru/a/aElAMseY7x8ck-N- 301
-/myperviy-soft /blog/my-perviy-soft 301
-/kak-ya-testiroval-zarabotok-na-obzorah-tehniki-v-youtube /blog/zarabotok-obzor-techniki 301
-/kak-ya-nachal-igrat-v-nastolnyy-tennis /blog/nastolnyy-tennis-nachalo 301
-/ne-ver-poka-sam-ne-poprobuesh /blog/ne-ver-poprobuy 301
+/perviy-pohod /notes/https://dzen.ru/a/aElAMseY7x8ck-N- 301
+/myperviy-soft /notes/my-perviy-soft 301
+/kak-ya-testiroval-zarabotok-na-obzorah-tehniki-v-youtube /notes/zarabotok-obzor-techniki 301
+/kak-ya-nachal-igrat-v-nastolnyy-tennis /notes/nastolnyy-tennis-nachalo 301
+/ne-ver-poka-sam-ne-poprobuesh /notes/ne-ver-poprobuy 301
 /author/netkela / 301
-/kak-ya-prodaval-zarubezhnuyu-odezhdu-cherez-avito /blog/prodazha-odezhdi-avito 301
-/itogi-pervogo-onlayn-turnira-po-pokeru-sredi-bloggerov /blog/perviy-onlayn-turnira-po-pokeru-bloggerov
-/ya-prodal-svoyu-partnerku /blog/prodal-majorpush 301
-/polza-ot-rukovoditeley-kotorye-ne-sharyat-v-seo /blog/polza-rukovoditeley-ne-ponimaut-seo 301
-/insayty-kotorye-ya-poluchil-upravlyaya-partnerkoy /blog/insayti-upravlenia-partnerkoy 301
-/sam-ne-ponyal-kak-prodal-emotsiyu /blog/ne-ponyal-kak-prodal-emociu 301
-/kak-nachinalsya-moy-podkasting /blog/podcast-nachalo 301
-/desktop-i-open-source-nashe-vse /blog/desktop-i-open-source 301
-/itogi-2011-goda-pervaya-mashina-i-zakonchil-univer /blog/itogi-2011 301
-/etalonnyy-proekt-kotoryy-pomnim /blog/etalonnyy-proekt 301
-/toksichnoe-russkoyazychnoe-soobschestvo-vebmasterov /blog/toksik-webmaster 301
-/pochemu-rss-luchshaya-tehnologiya /blog/rss-technologia 301
-/ne-stoit-zaviset-ot-neyrosetey /blog/ne-zavis-ot-neurosetey 301
-/zabytyy-domen-kotoryy-darit-vdohnovenie /blog/zabytiy-domen-dlya-vdohnovenia 301
-/vozmozhnosti-u-kogo-to-otkryvayutsya-a-u-kogo-to-zakryvayutsya /blog/okno-vozmozhnostey 301
-/a-nuzhen-li-sayt /blog/nuzhen-li-sayt 301
-/segodnya-ty-trener-po-plavanyu-a-zavtra-intim-kouch /blog/bisrtaya-smena-professii 301
-/opyt-prodazhi-tovarov-kuplennyh-na-ebay-pereprodazha /blog/opyt-prodazhi-tovarov-s-ebay 301
-/chatgpt-suschestvenno-pomog-mne-pervyy-raz /blog/chatgpt-pervaya-pomosh 301
-/snova-vse-ne-po-planu-i-nuzhen-plan-b /blog/plan-b 301
-/zakalyalsya-100-dney-podryad-i-kakie-vyvody-sdelal /blog/zakalenie-100-dney-podryad 301
-/itogi-2023-goda-pervaya-depra /blog/itogi-2023 301
-/standalone-blog-v-techenie-100-dney-i-kakie-oshibki-dopustil /blog/standalone-blog-100-dney 301
+/kak-ya-prodaval-zarubezhnuyu-odezhdu-cherez-avito /notes/prodazha-odezhdi-avito 301
+/itogi-pervogo-onlayn-turnira-po-pokeru-sredi-notesgerov /notes/perviy-onlayn-turnira-po-pokeru-notesgerov
+/ya-prodal-svoyu-partnerku /notes/prodal-majorpush 301
+/polza-ot-rukovoditeley-kotorye-ne-sharyat-v-seo /notes/polza-rukovoditeley-ne-ponimaut-seo 301
+/insayty-kotorye-ya-poluchil-upravlyaya-partnerkoy /notes/insayti-upravlenia-partnerkoy 301
+/sam-ne-ponyal-kak-prodal-emotsiyu /notes/ne-ponyal-kak-prodal-emociu 301
+/kak-nachinalsya-moy-podkasting /notes/podcast-nachalo 301
+/desktop-i-open-source-nashe-vse /notes/desktop-i-open-source 301
+/itogi-2011-goda-pervaya-mashina-i-zakonchil-univer /notes/itogi-2011 301
+/etalonnyy-proekt-kotoryy-pomnim /notes/etalonnyy-proekt 301
+/toksichnoe-russkoyazychnoe-soobschestvo-vebmasterov /notes/toksik-webmaster 301
+/pochemu-rss-luchshaya-tehnologiya /notes/rss-technologia 301
+/ne-stoit-zaviset-ot-neyrosetey /notes/ne-zavis-ot-neurosetey 301
+/zabytyy-domen-kotoryy-darit-vdohnovenie /notes/zabytiy-domen-dlya-vdohnovenia 301
+/vozmozhnosti-u-kogo-to-otkryvayutsya-a-u-kogo-to-zakryvayutsya /notes/okno-vozmozhnostey 301
+/a-nuzhen-li-sayt /notes/nuzhen-li-sayt 301
+/segodnya-ty-trener-po-plavanyu-a-zavtra-intim-kouch /notes/bisrtaya-smena-professii 301
+/opyt-prodazhi-tovarov-kuplennyh-na-ebay-pereprodazha /notes/opyt-prodazhi-tovarov-s-ebay 301
+/chatgpt-suschestvenno-pomog-mne-pervyy-raz /notes/chatgpt-pervaya-pomosh 301
+/snova-vse-ne-po-planu-i-nuzhen-plan-b /notes/plan-b 301
+/zakalyalsya-100-dney-podryad-i-kakie-vyvody-sdelal /notes/zakalenie-100-dney-podryad 301
+/itogi-2023-goda-pervaya-depra /notes/itogi-2023 301
+/standalone-notes-v-techenie-100-dney-i-kakie-oshibki-dopustil /notes/standalone-notes-100-dney 301
 
 
 # 2. Правила для страниц, которые не должны быть в блоге (например, /about, /contacts)
@@ -39,5 +39,5 @@
 /yandex_ed17f219fbeb43bc.html /yandex_ed17f219fbeb43bc.html 200
 
 # 3. Общее "splat" правило для всех остальных старых статей в блоге
-/:splat /blog/:splat 301
+/:splat /notes/:splat 301
 
