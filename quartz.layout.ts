@@ -58,7 +58,6 @@ export const sharedPageComponents: SharedLayout = {
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
-            // === ИЗМЕНЕНИЕ ЗДЕСЬ ===
       component: Component.Breadcrumbs({
         showCurrentPage: false, // <-- Добавьте эту строку
         // spacerSymbol: "→", // Можете также настроить разделитель, если хотите
@@ -97,6 +96,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     Component.Graph(),
+    Component.RecentNotes({ limit: 5 }),
   ],
 }
 
