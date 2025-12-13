@@ -87,7 +87,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.CustomMenu({
       title: "Навигация",
       items: [
-        { title: "Блог", href: "/blog/" },
+        { title: "Блог", href: "/note/" },
         { title: "Обо мне", href: "/about" },
         { title: "Контакты", href: "/contacts" },
       ],
