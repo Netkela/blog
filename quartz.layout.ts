@@ -38,7 +38,7 @@ export const sharedPageComponents: SharedLayout = {
       limit: 10               // опционально: сколько комментариев показать
     }),
     Component.YandexMetrika({
-      counterId: "95070723",
+      counterId: "105841776",
       enableClickmap: true,
       enableTrackLinks: true,
       enableAccurateTrackBounce: true,
