@@ -38,7 +38,7 @@ export const sharedPageComponents: SharedLayout = {
       limit: 10               // опционально: сколько комментариев показать
     }),
     Component.YandexMetrika({
-      counterId: "105841776",
+      counterId: "106270513",
       enableClickmap: true,
       enableTrackLinks: true,
       enableAccurateTrackBounce: true,
@@ -86,7 +86,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.CustomMenu({
       title: "Навигация",
       items: [
-        { title: "Блог", href: "/notes/" },
+        { title: "Заметки", href: "/notes/" },
         { title: "Обо мне", href: "/about" },
         { title: "Контакты", href: "/contacts" },
       ],
