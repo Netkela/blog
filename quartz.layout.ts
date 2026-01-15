@@ -14,11 +14,11 @@ export const sharedPageComponents: SharedLayout = {
     }),
       Component.FixedBio({
       name: "Александр Овсянников (Netkela)",
-      bio: 'Предприниматель и блогер. Основатель <a href="https://webmasterie.ru/club" target="_blank" rel="noopener">сообщества Вебмастерье</a> и автор телеграм канала <a href="https://t.me/netkelago" target="_blank" rel="noopener">Netkela не промахнулся</a>.',
+      bio: '16 лет в интернет-бизнесе. Успешно продал десятки проектов. Делюсь опытом и исследую мир онлайн-заработка.',
       avatarSrc: "/files/site/avatar.jpg",
       social: {
-        telegram: "https://t.me/netkela",
-        vk: "https://vk.com/netkela",
+        telegram: "https://t.me/alexnetkela",
+        vk: "https://vk.com/alexnetkela",
         email: "mailto:netkela@mail.ru"
       },
       title: "Обо мне"
@@ -34,7 +34,7 @@ export const sharedPageComponents: SharedLayout = {
       // colorful: "1"
     }),
     Component.TelegramWidget({
-      channel: "netkelago",   // имя вашего канала без @
+      channel: "netkela",   // имя вашего канала без @
       limit: 10               // опционально: сколько комментариев показать
     }),
     Component.YandexMetrika({
