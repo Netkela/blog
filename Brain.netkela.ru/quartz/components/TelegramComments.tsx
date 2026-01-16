@@ -13,7 +13,7 @@ export default ((opts?: Options) => {
   const effectiveOpts: Options = { website: "", ...(opts || {}) };
   const WIDGET_URL = "https://comments.app/js/widget.js?3";
   const TelegramComments: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
-    if (fileData.frontmatter?.comments === false) return <></>;
+    if (fileData.frontmatter?.comments !== true) return <></>;
     const site = effectiveOpts.website.trim();
     if (!site) {
       console.error("TelegramComments: параметр `website` не задан");
