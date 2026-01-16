@@ -1,12 +1,6 @@
 ---
-title: Блог
-description: Личный блог Netkela.
-aliases:
-  - Блог
-date:
-tags:
-permalink:
-draft: false
+title: Заметки
+description: Заметки
 comments: false
 showBio: false
 dateoff: true

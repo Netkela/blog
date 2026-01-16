@@ -27,11 +27,6 @@ export const sharedPageComponents: SharedLayout = {
       website: "Poy1WQpK", // ваш ID сайта
       limit: 5,
       pageIdEnabled: true,
-      // дополнительные параметры при необходимости
-      // color: "E22F38",
-      // dislikes: "1",
-      // outlined: "1",
-      // colorful: "1"
     }),
     Component.TelegramWidget({
       channel: "netkela",   // имя вашего канала без @
@@ -59,12 +54,8 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs({
-        showCurrentPage: false, // <-- Добавьте эту строку
-        // spacerSymbol: "→", // Можете также настроить разделитель, если хотите
-        // rootName: "Домой",  // И имя корневого элемента
+        showCurrentPage: false, 
       }),
-
-
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
@@ -80,17 +71,10 @@ export const defaultContentPageLayout: PageLayout = {
           grow: true,
         },
         { Component: Component.Darkmode() },
-        /* { Component: Component.ReaderMode() }, */
       ],
     }),
-    Component.CustomMenu({
-      title: "Навигация",
-      items: [
-        { title: "Заметки", href: "/notes/" },
-        { title: "Обо мне", href: "/about" },
-        { title: "Контакты", href: "/contacts" },
-      ],
-    })
+    // УБРАЛИ CustomMenu, ВЕРНУЛИ Explorer (Дерево папок)
+    Component.DesktopOnly(Component.Explorer()),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
@@ -114,14 +98,8 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.CustomMenu({
-      title: "Навигация",
-      items: [
-        { title: "Блог", href: "/blog/" },
-        { title: "Обо мне", href: "/about" },
-        { title: "Контакты", href: "/contacts" },
-      ],
-    })
+    // УБРАЛИ CustomMenu, ВЕРНУЛИ Explorer (Дерево папок)
+    Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
 }
