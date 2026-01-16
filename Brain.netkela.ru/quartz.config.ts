@@ -17,8 +17,11 @@ const config: QuartzConfig = {
     },
     locale: "ru-RU",
     baseUrl: "brain.netkela.ru",
-    // Добавь сюда "_Private", если твоя папка с нижним подчеркиванием
-    ignorePatterns: ["private", "templates", ".obsidian"], 
+    
+    // Убрали "Private" - она и так отсечена гитом.
+    // Оставляем ".obsidian", чтобы настройки не лезли в сборку.
+    ignorePatterns: [".obsidian"], 
+    
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
@@ -58,8 +61,6 @@ const config: QuartzConfig = {
     transformers: [
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
-        // Quartz будет искать эти поля в свойствах Obsidian (Frontmatter)
-        // Убедись, что в Obsidian поле называется "updated" или "modified"
         priority: ["frontmatter", "git", "filesystem"],
       }),
       Plugin.SyntaxHighlighting({
@@ -77,9 +78,10 @@ const config: QuartzConfig = {
       Plugin.Latex({ renderEngine: "katex" }),
     ],
     filters: [
-      // МЫ ЗАМЕНИЛИ RemoveDrafts на ExplicitPublish
-      // Теперь Quartz игнорирует ВСЁ, где нет publish: true
-      Plugin.ExplicitPublish(),
+      // ВЕРНУЛИ RemoveDrafts
+      // Теперь всё публикуется автоматически.
+      // Чтобы скрыть файл, напиши в свойствах: draft: true
+      Plugin.RemoveDrafts(),
     ],
     emitters: [
       Plugin.AliasRedirects(),
