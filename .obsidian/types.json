@@ -1,0 +1,17 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "date": "text",
+    "comments": "checkbox",
+    "showBio:": "checkbox",
+    "tgwidget": "checkbox",
+    "dataoff": "checkbox",
+    "dateoff": "checkbox",
+    "readoff": "checkbox",
+    "hidelist": "checkbox",
+    "sortby": "checkbox",
+    "": "checkbox"
+  }
+}
