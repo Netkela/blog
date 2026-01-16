@@ -12,7 +12,7 @@ export const sharedPageComponents: SharedLayout = {
       buttonText: "Подписаться на Telegram",
       description: "Более 16 лет в онлайн-бизнесе. Честно о заработке и продуктивности. Строю проекты без хайпа и мутных схем."
     }),
-      Component.FixedBio({
+    Component.FixedBio({
       name: "Александр Овсянников (Netkela)",
       bio: '16 лет в интернет-бизнесе. Успешно продал десятки проектов. Делюсь опытом и исследую мир онлайн-заработка.',
       avatarSrc: "/files/site/avatar.jpg",
@@ -24,13 +24,13 @@ export const sharedPageComponents: SharedLayout = {
       title: "Обо мне"
     }), 
     Component.TelegramComments({
-      website: "Poy1WQpK", // ваш ID сайта
+      website: "Poy1WQpK",
       limit: 5,
       pageIdEnabled: true,
     }),
     Component.TelegramWidget({
-      channel: "netkela",   // имя вашего канала без @
-      limit: 10               // опционально: сколько комментариев показать
+      channel: "netkela",
+      limit: 10
     }),
     Component.YandexMetrika({
       counterId: "106270513",
@@ -46,7 +46,6 @@ export const sharedPageComponents: SharedLayout = {
       Контакты: "/contacts",
     },
   }),
-  
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -64,17 +63,28 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-      ],
-    }),
-    // УБРАЛИ CustomMenu, ВЕРНУЛИ Explorer (Дерево папок)
-    Component.DesktopOnly(Component.Explorer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer({
+      title: "Навигация",
+      folderDefaultState: "collapsed",
+      folderClickBehavior: "link",
+      useSavedState: true,
+      filterFn: (node) => node.slugSegment !== "tags",
+      sortFn: (a, b) => {
+        if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
+          return a.displayName.localeCompare(b.displayName, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          })
+        }
+        if (!a.isFolder && b.isFolder) {
+          return 1
+        } else {
+          return -1
+        }
+      },
+    })),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
@@ -83,23 +93,25 @@ export const defaultContentPageLayout: PageLayout = {
   ],
 }
 
-// components for pages that display lists of pages  (e.g. tags or folders)
+// components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.Breadcrumbs(), 
+    Component.ArticleTitle(), 
+    Component.ContentMeta()
+  ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-      ],
-    }),
-    // УБРАЛИ CustomMenu, ВЕРНУЛИ Explorer (Дерево папок)
-    Component.DesktopOnly(Component.Explorer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer({
+      title: "Навигация",
+      folderDefaultState: "collapsed",
+      folderClickBehavior: "link",
+      useSavedState: true,
+      filterFn: (node) => node.slugSegment !== "tags",
+    })),
   ],
   right: [],
 }
