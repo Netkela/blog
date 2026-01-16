@@ -17,7 +17,8 @@ const config: QuartzConfig = {
     },
     locale: "ru-RU",
     baseUrl: "brain.netkela.ru",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    // Добавь сюда "_Private", если твоя папка с нижним подчеркиванием
+    ignorePatterns: ["private", "templates", ".obsidian"], 
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
@@ -27,37 +28,38 @@ const config: QuartzConfig = {
         body: "Inter",
         code: "IBM Plex Mono",
       },
-colors: {
-  lightMode: {
-    light: "#ffffff",        // оставляем белый фон
-    lightgray: "#f0f0f2",    // более мягкий серый для границ
-    gray: "#6b7280",         // современный средний серый
-    darkgray: "#374151",     // глубокий серый для текста
-    dark: "#111827",         // почти черный
-    secondary: "#3246e3",    // королевский синий (ваш цвет)
-    tertiary: "#84a59d",     // тускло зеленый
-    highlight: "rgba(50, 70, 227, 0.1)",  // подсветка на основе #3246e3
-    textHighlight: "#fbbf2488",  // янтарная подсветка текста
-  },
-  darkMode: {
-    light: "#161618",        // оставляем темный фон
-    lightgray: "#27272a",    // мягкий темно-серый
-    gray: "#71717a",         // нейтральный серый
-    darkgray: "#e4e4e7",     // светло-серый для текста
-    dark: "#fafafa",         // почти белый
-    secondary: "#5b6ff5",    // более светлый вариант #3246e3 для темной темы
-    tertiary: "#84a59d",     // тускло зеленый
-    highlight: "rgba(91, 111, 245, 0.15)",  // подсветка на основе светлого варианта
-    textHighlight: "#fbbf2455",  // янтарная подсветка текста
-  },
-},
-
+      colors: {
+        lightMode: {
+          light: "#ffffff",
+          lightgray: "#f0f0f2",
+          gray: "#6b7280",
+          darkgray: "#374151",
+          dark: "#111827",
+          secondary: "#3246e3",
+          tertiary: "#84a59d",
+          highlight: "rgba(50, 70, 227, 0.1)",
+          textHighlight: "#fbbf2488",
+        },
+        darkMode: {
+          light: "#161618",
+          lightgray: "#27272a",
+          gray: "#71717a",
+          darkgray: "#e4e4e7",
+          dark: "#fafafa",
+          secondary: "#5b6ff5",
+          tertiary: "#84a59d",
+          highlight: "rgba(91, 111, 245, 0.15)",
+          textHighlight: "#fbbf2455",
+        },
+      },
     },
   },
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
+        // Quartz будет искать эти поля в свойствах Obsidian (Frontmatter)
+        // Убедись, что в Obsidian поле называется "updated" или "modified"
         priority: ["frontmatter", "git", "filesystem"],
       }),
       Plugin.SyntaxHighlighting({
@@ -74,7 +76,11 @@ colors: {
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
     ],
-    filters: [Plugin.RemoveDrafts()],
+    filters: [
+      // МЫ ЗАМЕНИЛИ RemoveDrafts на ExplicitPublish
+      // Теперь Quartz игнорирует ВСЁ, где нет publish: true
+      Plugin.ExplicitPublish(),
+    ],
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
@@ -89,7 +95,6 @@ colors: {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
-      // Comment out CustomOgImages to speed up build time
       Plugin.CustomOgImages(),
     ],
   },

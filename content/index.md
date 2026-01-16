@@ -4,14 +4,15 @@ title: Александр Овсянников (Netkela)
 description: Личный сайт Александра Овсянникова aka Netkela. Пишу про интернет-маркетинг, онлайн-бизнес и эффективность.
 aliases:
   - Главная
-date: 
-tags: 
-permalink: 
+date:
+tags:
+permalink:
 draft: false
 comments: false
 showBio: false
 dateoff: true
 readoff: true
+publish: true
 ---
 Предприниматель и блогер
 
