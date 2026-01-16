@@ -65,7 +65,12 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),  // ← СТАНДАРТНЫЙ EXPLORER
+    Component.DesktopOnly(Component.Explorer({
+      title: "Навигация",
+      folderDefaultState: "open",         // ← Папки раскрыты по умолчанию
+      folderClickBehavior: "collapse",    // ← Клик раскрывает/скрывает
+      useSavedState: true,
+    })),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
@@ -82,7 +87,12 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),  // ← СТАНДАРТНЫЙ EXPLORER
+    Component.DesktopOnly(Component.Explorer({
+      title: "Навигация",
+      folderDefaultState: "open",         // ← Папки раскрыты по умолчанию
+      folderClickBehavior: "collapse",    // ← Клик раскрывает/скрывает
+      useSavedState: true,
+    })),
   ],
   right: [],
 }
