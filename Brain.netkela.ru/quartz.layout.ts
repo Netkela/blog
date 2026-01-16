@@ -53,7 +53,7 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs({
-        showCurrentPage: false, 
+        showCurrentPage: false,
       }),
       condition: (page) => page.fileData.slug !== "index",
     }),
@@ -65,26 +65,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Навигация",
-      folderDefaultState: "collapsed",
-      folderClickBehavior: "link",
-      useSavedState: true,
-      filterFn: (node) => node.slugSegment !== "tags",
-      sortFn: (a, b) => {
-        if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-          return a.displayName.localeCompare(b.displayName, undefined, {
-            numeric: true,
-            sensitivity: "base",
-          })
-        }
-        if (!a.isFolder && b.isFolder) {
-          return 1
-        } else {
-          return -1
-        }
-      },
-    })),
+    Component.DesktopOnly(Component.Explorer()),  // ← СТАНДАРТНЫЙ EXPLORER
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
@@ -95,23 +76,13 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [
-    Component.Breadcrumbs(), 
-    Component.ArticleTitle(), 
-    Component.ContentMeta()
-  ],
+  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Навигация",
-      folderDefaultState: "collapsed",
-      folderClickBehavior: "link",
-      useSavedState: true,
-      filterFn: (node) => node.slugSegment !== "tags",
-    })),
+    Component.DesktopOnly(Component.Explorer()),  // ← СТАНДАРТНЫЙ EXPLORER
   ],
   right: [],
 }
