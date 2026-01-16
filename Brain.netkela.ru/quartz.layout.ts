@@ -63,22 +63,15 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,  // ← Поиск занимает всё доступное место
-        },
-        { 
-          Component: Component.Darkmode()  // ← Кнопка темы справа
-        },
-      ],
-    }),
+    Component.Flex(
+      { grow: 1, Component: Component.Search() },  // ← ИСПРАВЛЕНО
+      { grow: 0, Component: Component.Darkmode() } // ← ИСПРАВЛЕНО
+    ),
     Component.DesktopOnly(Component.Explorer({
       title: "Навигация",
       folderDefaultState: "open",
       folderClickBehavior: "collapse",
-      useSavedState: true,
+      useSavedState: false,
     })),
   ],
   right: [
@@ -94,22 +87,15 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { 
-          Component: Component.Darkmode()
-        },
-      ],
-    }),
+    Component.Flex(
+      { grow: 1, Component: Component.Search() },  // ← ИСПРАВЛЕНО
+      { grow: 0, Component: Component.Darkmode() } // ← ИСПРАВЛЕНО
+    ),
     Component.DesktopOnly(Component.Explorer({
-      title: "Навигация2",
+      title: "Навигация",
       folderDefaultState: "open",
       folderClickBehavior: "collapse",
-      useSavedState: true,
+      useSavedState: false,
     })),
   ],
   right: [],
