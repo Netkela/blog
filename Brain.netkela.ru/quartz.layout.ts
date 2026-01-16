@@ -63,10 +63,8 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex(
-      { grow: 1, Component: Component.Search() },  // ← ИСПРАВЛЕНО
-      { grow: 0, Component: Component.Darkmode() } // ← ИСПРАВЛЕНО
-    ),
+    Component.Search(),
+    Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
       title: "Навигация",
       folderDefaultState: "open",
@@ -87,10 +85,8 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex(
-      { grow: 1, Component: Component.Search() },  // ← ИСПРАВЛЕНО
-      { grow: 0, Component: Component.Darkmode() } // ← ИСПРАВЛЕНО
-    ),
+    Component.Search(),
+    Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
       title: "Навигация",
       folderDefaultState: "open",
