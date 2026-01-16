@@ -73,18 +73,9 @@ export const defaultContentPageLayout: PageLayout = {
       ],
     }),
     Component.Explorer({
-      folderDefaultState: "collapsed",  // ← Изменено на collapsed
-      folderClickBehavior: "collapse",
-      useSavedState: false,
-      mapFn: (node) => {
-        // Открываем только папки первого уровня
-        if (node.depth === 1 && node.isFolder) {
-          node.collapsed = false  // Первый уровень открыт
-        } else if (node.depth > 1 && node.isFolder) {
-          node.collapsed = true   // Вложенные папки закрыты
-        }
-        return node
-      },
+      folderDefaultState: "open",      // ← Папки всегда раскрыты
+      folderClickBehavior: "collapse",  // ← Можно кликать чтобы скрыть/раскрыть
+      useSavedState: false,             // ← Не запоминать состояние (всегда открыто)
     }),
   ],
   right: [
@@ -110,18 +101,9 @@ export const defaultListPageLayout: PageLayout = {
       ],
     }),
     Component.Explorer({
-      folderDefaultState: "collapsed",  // ← Изменено на collapsed
-      folderClickBehavior: "collapse",
-      useSavedState: false,
-      mapFn: (node) => {
-        // Открываем только папки первого уровня
-        if (node.depth === 1 && node.isFolder) {
-          node.collapsed = false  // Первый уровень открыт
-        } else if (node.depth > 1 && node.isFolder) {
-          node.collapsed = true   // Вложенные папки закрыты
-        }
-        return node
-      },
+      folderDefaultState: "open",      // ← Папки всегда раскрыты
+      folderClickBehavior: "collapse",  // ← Можно кликать чтобы скрыть/раскрыть
+      useSavedState: false,             // ← Не запоминать состояние (всегда открыто)
     }),
   ],
   right: [],
