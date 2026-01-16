@@ -5,11 +5,45 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.TagList(),
+    Component.TelegramSubscribe({
+      channelUrl: "https://t.me/netkela",
+      buttonText: "Подписаться на Telegram",
+      description: "Более 16 лет в онлайн-бизнесе. Честно о заработке и продуктивности. Строю проекты без хайпа и мутных схем."
+    }),
+    Component.FixedBio({
+      name: "Александр Овсянников (Netkela)",
+      bio: '16 лет в интернет-бизнесе. Успешно продал десятки проектов. Делюсь опытом и исследую мир онлайн-заработка.',
+      avatarSrc: "/files/site/avatar.jpg",
+      social: {
+        telegram: "https://t.me/alexnetkela",
+        vk: "https://vk.com/alexnetkela",
+        email: "mailto:netkela@mail.ru"
+      },
+      title: "Обо мне"
+    }), 
+    Component.TelegramComments({
+      website: "Poy1WQpK",
+      limit: 5,
+      pageIdEnabled: true,
+    }),
+    Component.TelegramWidget({
+      channel: "netkela",
+      limit: 10
+    }),
+    Component.YandexMetrika({
+      counterId: "106270513",
+      enableClickmap: true,
+      enableTrackLinks: true,
+      enableAccurateTrackBounce: true,
+      enableWebvisor: true
+    })
+  ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      "Обо мне": "/about",
+      Контакты: "/contacts",
     },
   }),
 }
@@ -18,12 +52,13 @@ export const sharedPageComponents: SharedLayout = {
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
-      component: Component.Breadcrumbs(),
+      component: Component.Breadcrumbs({
+        showCurrentPage: false,
+      }),
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
     Component.ContentMeta(),
-    Component.TagList(),
   ],
   left: [
     Component.PageTitle(),
@@ -35,19 +70,22 @@ export const defaultContentPageLayout: PageLayout = {
           grow: true,
         },
         { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      folderDefaultState: "open",      // ← Папки всегда раскрыты
+      folderClickBehavior: "collapse",  // ← Можно кликать чтобы скрыть/раскрыть
+      useSavedState: false,             // ← Не запоминать состояние (всегда открыто)
+    }),
   ],
   right: [
-    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
+    Component.Graph(),
   ],
 }
 
-// components for pages that display lists of pages  (e.g. tags or folders)
+// components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
@@ -62,7 +100,11 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      folderDefaultState: "open",      // ← Папки всегда раскрыты
+      folderClickBehavior: "collapse",  // ← Можно кликать чтобы скрыть/раскрыть
+      useSavedState: false,             // ← Не запоминать состояние (всегда открыто)
+    }),
   ],
   right: [],
 }
