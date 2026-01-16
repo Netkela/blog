@@ -63,12 +63,21 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,  // ← Поиск занимает всё доступное место
+        },
+        { 
+          Component: Component.Darkmode()  // ← Кнопка темы справа
+        },
+      ],
+    }),
     Component.DesktopOnly(Component.Explorer({
       title: "Навигация",
-      folderDefaultState: "open",         // ← Папки раскрыты по умолчанию
-      folderClickBehavior: "collapse",    // ← Клик раскрывает/скрывает
+      folderDefaultState: "open",
+      folderClickBehavior: "collapse",
       useSavedState: true,
     })),
   ],
@@ -85,12 +94,21 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,
+        },
+        { 
+          Component: Component.Darkmode()
+        },
+      ],
+    }),
     Component.DesktopOnly(Component.Explorer({
-      title: "Навигация",
-      folderDefaultState: "open",         // ← Папки раскрыты по умолчанию
-      folderClickBehavior: "collapse",    // ← Клик раскрывает/скрывает
+      title: "Навигация2",
+      folderDefaultState: "open",
+      folderClickBehavior: "collapse",
       useSavedState: true,
     })),
   ],
