@@ -1,8 +1,0 @@
-{
-  "newLinkFormat": "relative",
-  "attachmentFolderPath": "content/files",
-  "newFileLocation": "folder",
-  "newFileFolderPath": "content",
-  "promptDelete": false,
-  "alwaysUpdateLinks": true
-}
