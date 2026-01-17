@@ -42,7 +42,7 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      "Обо мне": "/about",
+      "Обо мне": "https://netkela.ru/author/netkela",
       Контакты: "/contacts",
     },
   }),
