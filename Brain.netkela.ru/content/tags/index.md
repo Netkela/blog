@@ -1,11 +1,8 @@
 ---
 title: Теги
 description: Страница со всеми тегами
-aliases:
-  - Теги
-date: 
-tags: 
-permalink: 
+date:
+tags:
 draft: false
 comments: false
 showBio: false
