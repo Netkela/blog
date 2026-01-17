@@ -18,8 +18,6 @@ const config: QuartzConfig = {
     locale: "ru-RU",
     baseUrl: "brain.netkela.ru",
     
-    // Убрали "Private" - она и так отсечена гитом.
-    // Оставляем ".obsidian", чтобы настройки не лезли в сборку.
     ignorePatterns: [".obsidian"], 
     
     defaultDateType: "modified",
@@ -78,9 +76,6 @@ const config: QuartzConfig = {
       Plugin.Latex({ renderEngine: "katex" }),
     ],
     filters: [
-      // ВЕРНУЛИ RemoveDrafts
-      // Теперь всё публикуется автоматически.
-      // Чтобы скрыть файл, напиши в свойствах: draft: true
       Plugin.RemoveDrafts(),
     ],
     emitters: [

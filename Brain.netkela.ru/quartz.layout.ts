@@ -72,11 +72,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer({
-      folderDefaultState: "open",      // ← Папки всегда раскрыты
-      folderClickBehavior: "collapse",  // ← Можно кликать чтобы скрыть/раскрыть
-      useSavedState: false,             // ← Не запоминать состояние (всегда открыто)
-    }),
+    Component.Explorer(),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
@@ -100,11 +96,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer({
-      folderDefaultState: "open",      // ← Папки всегда раскрыты
-      folderClickBehavior: "collapse",  // ← Можно кликать чтобы скрыть/раскрыть
-      useSavedState: false,             // ← Не запоминать состояние (всегда открыто)
-    }),
+    Component.Explorer(),
   ],
   right: [],
 }
