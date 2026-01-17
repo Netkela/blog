@@ -1,7 +1,7 @@
 ---
 metatitle: Brain Netkela
-title: Главная
-description: Личный сайт Александра Овсянникова aka Netkela. Пишу про интернет-маркетинг, онлайн-бизнес и эффективность.
+title: Александр Овсянников (Netkela)
+description: Цифровой сад Александра Овсянникова aka Netkela. Пишу про интернет-маркетинг, онлайн-бизнес и эффективность.
 aliases:
   - Главная
 date:
@@ -13,6 +13,10 @@ dateoff: true
 readoff: true
 publish: true
 ---
+Соло-предприниматель и фрилансер
+
+![[files/site/netkela.jpg]]
+
 ---
 # 👋 Добро пожаловать в цифровой сад
 
@@ -90,3 +94,6 @@ publish: true
 ---
 
 *Сделано с помощью [Obsidian](https://obsidian.md) и [Quartz](https://quartz.jzhao.xyz). Обновляется автоматически через Git.*
+
+
+
